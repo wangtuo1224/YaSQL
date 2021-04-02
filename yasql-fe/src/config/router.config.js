@@ -5,6 +5,8 @@ import Dashboard from '@/views/dashboard/route'
 import SqlOrders from '@/views/sqlorders/route'
 import SqlQuery from '@/views/sqlquery/route.js'
 import RedisMS from '@/views/redisms/route.js'
+import WorkFlow from '@/views/workflow/route.js'
+
 
 export const asyncRouterMap = [
   {
@@ -12,7 +14,7 @@ export const asyncRouterMap = [
     name: 'menu.home',
     component: BasicLayout,
     redirect: { name: 'view.dashboard' },
-    children: [Account, Dashboard, SqlOrders, SqlQuery, RedisMS]
+    children: [Account, Dashboard, SqlOrders, SqlQuery, RedisMS, WorkFlow]
   },
   {
     path: '*',

@@ -23,6 +23,7 @@ api_patterns = [
     path('users/', include('users.urls')),
     path('sqlorders/', include('sqlorders.urls')),
     path('', include('redisms.urls')),
+    path('', include('workflow.urls')),
     path('', include('sqlquery.urls')),
 ]
 

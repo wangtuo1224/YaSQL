@@ -3,13 +3,13 @@ const route = {
   path: 'redisms',
   component: () => import('./index.vue'),
   redirect: { name: 'redisms.list' },
-  meta: { title: 'Redis管理', icon: 'sync' },
+  meta: { title: 'Redis管理', keepAlive: true, icon: 'sync' },
   children: [
     {
       name: 'redisms.list',
-      path: 'list',
+      path: '/redisms/list',
       component: () => import('./List/index.vue'),
-      meta: { title: 'Redis概览', icon: 'search' },
+      meta: { title: 'Redis概览', keepAlive: true, icon: 'search' },
     }
   ],
 }

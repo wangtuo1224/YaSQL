@@ -56,7 +56,7 @@ QUERY_LIMIT = {
 REDIS = {
     'host': '127.0.0.1',
     'port': 6379,
-    'password': '1234.com'
+    'password': ''
 }
 
 # 启用LDAP

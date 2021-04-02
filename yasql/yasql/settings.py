@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_filters',
     'django_celery_results',
     'django_celery_beat',
     'channels',
@@ -61,6 +62,7 @@ INSTALLED_APPS = [
     'sqlorders',
     'sqlquery',
     'redisms',
+    'workflow',
 ]
 
 REST_FRAMEWORK = {
