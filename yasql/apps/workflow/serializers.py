@@ -4,7 +4,7 @@ from rest_framework import serializers
 from workflow import models, constant
 
 
-class WorkflowGroupSerializers(serializers.ModelSerializer):
+class WorkflowSummarySerializers(serializers.ModelSerializer):
     class Meta:
         model = models.WorkflowGroup
         fields = "__all__"
@@ -18,8 +18,14 @@ class WorkflowGroupSerializers(serializers.ModelSerializer):
         return ret
 
 
+class WorkflowGroupSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = models.WorkflowGroup
+        fields = "__all__"
+
+
 class WorkflowTplSerializer(serializers.ModelSerializer):
-    kwargs = serializers.ListField(write_only=True)
+    field_kwargs = serializers.ListField(write_only=True)
 
     class Meta:
         model = models.WorkflowTpl
@@ -27,37 +33,39 @@ class WorkflowTplSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         """校验字段"""
-        kwargs = data.get('kwargs', [])
+        field_kwargs = data.get('field_kwargs')
+        if field_kwargs:
+            raise serializers.ValidationError({'workflow': '未配置表单字段'})
+
         file_field = []
-        for x in kwargs:
-            if x["category"] == "file":
+        for x in field_kwargs:
+            if x["field_type"] == "file":
                 file_field.append(x)
-                x["field"] = "file"  # 强制修改字段名称
+                x["field_key"] = "file"  # 强制修改字段名称
 
         if len(file_field) > 1:
-            raise serializers.ValidationError({'template': '模版只能有一个file类型的字段'})
+            raise serializers.ValidationError({'workflow': '每个工单只能有一个file类型的字段'})
         else:
-            data["kwargs"] = kwargs
+            data["field_kwargs"] = field_kwargs
         return data
 
     def set_field(self, tpl, kwargs):
         """保存模版字段"""
-        tpl.field.all().delete()
+        tpl.wf_field.all().delete()
         for item in kwargs:
-            item['template'] = tpl
-            models.WorkflowTpl.objects.update_or_create(**item)
+            tpl.wf_field.create(**item)
 
     def create(self, validated_data):
-        kwargs = validated_data.pop('kwargs', [])
+        field_kwargs = validated_data.pop('field_kwargs', [])
         instance = models.WorkflowTpl.objects.create(**validated_data)
-        self.set_field(instance, kwargs)
+        self.set_field(instance, field_kwargs)
         return instance
 
     def update(self, instance, validated_data):
-        kwargs = validated_data.pop('kwargs', [])
+        field_kwargs = validated_data.pop('field_kwargs', [])
         for k, v in validated_data.items():
             setattr(instance, k, v)
-        self.set_field(instance, kwargs)
+        self.set_field(instance, field_kwargs)
         instance.save()
         return instance
 

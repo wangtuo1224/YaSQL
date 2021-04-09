@@ -1,3 +1,4 @@
 <template>
-  <div>xxx</div>
+  <div>xx
+  </div>
 </template>

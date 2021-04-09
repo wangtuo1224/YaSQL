@@ -45,8 +45,7 @@
           <template v-slot:description>
             <div class="antd-pro-pages-profile-advanced-style-stepDescription">
               {{ state.participant }}
-              <!-- 曲丽丽<a-icon type="dingding" style="margin-left: 8px;" /> -->
-              <div v-if="state.participant && currentState<=allState.length &&allState[currentState+1].id===state.id">
+              <div v-if="state.participant && currentState<(allState.length-1) &&allState[currentState+1].id===state.id">
                 <a>催一下</a>
               </div>
             </div>
@@ -70,7 +69,7 @@
       </a-table>
     </a-card>
     <a-card :bordered="false" title="工单评论" style="margin: 5px">
-      <a-list v-if="ticketFlowSug.length >0">
+      <a-list v-if="ticketFlowSug && ticketFlowSug.length >0">
         <a-row>
           <a-list-item :key="index" v-for="(item, index) in ticketFlowSug">
             <a-col :xs="20" :sm="20">
@@ -107,7 +106,9 @@ import ticketFlowApi from "@/api/workflow.js"
 
 export default {
   name: 'TicketFlowDetail',
-  
+  props: {
+    pk: [Number, String]
+  },
   data () {
     return {
       visible: false,
@@ -199,12 +200,12 @@ export default {
   },
   methods: {
     getTicketFlowDetailData() {
-      ticketFlowApi.getTicket(this.$route.params.pk).then(resp => {
+      ticketFlowApi.getTicketDetail(this.pk).then(resp => {
         this.ticketFlowInfo = resp.data
       })
     },
     getTicketFlowLog() {
-      ticketFlowApi.getTicketLog(this.$route.params.pk).then(resp => {
+      ticketFlowApi.getTicketLog(this.pk).then(resp => {
         this.ticketFlowLog = resp.data
       })
     },

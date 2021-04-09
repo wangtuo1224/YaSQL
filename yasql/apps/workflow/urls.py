@@ -4,9 +4,10 @@ from django.urls import path, re_path, include
 from workflow import views
 
 v1_patterns = [
-    # 获取可见任务流程组信息
-    path(r'list', views.WorkflowGroup.as_view({"get": "list"}), name='v1.workflow.list'),
-    path(r'group/<int:pk>', views.TicketFlowDetail.as_view(), name='v1.workflow.ticketflow.detail'),
+    path(r'summary', views.WorkflowSummary.as_view(), name='v1.workflow.summary'),
+    path(r'group', views.WorkflowGroup.as_view({"get": "list", "post": "create"}), name='v1.workflow.group.list'),
+    path(r'group/<int:pk>', views.WorkflowGroup.as_view({"get": "get", "put": "update"}), name='v1.workflow.group.detail'),
+    path(r'template', views.WorkflowTemplate.as_view({"post": "create"}), name='v1.workflow.new'),
     path(r'template/<int:pk>', views.WorkflowTemplate.as_view({"get": "retrieve", "put": "update", "delete": "destroy"}),
          name='v1.workflow.template'),
     path(r'ticket', views.TicketFlow.as_view(), name='v1.workflow.ticketflow'),

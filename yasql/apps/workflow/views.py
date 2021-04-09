@@ -9,7 +9,7 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import GenericAPIView
 from workflow import models, serializers, handler
-from workflow.filters import TicketFlowFilter
+from workflow.filters import TicketFlowFilter, WorkflowGroupFilter
 
 
 logger = logging.getLogger("main")
@@ -42,22 +42,51 @@ class UploadFileView(APIView):
 #             return ErrorResponse(error=error)
 
 
-class WorkflowGroup(ModelViewSet):
-    """流程组"""
-    serializer_class = serializers.WorkflowGroupSerializers
+class WorkflowSummary(GenericAPIView):
+    """工作流程分组"""
+    serializer_class = serializers.WorkflowSummarySerializers
     pagination_class = Pagination
 
-    def list(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         # my_queryset = models.WorkflowGroup.objects.filter(rg_group__user=request.user)
         my_queryset = models.WorkflowGroup.objects.all()
         page = self.paginate_queryset(my_queryset)
         serializer = self.get_serializer(page, many=True)
         return self.get_paginated_response(serializer.data)
 
-    def retrieve(self, request, *args, **kwargs):
-        instance = models.WorkflowGroup.objects.get(pk=kwargs["pk"])
-        serializer = self.get_serializer(instance)
+
+class WorkflowGroup(ModelViewSet):
+    queryset = models.WorkflowGroup.objects.all()
+    serializer_class = serializers.WorkflowGroupSerializers
+    pagination_class = Pagination
+    filter_backends = (DjangoFilterBackend,)
+    filter_class = WorkflowGroupFilter
+
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_object()
+        serializer = self.get_serializer(queryset)
         return JsonResponseV1(serializer.data)
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponseV1(serializer.data)
+        return JsonResponseV1(code="0002", message=serializer.errors)
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponseV1(serializer.data)
+        return JsonResponseV1(code="0002", message=serializer.errors)
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        page = self.paginate_queryset(queryset)
+        serializer = self.get_serializer(page, many=True)
+        return self.get_paginated_response(serializer.data)
 
 
 class WorkflowTemplate(ModelViewSet):

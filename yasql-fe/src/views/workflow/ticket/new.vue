@@ -67,8 +67,10 @@ import ticketFlowApi from "@/api/workflow.js"
 
 
 export default {
-  name: 'ticketFlowNew',
-
+  name: 'ticketNew',
+  props: {
+    pk: [Number, String]
+  },
   data () {
     return {
       tpl: null,
@@ -85,7 +87,7 @@ export default {
 
   methods: {
     getTicketTemplateData() {
-      ticketFlowApi.getTicketTemplate(this.$route.params.pk).then(resp => {
+      ticketFlowApi.getTicketTemplate(this.pk).then(resp => {
         this.tpl = resp.data
       })
     },
@@ -123,14 +125,20 @@ export default {
         }
         const data = {
           "field_kwargs": values,
-          "workflow": this.$route.params.pk
+          "workflow": this.pk,
         }
-        console.log('Received values of form: ', data)
 
         this.pushing = true
         ticketFlowApi.createTicket(data).then(resp => {
           if(resp.code === "0000") {
-            this.$router.push('/workflow/ticket/detail/' + resp.data.id)
+            this.ticketInfo = resp.data
+            this.$router.push({
+              path: "/workflow/ticket/success", 
+              query: {
+                tid: this.ticketInfo.id,
+                tplid: this.tpl.id,
+              }
+            })
           } else {
             this.$message.error(resp.message)
           }

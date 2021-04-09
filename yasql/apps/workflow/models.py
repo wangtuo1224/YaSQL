@@ -35,9 +35,8 @@ class WorkflowTpl(BaseModel):
     group = models.ForeignKey("WorkflowGroup", related_name='wf', on_delete=models.CASCADE, verbose_name="流程组")
     all_view = models.BooleanField(default=True, verbose_name='工单可见性',
                                    help_text='只允许工单的关联人(创建人、需要处理人)查看工单,默认所有人可见')
-    limit_expression = models.CharField(max_length=2048, default='{}', verbose_name='限制表达式')
     # 提交工单显示的字段,field_key的list,如["title","sn"],
-    display_form = models.CharField(max_length=1024, default='[]', verbose_name='可见表单字段,自定义字段中的field_key')
+    display_form = models.CharField(max_length=1024, default='[]', verbose_name="表单字段", help_text='表单中可见字段,自定义字段中的field_key')
 
     class Meta:
         verbose_name = "流程模版"
@@ -48,7 +47,7 @@ class WorkflowTpl(BaseModel):
         return self.name
 
     def get_field_name(self, key):
-        f = self.wf_custom_field.filter(field_key=key)
+        f = self.wf_field.filter(field_key=key)
         if f:
             return f[0].field_name
         return key
@@ -69,7 +68,7 @@ class WorkflowTpl(BaseModel):
     def display_form_field(self):
         data = []
         display_form_list = json.loads(self.display_form)
-        custom_field_filter = self.wf_custom_field.filter(field_key__in=display_form_list)
+        custom_field_filter = self.wf_field.filter(field_key__in=display_form_list)
         for item in custom_field_filter:
             data.append({
                 "order_id": item.order_id,
@@ -78,7 +77,6 @@ class WorkflowTpl(BaseModel):
                 "field_type": item.field_type,
                 "required": item.required,
                 "default_value": item.default_value,
-                "description": item.description,
                 "placeholder": item.placeholder,
                 "field_value": json.loads(item.field_value) if item.field_value else {}
             })
@@ -90,14 +88,14 @@ class WorkflowCustomField(BaseModel):
     FIELD_TYPE = (
         ("string", "字符串"),
         ("integer", "整型"),
-        ("boolean", "布尔"),
+        ("boolean", "布尔值"),
         ("textarea", "文本框"),
         ("select", "单选下拉列表"),
         ("multiselect", "多选下拉列表"),
         ("file", "附件"),
         ("user", "用户"),  # 可以多选用户
     )
-    workflow = models.ForeignKey(WorkflowTpl, related_name="wf_custom_field", on_delete=models.CASCADE, verbose_name="关联流程")
+    workflow = models.ForeignKey(WorkflowTpl, related_name="wf_field", on_delete=models.CASCADE, verbose_name="关联流程")
     field_name = models.CharField(max_length=64, verbose_name='字段名称')
     field_key = models.CharField(max_length=64, help_text='字段类型请尽量特殊，避免与系统中关键字冲突', verbose_name='字段key')
     field_type = models.CharField(choices=FIELD_TYPE, max_length=32, verbose_name='类型')
@@ -106,12 +104,10 @@ class WorkflowCustomField(BaseModel):
                                    help_text='工单表单中排序:工单号0,标题20,状态id40,状态名41,创建人80,创建时间100,更新时间120.前端根据id顺序排列')
     default_value = models.CharField(max_length=128, null=True, blank=True, verbose_name='默认值',
                                      help_text='作为表单中的该字段的默认值')
-    description = models.CharField(max_length=128, null=True, blank=True, verbose_name='字段描述',
-                                   help_text='字段的描述信息，可用于显示在字段的下方对该字段的详细描述')
     placeholder = models.CharField(max_length=128, null=True, blank=True, verbose_name='占位符',
                                    help_text='用户工单详情表单中作为字段的占位符显示')
-    field_value = models.TextField(null=True, blank=True, verbose_name='radio、checkbox、select的选项',
-                                    help_text='bool/radio/checkbox/select/multiselect提供选项，格式为json如:{"1":"需要","0":"不需要"},{"1":"中国", "2":"美国"}')
+    field_value = models.TextField(null=True, blank=True, verbose_name='字段数据',
+                                    help_text='select/multiselect提供选项，格式为json如:{"1":"需要","0":"不需要"},{"1":"中国", "2":"美国"}')
 
     class Meta:
         verbose_name = "流程字段"

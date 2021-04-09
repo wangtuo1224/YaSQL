@@ -21,7 +21,7 @@ class TicketFlowFieldInline(admin.TabularInline):
 
 class WorkflowTplAdmin(admin.ModelAdmin):
     list_display = (
-        'name', 'description', 'group', 'all_view', 'limit_expression', 'display_form',
+        'name', 'description', 'group', 'all_view', 'display_form',
     )
     list_display_links = ('name',)
     search_fields = ('name', 'description',)

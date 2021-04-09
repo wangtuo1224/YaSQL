@@ -1,18 +1,52 @@
 import axios from '@/utils/request'
 
 export default {
-  getWorkflowGroup(params) {
-    return axios.request({
-      method: 'get',
-      url: '/v1/workflow/list',
-      params: params,
-    })
-  },
   getWorkflowSummary(params) {
     return axios.request({
       method: 'get',
-      url: '/v1/workflow/list',
+      url: '/v1/workflow/summary',
       params: params,
+    })
+  },
+  getWorkflowGroup(params) {
+    return axios.request({
+      method: 'get',
+      url: '/v1/workflow/group',
+      params: params,
+    })
+  },
+  getWorkflowGroupDetail(pk) {
+    return axios.request({
+      method: 'get',
+      url: `/v1/workflow/group/${pk}`,
+    })
+  },
+  createWorkflowGroup(data) {
+    return axios.request({
+      method: 'post',
+      url: '/v1/workflow/group',
+      data: data,
+    })
+  },
+  updateWorkflowGroup(pk, data) {
+    return axios.request({
+      method: 'put',
+      url: `/v1/workflow/group/${pk}`,
+      data: data,
+    })
+  },
+  createWorkflowTpl(data) {
+    return axios.request({
+      method: 'post',
+      url: '/v1/workflow/template',
+      data: data,
+    })
+  },
+  updateWorkflowTpl(pk, data) {
+    return axios.request({
+      method: 'put',
+      url: `/v1/workflow/template/${pk}`,
+      data: data,
     })
   },
   getTicketTemplate(pk) {
@@ -35,7 +69,7 @@ export default {
       params: params,
     })
   },
-  getTicket(pk) {
+  getTicketDetail(pk) {
     return axios.request({
       method: 'get',
       url: `/v1/workflow/ticket/${pk}`,
