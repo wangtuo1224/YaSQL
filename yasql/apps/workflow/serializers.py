@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 # by pandonglin
+import json
 from rest_framework import serializers
 from workflow import models, constant
 
@@ -26,28 +27,62 @@ class WorkflowGroupSerializers(serializers.ModelSerializer):
 
 class WorkflowTplSerializer(serializers.ModelSerializer):
     field_kwargs = serializers.ListField(write_only=True)
+    display_form = serializers.ListField()
 
     class Meta:
         model = models.WorkflowTpl
         fields = "__all__"
 
+    def validate_display_form(self, data):
+        if not data:
+            raise serializers.ValidationError('表单显示字段必填')
+        elif not isinstance(data, list):
+            raise serializers.ValidationError('表单显示字段格式错误，请配置成：["id","title"]')
+        else:
+            return json.dumps(data)
+
     def validate(self, data):
         """校验字段"""
         field_kwargs = data.get('field_kwargs')
-        if field_kwargs:
-            raise serializers.ValidationError({'workflow': '未配置表单字段'})
+        if not field_kwargs:
+            raise serializers.ValidationError('未配置表单字段')
 
         file_field = []
+        error_list = []
         for x in field_kwargs:
-            if x["field_type"] == "file":
-                file_field.append(x)
-                x["field_key"] = "file"  # 强制修改字段名称
+            if not x.get("field_name"):
+                error_list.append("字段名必填")
+            if not x.get("field_key"):
+                error_list.append("字段key必填")
+            if not x.get("field_type"):
+                error_list.append("字段类型必填")
+            if not x.get("order_id"):
+                error_list.append("字段顺序必填")
 
-        if len(file_field) > 1:
-            raise serializers.ValidationError({'workflow': '每个工单只能有一个file类型的字段'})
+            # 对select类型进行验证，需要有field_value有值
+            if x.get("field_type") in ["select", "multiselect"]:
+                field_value = x.get("field_value")
+                if field_value:
+                    try:
+                        j = json.loads(field_value)
+                        if not isinstance(j, dict):
+                            error_list.append('字段数据必须为json格式键值对，如:{"1":"需要","0":"不需要"}')
+                    except:
+                        error_list.append('字段数据必须为json格式键值对，如:{"1":"需要","0":"不需要"}')
+                else:
+                    error_list.append('%s为%s类型，字段数据必填' % (x['field_name'], x['field_type']))
+
+            # 对附件进行验证，每个工单保持一个附件
+            if x.get("field_type") == "file":
+                file_field.append(x)
+
+        if len(error_list) > 0:
+            raise serializers.ValidationError('\n'.join(error_list))
+        elif len(file_field) > 1:
+            raise serializers.ValidationError('每个工单只能有一个file类型的字段')
         else:
             data["field_kwargs"] = field_kwargs
-        return data
+            return data
 
     def set_field(self, tpl, kwargs):
         """保存模版字段"""
@@ -94,11 +129,11 @@ class TicketFlowSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         state = data["workflow"].wf_state.filter(state_type=1).first()  # 获取初始状态
-        if state:
-            data["state"] = state.id
+        if not state:
+            raise serializers.ValidationError("%s no init state" % data["workflow"].name)
         else:
-            raise serializers.ValidationError({"state": "%s no init state" % data["workflow"].name})
-        return data
+            data["state"] = state.id
+            return data
 
     def create_ticket(self, user):
         data = self.validated_data

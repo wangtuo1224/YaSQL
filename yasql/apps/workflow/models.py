@@ -67,7 +67,7 @@ class WorkflowTpl(BaseModel):
     @property
     def display_form_field(self):
         data = []
-        display_form_list = json.loads(self.display_form)
+        display_form_list = json.loads(self.display_form) or []
         custom_field_filter = self.wf_field.filter(field_key__in=display_form_list)
         for item in custom_field_filter:
             data.append({
@@ -99,7 +99,7 @@ class WorkflowCustomField(BaseModel):
     field_name = models.CharField(max_length=64, verbose_name='字段名称')
     field_key = models.CharField(max_length=64, help_text='字段类型请尽量特殊，避免与系统中关键字冲突', verbose_name='字段key')
     field_type = models.CharField(choices=FIELD_TYPE, max_length=32, verbose_name='类型')
-    required = models.BooleanField(default=True, verbose_name='字段值是否必填')
+    required = models.BooleanField(default=False, verbose_name='字段值是否必填')
     order_id = models.IntegerField(default=0, verbose_name='字段顺序',
                                    help_text='工单表单中排序:工单号0,标题20,状态id40,状态名41,创建人80,创建时间100,更新时间120.前端根据id顺序排列')
     default_value = models.CharField(max_length=128, null=True, blank=True, verbose_name='默认值',

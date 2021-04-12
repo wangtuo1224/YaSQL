@@ -35,7 +35,7 @@
           :labelCol="{lg: {span: 4}, sm: {span: 4}}"
           :wrapperCol="{lg: {span: 16}, sm: {span: 20}}">
           <a-switch v-decorator="decorator['all_view']" />
-          <a-tooltip placement="rightBottom" title="默认是所有人可见，勾选后只有工单相关人可见">
+          <a-tooltip placement="rightBottom" title="默认所有人可见，否则只有工单相关人可见">
             <a-icon type="question-circle" style="margin-left: 5px" />
           </a-tooltip>
         </a-form-item>
@@ -167,6 +167,18 @@ export default {
     pk: [Number, String]
   },
   data () {
+    const checkDisplayForm = (rule, value, callback) => {
+      if(!value) {
+        callback( new Error("表单中可见字段必填"))
+      } else {
+        try {
+          JSON.parse(value)
+          callback()
+        } catch(e) {
+          callback(new Error('表单显示字段格式错误，请配置成：["id","title"]'))
+        } 
+      }
+    }
     return {
       pushing: false,
       form: this.$form.createForm(this),
@@ -184,8 +196,8 @@ export default {
       decorator: {
         'name': ['name', {rules: [{ required: true,  message: '请输入流程名称' }]}],
         'description': ['description', {rules: [{ required: true, message: '流程描述' }]}],
-        'all_view': ['all_view', {rules: [{ required: false }], initialValue: false, valuePropName: 'checked'}],
-        'display_form': ['display_form', {rules: [{ required: true, message: '表单中可见字段' }]}]
+        'all_view': ['all_view', {rules: [{ required: false }], initialValue: true, valuePropName: 'checked'}],
+        'display_form': ['display_form', {rules: [{ validator: checkDisplayForm }], validateTrigger: 'blur'}]
       },
 
       formItemLayoutWithOutLabel: {
@@ -228,7 +240,7 @@ export default {
         "field_name": null,
         "field_key": null,
         "field_type": "string",
-        "required": true,
+        "required": false,
         "order_id": 1,
         "default_value": null,
         "placeholder": null,
@@ -254,39 +266,52 @@ export default {
           "name": values["name"],
           "description": values["description"],
           "all_view": values["all_view"],
-          "display_form": values["display_form"],
+          "display_form": JSON.parse(values["display_form"]),
           "field_kwargs": [],
         }
-        if(this.tplKwarg.length > 0){
-          for(var i=0;i<this.tplKwarg.length;i++){
-            let k = {}
-            for(var v in values){
-              if(v.startsWith(i+'__')){
-                const t = v.split('__')
-                k[t[1]] = values[v]
-              }
+        if(this.tplKwarg.length === 0){
+          notification.error({
+            message: '工作流程',
+            description: '必须有一个工单字段',
+          })
+          return false
+        }
+        for(var i=0;i<this.tplKwarg.length;i++){
+          let k = {}
+          for(var v in values){
+            if(v.startsWith(i+'__')){
+              const t = v.split('__')
+              k[t[1]] = values[v]
             }
-            if(["select", "multiselect"].indexOf(k["field_type"])>=0) {
-              if(k["field_value"]){
-                try {
-                  JSON.parse(k["field_value"])
-                } catch(e) {
+          }
+          if(["select", "multiselect"].indexOf(k["field_type"])>=0) {
+            if(k["field_value"]){
+              try {
+                const f = JSON.parse(k["field_value"])
+                // 判断f类型
+                if(typeof(f) !== "object"){
                   notification.error({
                     message: '工作流程',
-                    description: `${k['field_name']}应为json格式`,
+                    description: `${k['field_name']}应为json格式键值对,如:{"1":"需要","0":"不需要"}'`,
                   })
                   return false
-                } 
-              } else {
+                }
+              } catch(e) {
                 notification.error({
                   message: '工作流程',
-                  description: `${k['field_name']}为${k['field_type']}类型，字段数据必填`,
+                  description: `${k['field_name']}应为json格式键值对,如:{"1":"需要","0":"不需要"}'`,
                 })
                 return false
               } 
-            }
-            data.field_kwargs[i] = k
+            } else {
+              notification.error({
+                message: '工作流程',
+                description: `${k['field_name']}为${k['field_type']}类型，字段数据必填`,
+              })
+              return false
+            } 
           }
+          data.field_kwargs[i] = k
         }
         this.pushing = true
         ticketFlowApi.createWorkflowTpl(data).then(resp => {
