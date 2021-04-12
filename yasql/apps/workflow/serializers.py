@@ -27,19 +27,28 @@ class WorkflowGroupSerializers(serializers.ModelSerializer):
 
 class WorkflowTplSerializer(serializers.ModelSerializer):
     field_kwargs = serializers.ListField(write_only=True)
-    display_form = serializers.ListField()
 
     class Meta:
         model = models.WorkflowTpl
         fields = "__all__"
 
+    def to_representation(self, instance):
+        ret = super(WorkflowTplSerializer, self).to_representation(instance)
+        ret["display_form_field"] = instance.display_form_field
+        ret["group"] = {"id": instance.group.id, "name": instance.group.name}
+        return ret
+
     def validate_display_form(self, data):
         if not data:
             raise serializers.ValidationError('表单显示字段必填')
-        elif not isinstance(data, list):
+        try:
+            d = json.loads(data)
+            if isinstance(d, list):
+                return data
+            else:
+                raise serializers.ValidationError('表单显示字段格式错误，请配置成：["id","title"]')
+        except:
             raise serializers.ValidationError('表单显示字段格式错误，请配置成：["id","title"]')
-        else:
-            return json.dumps(data)
 
     def validate(self, data):
         """校验字段"""
@@ -103,11 +112,6 @@ class WorkflowTplSerializer(serializers.ModelSerializer):
         self.set_field(instance, field_kwargs)
         instance.save()
         return instance
-
-    def to_representation(self, instance):
-        ret = super(WorkflowTplSerializer, self).to_representation(instance)
-        ret["display_form_field"] = instance.display_form_field
-        return ret
 
 
 class TicketFlowSerializer(serializers.ModelSerializer):

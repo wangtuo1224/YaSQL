@@ -35,14 +35,14 @@
               <a-select v-if="item.field_type==='select'"
                 v-decorator="[item.field_key, {rules: [{ required: item.required }], initialValue: item.default_value}]" 
                 :placeholder="item.placeholder">
-                <a-select-option v-for="(value, key, index) in item.field_value" :key="index" :value="value">
+                <a-select-option v-for="(value, key, index) in JSON.parse(item.field_value)" :key="index" :value="value">
                   {{ key }}
                 </a-select-option>
               </a-select>
               <a-select v-if="item.field_type==='multiselect'" mode="multiple"
                 v-decorator="[item.field_key, {rules: [{ required: item.required }]}]"  
                 :placeholder="item.placeholder">
-                <a-select-option v-for="(value, key, index) in item.field_value" :key="index" :value="value">
+                <a-select-option v-for="(value, key, index) in JSON.parse(item.field_value)" :key="index" :value="value">
                   {{ key }}
                 </a-select-option>
               </a-select>

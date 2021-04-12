@@ -78,7 +78,7 @@ class WorkflowTpl(BaseModel):
                 "required": item.required,
                 "default_value": item.default_value,
                 "placeholder": item.placeholder,
-                "field_value": json.loads(item.field_value) if item.field_value else {}
+                "field_value": item.field_value
             })
         return data
 

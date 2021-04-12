@@ -56,7 +56,7 @@
 import moment from 'moment'
 import { TicketActState, TicketAct } from '@/utils/ticket.js'
 import ticketFlowApi from "@/api/workflow.js"
-import TicketTable from './table.vue'
+import TicketTable from './TableTpl.vue'
 
 
 export default {
