@@ -115,10 +115,9 @@ class WorkflowTemplate(ModelViewSet):
         return JsonResponseV1()
 
     def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
-        page = self.paginate_queryset(queryset)
-        serializer = self.get_serializer(page, many=True)
-        return self.get_paginated_response(serializer.data)
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return JsonResponseV1(serializer.data)
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()

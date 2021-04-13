@@ -35,6 +35,12 @@ export default {
       data: data,
     })
   },
+  getWorkflowTpl() {
+    return axios.request({
+      method: 'get',
+      url: '/v1/workflow/template',
+    })
+  },
   createWorkflowTpl(data) {
     return axios.request({
       method: 'post',

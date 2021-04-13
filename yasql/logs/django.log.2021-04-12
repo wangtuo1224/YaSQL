@@ -1,0 +1,1283 @@
+'2021-04-12 10:21:34,206 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 10:21:34,634 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 10:21:34,634 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 10:21:34,635 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 10:25:01,507 [django.request:222] [WARNING]- Unauthorized: /api/users/info'
+'2021-04-12 10:25:01,509 [django.channels.server:151] [WARNING]- HTTP GET /api/users/info 401 [0.06, 127.0.0.1:58475]'
+'2021-04-12 10:25:01,552 [django.request:222] [WARNING]- Unauthorized: /api/users/logout'
+'2021-04-12 10:25:01,554 [django.channels.server:151] [WARNING]- HTTP POST /api/users/logout 401 [0.03, 127.0.0.1:58480]'
+'2021-04-12 10:25:01,594 [django.request:222] [WARNING]- Unauthorized: /api/users/logout'
+'2021-04-12 10:25:01,596 [django.channels.server:151] [WARNING]- HTTP POST /api/users/logout 401 [0.03, 127.0.0.1:58482]'
+'2021-04-12 10:25:01,609 [django.request:222] [WARNING]- Unauthorized: /api/users/logout'
+'2021-04-12 10:25:01,611 [django.channels.server:151] [WARNING]- HTTP POST /api/users/logout 401 [0.03, 127.0.0.1:58484]'
+'2021-04-12 10:25:13,027 [django.channels.server:141] [INFO]- HTTP POST /api/users/login 200 [0.12, 127.0.0.1:58498]'
+'2021-04-12 10:25:13,069 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.03, 127.0.0.1:58502]'
+'2021-04-12 10:25:13,525 [django.channels.server:141] [INFO]- HTTP GET /api/users/dashboard/sys 200 [0.07, 127.0.0.1:58506]'
+'2021-04-12 10:25:13,641 [django.channels.server:141] [INFO]- HTTP GET /api/users/dashboard/self 200 [0.04, 127.0.0.1:58510]'
+'2021-04-12 10:25:17,298 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.05, 127.0.0.1:58515]'
+'2021-04-12 10:25:20,352 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.03, 127.0.0.1:58519]'
+'2021-04-12 10:26:02,354 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:58537]'
+'2021-04-12 10:26:02,496 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.03, 127.0.0.1:58541]'
+'2021-04-12 10:26:08,619 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.03, 127.0.0.1:58546]'
+'2021-04-12 10:26:31,851 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.03, 127.0.0.1:58550]'
+'2021-04-12 10:26:54,189 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 10:26:54,519 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 10:26:54,520 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 10:26:54,520 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 10:27:02,921 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.04, 127.0.0.1:58558]'
+'2021-04-12 10:27:43,075 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 10:27:43,410 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 10:27:43,410 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 10:27:43,411 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 10:27:45,713 [django.request:222] [ERROR]- Internal Server Error: /api/v1/workflow/template'
+Traceback (most recent call last):
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/views.py", line 99, in create
+    if serializer.is_valid():
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/serializers.py", line 234, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/serializers.py", line 436, in run_validation
+    value = self.validate(value)
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py", line 44, in validate
+    if not x["field_name"]:
+KeyError: 'field_name'
+'2021-04-12 10:27:45,717 [django.channels.server:154] [ERROR]- HTTP POST /api/v1/workflow/template 500 [0.06, 127.0.0.1:58564]'
+'2021-04-12 10:29:18,243 [django.utils.autoreload:217] [INFO]- /Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py changed, reloading.'
+'2021-04-12 10:29:19,489 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 10:29:19,867 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 10:29:19,867 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 10:29:19,867 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 10:29:29,216 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.04, 127.0.0.1:58582]'
+'2021-04-12 10:29:45,124 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 10:29:45,498 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 10:29:45,498 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 10:29:45,498 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 10:29:57,492 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.05, 127.0.0.1:58590]'
+'2021-04-12 10:30:11,165 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.03, 127.0.0.1:58597]'
+'2021-04-12 10:30:28,440 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 10:30:28,777 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 10:30:28,778 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 10:30:28,778 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 10:30:31,729 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.04, 127.0.0.1:58603]'
+'2021-04-12 10:30:44,607 [django.request:222] [ERROR]- Internal Server Error: /api/v1/workflow/template'
+Traceback (most recent call last):
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/views.py", line 101, in create
+    return JsonResponseV1(serializer.data)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/serializers.py", line 562, in data
+    ret = super().data
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py", line 86, in to_representation
+    ret["display_form_field"] = instance.display_form_field
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/models.py", line 70, in display_form_field
+    display_form_list = json.loads(self.display_form)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/__init__.py", line 357, in loads
+    return _default_decoder.decode(s)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+'2021-04-12 10:30:44,610 [django.channels.server:154] [ERROR]- HTTP POST /api/v1/workflow/template 500 [0.06, 127.0.0.1:58609]'
+'2021-04-12 10:34:34,703 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 10:34:35,073 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 10:34:35,073 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 10:34:35,074 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 10:34:37,478 [django.request:222] [ERROR]- Internal Server Error: /api/v1/workflow/template'
+Traceback (most recent call last):
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/views.py", line 101, in create
+    return JsonResponseV1(serializer.data)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/serializers.py", line 562, in data
+    ret = super().data
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py", line 89, in to_representation
+    ret["display_form_field"] = instance.display_form_field
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/models.py", line 70, in display_form_field
+    display_form_list = json.loads(self.display_form)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/__init__.py", line 357, in loads
+    return _default_decoder.decode(s)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+'2021-04-12 10:34:37,482 [django.channels.server:154] [ERROR]- HTTP POST /api/v1/workflow/template 500 [0.07, 127.0.0.1:58632]'
+'2021-04-12 10:35:25,180 [django.utils.autoreload:217] [INFO]- /Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py changed, reloading.'
+'2021-04-12 10:35:26,348 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 10:35:26,785 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 10:35:26,785 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 10:35:26,786 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 10:36:10,202 [django.utils.autoreload:217] [INFO]- /Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py changed, reloading.'
+'2021-04-12 10:36:11,483 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 10:36:11,827 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 10:36:11,827 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 10:36:11,828 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 10:37:33,317 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 10:37:33,661 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 10:37:33,662 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 10:37:33,662 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 10:37:36,085 [django.request:222] [ERROR]- Internal Server Error: /api/v1/workflow/template'
+Traceback (most recent call last):
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/views.py", line 101, in create
+    return JsonResponseV1(serializer.data)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/serializers.py", line 562, in data
+    ret = super().data
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py", line 91, in to_representation
+    ret["display_form_field"] = instance.display_form_field
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/models.py", line 70, in display_form_field
+    display_form_list = json.loads(self.display_form)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/__init__.py", line 357, in loads
+    return _default_decoder.decode(s)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+'2021-04-12 10:37:36,089 [django.channels.server:154] [ERROR]- HTTP POST /api/v1/workflow/template 500 [0.07, 127.0.0.1:58653]'
+'2021-04-12 10:37:37,884 [django.request:222] [ERROR]- Internal Server Error: /api/v1/workflow/template'
+Traceback (most recent call last):
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/views.py", line 101, in create
+    return JsonResponseV1(serializer.data)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/serializers.py", line 562, in data
+    ret = super().data
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py", line 91, in to_representation
+    ret["display_form_field"] = instance.display_form_field
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/models.py", line 70, in display_form_field
+    display_form_list = json.loads(self.display_form)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/__init__.py", line 357, in loads
+    return _default_decoder.decode(s)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+'2021-04-12 10:37:37,887 [django.channels.server:154] [ERROR]- HTTP POST /api/v1/workflow/template 500 [0.06, 127.0.0.1:58657]'
+'2021-04-12 10:40:06,146 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 10:40:06,493 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 10:40:06,493 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 10:40:06,494 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 10:40:08,847 [django.request:222] [ERROR]- Internal Server Error: /api/v1/workflow/template'
+Traceback (most recent call last):
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/views.py", line 102, in create
+    return JsonResponseV1(code="0002", message=serializer.errors)
+  File "/Users/pandonglin/code/YaSQL/yasql/libs/response.py", line 30, in __init__
+    [': '.join([k, str(v[0])]) for k, v in message.items()]
+  File "/Users/pandonglin/code/YaSQL/yasql/libs/response.py", line 30, in <listcomp>
+    [': '.join([k, str(v[0])]) for k, v in message.items()]
+KeyError: 0
+'2021-04-12 10:40:08,849 [django.channels.server:154] [ERROR]- HTTP POST /api/v1/workflow/template 500 [0.06, 127.0.0.1:58678]'
+'2021-04-12 10:40:58,916 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 10:40:59,252 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 10:40:59,252 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 10:40:59,252 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 10:41:05,431 [django.request:222] [ERROR]- Internal Server Error: /api/v1/workflow/template'
+Traceback (most recent call last):
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/views.py", line 102, in create
+    return JsonResponseV1(code="0002", message=serializer.errors)
+  File "/Users/pandonglin/code/YaSQL/yasql/libs/response.py", line 30, in __init__
+    [': '.join([k, str(v[0])]) for k, v in message.items()]
+  File "/Users/pandonglin/code/YaSQL/yasql/libs/response.py", line 30, in <listcomp>
+    [': '.join([k, str(v[0])]) for k, v in message.items()]
+KeyError: 0
+'2021-04-12 10:41:05,434 [django.channels.server:154] [ERROR]- HTTP POST /api/v1/workflow/template 500 [0.06, 127.0.0.1:58685]'
+'2021-04-12 10:41:41,872 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 10:41:42,207 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 10:41:42,207 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 10:41:42,208 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 10:41:44,736 [django.request:222] [ERROR]- Internal Server Error: /api/v1/workflow/template'
+Traceback (most recent call last):
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/views.py", line 102, in create
+    return JsonResponseV1(code="0002", message=serializer.errors)
+  File "/Users/pandonglin/code/YaSQL/yasql/libs/response.py", line 30, in __init__
+    [': '.join([k, str(v[0])]) for k, v in message.items()]
+  File "/Users/pandonglin/code/YaSQL/yasql/libs/response.py", line 30, in <listcomp>
+    [': '.join([k, str(v[0])]) for k, v in message.items()]
+KeyError: 0
+'2021-04-12 10:41:44,738 [django.channels.server:154] [ERROR]- HTTP POST /api/v1/workflow/template 500 [0.06, 127.0.0.1:58692]'
+'2021-04-12 10:43:33,330 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 10:43:33,672 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 10:43:33,672 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 10:43:33,673 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 10:43:35,602 [django.request:222] [ERROR]- Internal Server Error: /api/v1/workflow/template'
+Traceback (most recent call last):
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/views.py", line 103, in create
+    return JsonResponseV1(code="0002", message=serializer.errors)
+  File "/Users/pandonglin/code/YaSQL/yasql/libs/response.py", line 30, in __init__
+    [': '.join([k, str(v[0])]) for k, v in message.items()]
+  File "/Users/pandonglin/code/YaSQL/yasql/libs/response.py", line 30, in <listcomp>
+    [': '.join([k, str(v[0])]) for k, v in message.items()]
+KeyError: 0
+'2021-04-12 10:43:35,605 [django.channels.server:154] [ERROR]- HTTP POST /api/v1/workflow/template 500 [0.06, 127.0.0.1:58701]'
+'2021-04-12 10:45:53,839 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 10:45:54,188 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 10:45:54,188 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 10:45:54,189 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 10:45:56,082 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.04, 127.0.0.1:58713]'
+'2021-04-12 10:46:26,573 [django.utils.autoreload:217] [INFO]- /Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py changed, reloading.'
+'2021-04-12 10:46:27,714 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 10:46:28,095 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 10:46:28,095 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 10:46:28,096 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 10:46:35,555 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.04, 127.0.0.1:58723]'
+'2021-04-12 10:47:55,787 [django.utils.autoreload:217] [INFO]- /Users/pandonglin/code/YaSQL/yasql/apps/workflow/views.py changed, reloading.'
+'2021-04-12 10:47:56,836 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 10:47:57,236 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 10:47:57,237 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 10:47:57,237 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 10:48:07,458 [django.utils.autoreload:217] [INFO]- /Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py changed, reloading.'
+'2021-04-12 10:48:08,564 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 10:48:08,897 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 10:48:08,897 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 10:48:08,897 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 10:49:03,598 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 10:49:03,933 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 10:49:03,933 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 10:49:03,934 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 10:49:49,950 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:58760]'
+'2021-04-12 10:49:59,159 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.03, 127.0.0.1:58765]'
+'2021-04-12 10:50:23,625 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.04, 127.0.0.1:58772]'
+'2021-04-12 10:50:29,605 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.03, 127.0.0.1:58776]'
+'2021-04-12 10:53:44,996 [django.channels.server:141] [INFO]- HTTP GET /admin/ 200 [0.14, 127.0.0.1:58803]'
+'2021-04-12 10:53:46,730 [django.channels.server:141] [INFO]- HTTP GET /admin/ 200 [0.05, 127.0.0.1:58803]'
+'2021-04-12 10:53:46,828 [django.channels.server:145] [INFO]- HTTP GET /static/admin/img/icon-deletelink.svg 304 [0.00, 127.0.0.1:58803]'
+'2021-04-12 10:53:49,874 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.09, 127.0.0.1:58803]'
+'2021-04-12 10:53:49,932 [django.channels.server:145] [INFO]- HTTP GET /static/admin/img/icon-no.svg 304 [0.00, 127.0.0.1:58804]'
+'2021-04-12 10:53:49,939 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:58803]'
+'2021-04-12 10:53:58,491 [django.channels.server:141] [INFO]- HTTP POST /admin/workflow/workflowtpl/ 200 [0.07, 127.0.0.1:58803]'
+'2021-04-12 10:53:59,640 [django.channels.server:147] [INFO]- HTTP POST /admin/workflow/workflowtpl/ 302 [0.08, 127.0.0.1:58803]'
+'2021-04-12 10:53:59,708 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.06, 127.0.0.1:58803]'
+'2021-04-12 10:53:59,763 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:58803]'
+'2021-04-12 10:57:38,391 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.07, 127.0.0.1:58836]'
+'2021-04-12 10:57:38,462 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:58836]'
+'2021-04-12 10:59:25,228 [django.utils.autoreload:217] [INFO]- /Users/pandonglin/code/YaSQL/yasql/apps/workflow/models.py changed, reloading.'
+'2021-04-12 10:59:26,296 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 10:59:26,638 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 10:59:26,638 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 10:59:26,638 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 10:59:28,096 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/8/change/ 200 [0.28, 127.0.0.1:58862]'
+'2021-04-12 10:59:28,167 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:58862]'
+'2021-04-12 10:59:39,656 [django.channels.server:147] [INFO]- HTTP POST /admin/workflow/workflowtpl/8/change/ 302 [0.05, 127.0.0.1:58862]'
+'2021-04-12 10:59:39,726 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.07, 127.0.0.1:58862]'
+'2021-04-12 10:59:39,784 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:58862]'
+'2021-04-12 10:59:43,515 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/8/change/ 200 [0.14, 127.0.0.1:58862]'
+'2021-04-12 10:59:43,566 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:58862]'
+'2021-04-12 10:59:52,097 [django.channels.server:147] [INFO]- HTTP POST /admin/workflow/workflowtpl/8/change/ 302 [0.05, 127.0.0.1:58862]'
+'2021-04-12 10:59:52,172 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.07, 127.0.0.1:58862]'
+'2021-04-12 10:59:52,231 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:58862]'
+'2021-04-12 11:00:08,997 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/7/change/ 200 [0.14, 127.0.0.1:58862]'
+'2021-04-12 11:00:09,057 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:58862]'
+'2021-04-12 11:00:13,907 [django.channels.server:147] [INFO]- HTTP POST /admin/workflow/workflowtpl/7/change/ 302 [0.04, 127.0.0.1:58862]'
+'2021-04-12 11:00:13,974 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.06, 127.0.0.1:58862]'
+'2021-04-12 11:00:14,035 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:58862]'
+'2021-04-12 11:00:17,140 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/6/change/ 200 [0.12, 127.0.0.1:58862]'
+'2021-04-12 11:00:17,196 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:58862]'
+'2021-04-12 11:00:22,010 [django.channels.server:147] [INFO]- HTTP POST /admin/workflow/workflowtpl/6/change/ 302 [0.05, 127.0.0.1:58862]'
+'2021-04-12 11:00:22,076 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.06, 127.0.0.1:58862]'
+'2021-04-12 11:00:22,140 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:58862]'
+'2021-04-12 11:00:26,184 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/1/change/ 200 [0.16, 127.0.0.1:58862]'
+'2021-04-12 11:00:26,237 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:58862]'
+'2021-04-12 11:00:52,718 [django.channels.server:147] [INFO]- HTTP POST /admin/workflow/workflowtpl/1/change/ 302 [0.06, 127.0.0.1:58862]'
+'2021-04-12 11:00:52,785 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.06, 127.0.0.1:58862]'
+'2021-04-12 11:00:52,858 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:58862]'
+'2021-04-12 11:06:40,093 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:59034]'
+'2021-04-12 11:29:21,197 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.05, 127.0.0.1:59253]'
+'2021-04-12 11:29:21,239 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:59255]'
+'2021-04-12 11:29:21,283 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:59259]'
+'2021-04-12 11:29:21,324 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:59263]'
+'2021-04-12 11:39:52,867 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.05, 127.0.0.1:59375]'
+'2021-04-12 11:39:53,008 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.03, 127.0.0.1:59379]'
+'2021-04-12 11:46:06,313 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:59449]'
+'2021-04-12 11:46:06,463 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:59453]'
+'2021-04-12 11:46:10,925 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:59457]'
+'2021-04-12 11:47:31,282 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:59468]'
+'2021-04-12 11:48:16,994 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 11:48:17,485 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 11:48:17,485 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 11:48:17,486 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 11:49:02,176 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.05, 127.0.0.1:59490]'
+'2021-04-12 11:49:02,339 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:59494]'
+'2021-04-12 11:49:13,277 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:59512]'
+'2021-04-12 11:49:13,426 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.03, 127.0.0.1:59516]'
+'2021-04-12 11:49:37,221 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.04, 127.0.0.1:59521]'
+'2021-04-12 11:50:41,031 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:59641]'
+'2021-04-12 11:50:48,049 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.04, 127.0.0.1:59673]'
+'2021-04-12 12:30:49,394 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.04, 127.0.0.1:63093]'
+'2021-04-12 12:31:29,333 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.03, 127.0.0.1:63268]'
+'2021-04-12 12:31:29,653 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.06, 127.0.0.1:63272]'
+'2021-04-12 12:31:35,088 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.04, 127.0.0.1:63301]'
+'2021-04-12 12:32:47,704 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.04, 127.0.0.1:63595]'
+'2021-04-12 12:34:17,060 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.05, 127.0.0.1:63965]'
+'2021-04-12 12:35:17,158 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:64230]'
+'2021-04-12 12:35:33,009 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.03, 127.0.0.1:64308]'
+'2021-04-12 12:35:33,270 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.05, 127.0.0.1:64311]'
+'2021-04-12 12:37:59,382 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.03, 127.0.0.1:64938]'
+'2021-04-12 12:37:59,723 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.07, 127.0.0.1:64942]'
+'2021-04-12 12:39:17,211 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:65259]'
+'2021-04-12 12:39:34,053 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.04, 127.0.0.1:65335]'
+'2021-04-12 12:41:17,115 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.05, 127.0.0.1:49381]'
+'2021-04-12 12:41:37,098 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:49466]'
+'2021-04-12 12:41:49,238 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.04, 127.0.0.1:49519]'
+'2021-04-12 12:42:15,206 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.04, 127.0.0.1:49627]'
+'2021-04-12 12:42:17,820 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.03, 127.0.0.1:49639]'
+'2021-04-12 12:42:47,133 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.06, 127.0.0.1:49765]'
+'2021-04-12 12:42:57,643 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.04, 127.0.0.1:49810]'
+'2021-04-12 12:43:27,126 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:49936]'
+'2021-04-12 12:43:32,511 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:49970]'
+'2021-04-12 12:43:32,833 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.06, 127.0.0.1:49973]'
+'2021-04-12 12:43:37,270 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.03, 127.0.0.1:49997]'
+'2021-04-12 12:44:20,079 [django.utils.autoreload:217] [INFO]- /Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py changed, reloading.'
+'2021-04-12 12:44:21,945 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 12:44:22,516 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 12:44:22,516 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 12:44:22,517 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 12:44:27,488 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.06, 127.0.0.1:50208]'
+'2021-04-12 12:45:27,181 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:50450]'
+'2021-04-12 12:45:45,157 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.04, 127.0.0.1:50531]'
+'2021-04-12 12:45:47,084 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:50543]'
+'2021-04-12 12:46:27,208 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:50708]'
+'2021-04-12 12:46:33,564 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.04, 127.0.0.1:50736]'
+'2021-04-12 12:46:40,719 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.04, 127.0.0.1:50771]'
+'2021-04-12 12:46:57,291 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:50841]'
+'2021-04-12 12:47:14,849 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.16, 127.0.0.1:50912]'
+'2021-04-12 12:47:14,920 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.04, 127.0.0.1:50912]'
+'2021-04-12 12:47:58,118 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.03, 127.0.0.1:51107]'
+'2021-04-12 12:47:58,402 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.07, 127.0.0.1:51110]'
+'2021-04-12 12:49:07,289 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:51397]'
+'2021-04-12 12:49:11,759 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.03, 127.0.0.1:51427]'
+'2021-04-12 12:49:12,047 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.05, 127.0.0.1:51432]'
+'2021-04-12 12:50:14,227 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.03, 127.0.0.1:51700]'
+'2021-04-12 12:50:14,531 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.06, 127.0.0.1:51707]'
+'2021-04-12 12:50:37,249 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:51803]'
+'2021-04-12 12:54:17,311 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.05, 127.0.0.1:52709]'
+'2021-04-12 12:54:17,328 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.05, 127.0.0.1:52711]'
+'2021-04-12 12:55:27,355 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:52998]'
+'2021-04-12 12:56:17,434 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:53205]'
+'2021-04-12 12:56:50,283 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.06, 127.0.0.1:53342]'
+'2021-04-12 12:56:50,481 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.05, 127.0.0.1:53346]'
+'2021-04-12 13:00:08,662 [django.utils.autoreload:217] [INFO]- /Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py changed, reloading.'
+'2021-04-12 13:00:09,945 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 13:00:10,395 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 13:00:10,395 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 13:00:10,396 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 13:00:10,820 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.05, 127.0.0.1:53497]'
+'2021-04-12 13:02:00,709 [django.utils.autoreload:217] [INFO]- /Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py changed, reloading.'
+'2021-04-12 13:02:01,832 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 13:02:02,189 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 13:02:02,189 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 13:02:02,190 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 13:05:33,650 [django.utils.autoreload:217] [INFO]- /Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py changed, reloading.'
+'2021-04-12 13:05:34,721 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 13:05:35,103 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 13:05:35,103 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 13:05:35,104 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 13:07:49,153 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 13:07:49,509 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 13:07:49,509 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 13:07:49,509 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 13:08:27,620 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.05, 127.0.0.1:53542]'
+'2021-04-12 13:08:42,122 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.04, 127.0.0.1:53547]'
+'2021-04-12 13:08:52,817 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.06, 127.0.0.1:53551]'
+'2021-04-12 13:08:52,965 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.05, 127.0.0.1:53555]'
+'2021-04-12 13:09:18,349 [django.utils.autoreload:217] [INFO]- /Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py changed, reloading.'
+'2021-04-12 13:09:19,677 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 13:09:20,032 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 13:09:20,032 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 13:09:20,033 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 13:09:24,086 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.05, 127.0.0.1:53566]'
+'2021-04-12 13:09:26,649 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.15, 127.0.0.1:53568]'
+'2021-04-12 13:09:26,721 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.04, 127.0.0.1:53568]'
+'2021-04-12 13:09:32,496 [django.channels.server:141] [INFO]- HTTP POST /admin/workflow/workflowtpl/ 200 [0.07, 127.0.0.1:53568]'
+'2021-04-12 13:09:33,601 [django.channels.server:147] [INFO]- HTTP POST /admin/workflow/workflowtpl/ 302 [0.09, 127.0.0.1:53568]'
+'2021-04-12 13:09:33,688 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.08, 127.0.0.1:53568]'
+'2021-04-12 13:09:33,751 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:53568]'
+'2021-04-12 13:09:56,718 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.06, 127.0.0.1:53580]'
+'2021-04-12 13:09:56,841 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.04, 127.0.0.1:53584]'
+'2021-04-12 13:10:54,012 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.13, 127.0.0.1:53593]'
+'2021-04-12 13:10:54,078 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:53593]'
+'2021-04-12 13:10:57,045 [django.channels.server:141] [INFO]- HTTP POST /admin/workflow/workflowtpl/ 200 [0.07, 127.0.0.1:53593]'
+'2021-04-12 13:10:58,091 [django.channels.server:147] [INFO]- HTTP POST /admin/workflow/workflowtpl/ 302 [0.08, 127.0.0.1:53593]'
+'2021-04-12 13:10:58,165 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.07, 127.0.0.1:53593]'
+'2021-04-12 13:10:58,229 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.04, 127.0.0.1:53593]'
+'2021-04-12 13:11:00,589 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:53603]'
+'2021-04-12 13:12:27,010 [django.utils.autoreload:217] [INFO]- /Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py changed, reloading.'
+'2021-04-12 13:12:28,104 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 13:12:28,533 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 13:12:28,534 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 13:12:28,534 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 13:13:50,962 [django.utils.autoreload:217] [INFO]- /Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py changed, reloading.'
+'2021-04-12 13:13:52,051 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 13:13:52,394 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 13:13:52,394 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 13:13:52,394 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 13:14:39,137 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.08, 127.0.0.1:54132]'
+'2021-04-12 13:14:39,311 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.05, 127.0.0.1:54136]'
+'2021-04-12 13:15:00,501 [django.utils.autoreload:217] [INFO]- /Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py changed, reloading.'
+'2021-04-12 13:15:01,580 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 13:15:01,944 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 13:15:01,944 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 13:15:01,945 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 13:15:05,276 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.05, 127.0.0.1:54247]'
+'2021-04-12 13:15:18,071 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.05, 127.0.0.1:54304]'
+'2021-04-12 13:15:18,207 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.05, 127.0.0.1:54308]'
+'2021-04-12 13:15:31,304 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 13:15:31,646 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 13:15:31,646 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 13:15:31,646 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 13:15:35,357 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:54393]'
+'2021-04-12 13:15:35,605 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.05, 127.0.0.1:54396]'
+'2021-04-12 13:15:53,957 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.04, 127.0.0.1:54477]'
+'2021-04-12 13:15:59,679 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.04, 127.0.0.1:54505]'
+'2021-04-12 13:17:17,907 [django.utils.autoreload:217] [INFO]- /Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py changed, reloading.'
+'2021-04-12 13:17:19,078 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 13:17:19,519 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 13:17:19,519 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 13:17:19,520 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 13:18:17,850 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.05, 127.0.0.1:55090]'
+'2021-04-12 13:18:21,129 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.15, 127.0.0.1:55105]'
+'2021-04-12 13:18:21,193 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.04, 127.0.0.1:55105]'
+'2021-04-12 13:18:25,840 [django.channels.server:141] [INFO]- HTTP POST /admin/workflow/workflowtpl/ 200 [0.07, 127.0.0.1:55105]'
+'2021-04-12 13:18:26,783 [django.channels.server:147] [INFO]- HTTP POST /admin/workflow/workflowtpl/ 302 [0.09, 127.0.0.1:55105]'
+'2021-04-12 13:18:26,876 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.09, 127.0.0.1:55105]'
+'2021-04-12 13:18:26,942 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.04, 127.0.0.1:55105]'
+'2021-04-12 13:56:02,223 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.03, 127.0.0.1:59546]'
+'2021-04-12 13:56:02,580 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:59550]'
+'2021-04-12 13:57:19,916 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:59867]'
+'2021-04-12 13:58:39,953 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:60201]'
+'2021-04-12 13:58:52,668 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.06, 127.0.0.1:60257]'
+'2021-04-12 13:58:52,827 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.04, 127.0.0.1:60261]'
+'2021-04-12 13:58:57,447 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=15&page=1 200 [0.05, 127.0.0.1:60290]'
+'2021-04-12 13:59:02,670 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.10, 127.0.0.1:60312]'
+'2021-04-12 13:59:02,744 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.04, 127.0.0.1:60312]'
+'2021-04-12 13:59:07,250 [django.channels.server:141] [INFO]- HTTP POST /admin/workflow/workflowtpl/ 200 [0.07, 127.0.0.1:60312]'
+'2021-04-12 13:59:08,350 [django.channels.server:147] [INFO]- HTTP POST /admin/workflow/workflowtpl/ 302 [0.09, 127.0.0.1:60312]'
+'2021-04-12 13:59:08,437 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.08, 127.0.0.1:60312]'
+'2021-04-12 13:59:08,499 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:60312]'
+'2021-04-12 13:59:12,780 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.03, 127.0.0.1:60372]'
+'2021-04-12 13:59:13,082 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=15&page=1 200 [0.06, 127.0.0.1:60375]'
+'2021-04-12 13:59:16,771 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/18 200 [0.04, 127.0.0.1:60394]'
+'2021-04-12 14:00:30,019 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 14:00:30,450 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 14:00:30,450 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 14:00:30,451 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 14:00:35,278 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.05, 127.0.0.1:60729]'
+'2021-04-12 14:00:35,592 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/18 200 [0.07, 127.0.0.1:60733]'
+'2021-04-12 14:00:53,363 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 14:00:53,701 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 14:00:53,701 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 14:00:53,702 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 14:01:09,977 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:60894]'
+'2021-04-12 14:01:10,270 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/18 200 [0.06, 127.0.0.1:60898]'
+'2021-04-12 14:02:39,269 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.16, 127.0.0.1:61261]'
+'2021-04-12 14:02:39,332 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.04, 127.0.0.1:61261]'
+'2021-04-12 14:02:40,395 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/18/change/ 200 [0.14, 127.0.0.1:61261]'
+'2021-04-12 14:02:40,458 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.04, 127.0.0.1:61261]'
+'2021-04-12 14:04:57,423 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 14:04:57,760 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 14:04:57,760 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 14:04:57,761 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 14:05:04,994 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:61870]'
+'2021-04-12 14:05:05,281 [django.request:222] [ERROR]- Internal Server Error: /api/v1/workflow/template/18'
+Traceback (most recent call last):
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/views.py", line 126, in retrieve
+    return JsonResponseV1(serializer.data)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/serializers.py", line 562, in data
+    ret = super().data
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py", line 109, in to_representation
+    ret["display_form_field"] = instance.display_form_field
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/models.py", line 70, in display_form_field
+    display_form_list = json.loads(self.display_form) or []
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/__init__.py", line 357, in loads
+    return _default_decoder.decode(s)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 2 (char 1)
+'2021-04-12 14:05:05,285 [django.channels.server:154] [ERROR]- HTTP GET /api/v1/workflow/template/18 500 [0.07, 127.0.0.1:61874]'
+'2021-04-12 14:05:46,803 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 14:05:47,158 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 14:05:47,158 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 14:05:47,159 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 14:05:57,058 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:62129]'
+'2021-04-12 14:05:57,346 [django.request:222] [ERROR]- Internal Server Error: /api/v1/workflow/template/18'
+Traceback (most recent call last):
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/views.py", line 126, in retrieve
+    return JsonResponseV1(serializer.data)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/serializers.py", line 562, in data
+    ret = super().data
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py", line 109, in to_representation
+    ret["display_form_field"] = instance.display_form_field
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/models.py", line 71, in display_form_field
+    display_form_list = json.loads(self.display_form) or []
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/__init__.py", line 357, in loads
+    return _default_decoder.decode(s)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 2 (char 1)
+'2021-04-12 14:05:57,350 [django.channels.server:154] [ERROR]- HTTP GET /api/v1/workflow/template/18 500 [0.07, 127.0.0.1:62132]'
+'2021-04-12 14:06:23,308 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 14:06:23,650 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 14:06:23,650 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 14:06:23,651 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 14:06:28,312 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:62275]'
+'2021-04-12 14:06:28,591 [django.request:222] [ERROR]- Internal Server Error: /api/v1/workflow/template/18'
+Traceback (most recent call last):
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/views.py", line 126, in retrieve
+    return JsonResponseV1(serializer.data)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/serializers.py", line 562, in data
+    ret = super().data
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py", line 109, in to_representation
+    ret["display_form_field"] = instance.display_form_field
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/models.py", line 71, in display_form_field
+    print(json.loads(self.display_form))
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/__init__.py", line 357, in loads
+    return _default_decoder.decode(s)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 2 (char 1)
+'2021-04-12 14:06:28,597 [django.channels.server:154] [ERROR]- HTTP GET /api/v1/workflow/template/18 500 [0.08, 127.0.0.1:62278]'
+'2021-04-12 14:07:22,105 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 14:07:22,454 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 14:07:22,454 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 14:07:22,455 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 14:07:55,778 [django.utils.autoreload:217] [INFO]- /Users/pandonglin/code/YaSQL/yasql/apps/workflow/models.py changed, reloading.'
+'2021-04-12 14:07:56,786 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 14:07:57,125 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 14:07:57,125 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 14:07:57,126 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 14:08:18,826 [django.channels.server:147] [INFO]- HTTP POST /admin/workflow/workflowtpl/18/change/ 302 [0.14, 127.0.0.1:62733]'
+'2021-04-12 14:08:18,929 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.10, 127.0.0.1:62733]'
+'2021-04-12 14:08:18,993 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.04, 127.0.0.1:62733]'
+'2021-04-12 14:08:22,771 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.03, 127.0.0.1:62767]'
+'2021-04-12 14:08:23,081 [django.request:222] [ERROR]- Internal Server Error: /api/v1/workflow/template/18'
+Traceback (most recent call last):
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/views.py", line 126, in retrieve
+    return JsonResponseV1(serializer.data)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/serializers.py", line 562, in data
+    ret = super().data
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py", line 109, in to_representation
+    ret["display_form_field"] = instance.display_form_field
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/models.py", line 70, in display_form_field
+    display_form_list = json.loads(self.display_form) or []
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/__init__.py", line 357, in loads
+    return _default_decoder.decode(s)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+'2021-04-12 14:08:23,086 [django.channels.server:154] [ERROR]- HTTP GET /api/v1/workflow/template/18 500 [0.07, 127.0.0.1:62771]'
+'2021-04-12 14:08:35,806 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 14:08:36,156 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 14:08:36,156 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 14:08:36,157 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 14:08:51,893 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.05, 127.0.0.1:62906]'
+'2021-04-12 14:08:52,206 [django.request:222] [ERROR]- Internal Server Error: /api/v1/workflow/template/18'
+Traceback (most recent call last):
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/views.py", line 126, in retrieve
+    return JsonResponseV1(serializer.data)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/serializers.py", line 562, in data
+    ret = super().data
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py", line 109, in to_representation
+    ret["display_form_field"] = instance.display_form_field
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/models.py", line 70, in display_form_field
+    display_form_list = json.loads(self.display_form) or []
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/__init__.py", line 357, in loads
+    return _default_decoder.decode(s)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+'2021-04-12 14:08:52,212 [django.channels.server:154] [ERROR]- HTTP GET /api/v1/workflow/template/18 500 [0.08, 127.0.0.1:62910]'
+'2021-04-12 14:09:11,754 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.04, 127.0.0.1:63000]'
+'2021-04-12 14:09:13,356 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:63008]'
+'2021-04-12 14:09:26,433 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.06, 127.0.0.1:63065]'
+'2021-04-12 14:09:26,571 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.05, 127.0.0.1:63073]'
+'2021-04-12 14:09:29,348 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=15&page=1 200 [0.05, 127.0.0.1:63085]'
+'2021-04-12 14:09:31,252 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/19 200 [0.05, 127.0.0.1:63097]'
+'2021-04-12 14:09:34,756 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/ticket 200 [0.04, 127.0.0.1:63117]'
+'2021-04-12 14:09:52,246 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/18/change/ 200 [0.23, 127.0.0.1:63188]'
+'2021-04-12 14:09:52,314 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.04, 127.0.0.1:63188]'
+'2021-04-12 14:10:02,925 [django.channels.server:147] [INFO]- HTTP POST /admin/workflow/workflowtpl/18/change/ 302 [0.06, 127.0.0.1:63188]'
+'2021-04-12 14:10:03,003 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.07, 127.0.0.1:63188]'
+'2021-04-12 14:10:03,069 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.04, 127.0.0.1:63188]'
+'2021-04-12 14:10:05,842 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.05, 127.0.0.1:63254]'
+'2021-04-12 14:10:06,540 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=15&page=1 200 [0.05, 127.0.0.1:63258]'
+'2021-04-12 14:10:08,443 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/18 200 [0.04, 127.0.0.1:63270]'
+'2021-04-12 14:11:54,564 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/ticket 200 [0.04, 127.0.0.1:63315]'
+'2021-04-12 14:11:57,861 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=15&page=1 200 [0.06, 127.0.0.1:63319]'
+'2021-04-12 14:12:14,214 [django.channels.server:141] [INFO]- HTTP POST /admin/workflow/workflowtpl/ 200 [0.09, 127.0.0.1:63321]'
+'2021-04-12 14:12:15,201 [django.channels.server:147] [INFO]- HTTP POST /admin/workflow/workflowtpl/ 302 [0.10, 127.0.0.1:63321]'
+'2021-04-12 14:12:15,260 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.06, 127.0.0.1:63321]'
+'2021-04-12 14:12:15,323 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.04, 127.0.0.1:63321]'
+'2021-04-12 14:12:20,363 [django.channels.server:141] [INFO]- HTTP POST /admin/workflow/workflowtpl/ 200 [0.08, 127.0.0.1:63321]'
+'2021-04-12 14:12:21,307 [django.channels.server:147] [INFO]- HTTP POST /admin/workflow/workflowtpl/ 302 [0.08, 127.0.0.1:63321]'
+'2021-04-12 14:12:21,368 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.06, 127.0.0.1:63321]'
+'2021-04-12 14:12:21,428 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:63321]'
+'2021-04-12 14:12:22,517 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/1/change/ 200 [0.16, 127.0.0.1:63321]'
+'2021-04-12 14:12:22,576 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.04, 127.0.0.1:63321]'
+'2021-04-12 14:12:46,141 [django.channels.server:147] [INFO]- HTTP POST /admin/workflow/workflowtpl/1/change/ 302 [0.07, 127.0.0.1:63321]'
+'2021-04-12 14:12:46,218 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.07, 127.0.0.1:63321]'
+'2021-04-12 14:12:46,284 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.04, 127.0.0.1:63321]'
+'2021-04-12 14:12:48,727 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/1 200 [0.04, 127.0.0.1:63341]'
+'2021-04-12 14:13:26,238 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.04, 127.0.0.1:63348]'
+'2021-04-12 14:13:37,322 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1&name=dba 200 [0.04, 127.0.0.1:63352]'
+'2021-04-12 14:13:44,805 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=-1&page=1 200 [0.05, 127.0.0.1:63359]'
+'2021-04-12 14:13:44,837 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/ticket?page_size=10&page=1 200 [0.09, 127.0.0.1:63358]'
+'2021-04-12 14:13:45,793 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=15&page=1 200 [0.05, 127.0.0.1:63364]'
+'2021-04-12 14:13:46,699 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.04, 127.0.0.1:63368]'
+'2021-04-12 14:13:47,900 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=-1&page=1 200 [0.07, 127.0.0.1:63375]'
+'2021-04-12 14:13:47,921 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/ticket?page_size=10&page=1 200 [0.09, 127.0.0.1:63374]'
+'2021-04-12 14:13:52,106 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=15&page=1 200 [0.05, 127.0.0.1:63380]'
+'2021-04-12 14:13:54,139 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/19 200 [0.04, 127.0.0.1:63384]'
+'2021-04-12 14:13:56,770 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/ticket 200 [0.04, 127.0.0.1:63388]'
+'2021-04-12 14:13:58,032 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.04, 127.0.0.1:63392]'
+'2021-04-12 14:41:09,151 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 14:41:09,655 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 14:41:09,656 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 14:41:09,657 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 15:04:47,611 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.06, 127.0.0.1:63984]'
+'2021-04-12 15:04:48,087 [django.channels.server:141] [INFO]- HTTP GET /api/users/dashboard/sys 200 [0.06, 127.0.0.1:63988]'
+'2021-04-12 15:04:48,203 [django.channels.server:141] [INFO]- HTTP GET /api/users/dashboard/self 200 [0.04, 127.0.0.1:63990]'
+'2021-04-12 15:04:51,612 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.03, 127.0.0.1:63994]'
+'2021-04-12 15:04:53,353 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:63998]'
+'2021-04-12 15:07:17,612 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:64017]'
+'2021-04-12 15:07:17,651 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:64019]'
+'2021-04-12 15:07:53,318 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:64039]'
+'2021-04-12 15:07:53,475 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:64043]'
+'2021-04-12 15:10:47,665 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:64067]'
+'2021-04-12 15:12:29,705 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.06, 127.0.0.1:64080]'
+'2021-04-12 15:12:29,867 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.05, 127.0.0.1:64084]'
+'2021-04-12 15:12:32,574 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=15&page=1 200 [0.05, 127.0.0.1:64088]'
+'2021-04-12 15:12:35,045 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.04, 127.0.0.1:64092]'
+'2021-04-12 15:12:37,404 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/ticket 200 [0.04, 127.0.0.1:64096]'
+'2021-04-12 15:12:39,184 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=15&page=1 200 [0.05, 127.0.0.1:64101]'
+'2021-04-12 15:12:39,735 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.04, 127.0.0.1:64105]'
+'2021-04-12 15:16:08,628 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:64137]'
+'2021-04-12 15:16:08,840 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.06, 127.0.0.1:64141]'
+'2021-04-12 15:16:28,068 [django.channels.server:141] [INFO]- HTTP GET /admin/ 200 [0.13, 127.0.0.1:64153]'
+'2021-04-12 15:16:28,295 [django.channels.server:141] [INFO]- HTTP GET /admin/ 200 [0.07, 127.0.0.1:64153]'
+'2021-04-12 15:16:31,595 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.09, 127.0.0.1:64153]'
+'2021-04-12 15:16:31,662 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.04, 127.0.0.1:64153]'
+'2021-04-12 15:16:35,010 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/20/change/ 200 [0.13, 127.0.0.1:64153]'
+'2021-04-12 15:16:35,072 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.04, 127.0.0.1:64153]'
+'2021-04-12 15:16:40,027 [django.request:222] [WARNING]- Not Found: /api/v1/workflow/group/20'
+'2021-04-12 15:16:40,029 [django.channels.server:149] [WARNING]- HTTP GET /api/v1/workflow/group/20 404 [0.04, 127.0.0.1:64167]'
+'2021-04-12 15:17:08,343 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:64181]'
+'2021-04-12 15:17:08,779 [django.channels.server:141] [INFO]- HTTP GET /api/users/dashboard/sys 200 [0.05, 127.0.0.1:64185]'
+'2021-04-12 15:17:08,886 [django.channels.server:141] [INFO]- HTTP GET /api/users/dashboard/self 200 [0.04, 127.0.0.1:64187]'
+'2021-04-12 15:25:24,626 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.04, 127.0.0.1:64262]'
+'2021-04-12 15:25:25,837 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:64267]'
+'2021-04-12 15:25:33,282 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:64279]'
+'2021-04-12 15:25:33,428 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.03, 127.0.0.1:64283]'
+'2021-04-12 15:25:36,480 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.04, 127.0.0.1:64286]'
+'2021-04-12 15:25:37,374 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:64290]'
+'2021-04-12 15:25:38,965 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.04, 127.0.0.1:64294]'
+'2021-04-12 15:25:40,042 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/2 200 [0.04, 127.0.0.1:64299]'
+'2021-04-12 15:25:41,751 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=15&page=1 200 [0.05, 127.0.0.1:64303]'
+'2021-04-12 15:25:42,620 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.05, 127.0.0.1:64307]'
+'2021-04-12 15:25:44,134 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:64311]'
+'2021-04-12 15:33:43,705 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:64441]'
+'2021-04-12 15:33:43,858 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:64445]'
+'2021-04-12 15:38:36,896 [django.utils.autoreload:217] [INFO]- /Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py changed, reloading.'
+'2021-04-12 15:38:38,442 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 15:38:38,882 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 15:38:38,882 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 15:38:38,883 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 15:38:57,840 [django.utils.autoreload:217] [INFO]- /Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py changed, reloading.'
+'2021-04-12 15:38:58,823 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 15:38:59,155 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 15:38:59,155 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 15:38:59,156 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 15:43:20,181 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.06, 127.0.0.1:64529]'
+'2021-04-12 15:43:21,644 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.05, 127.0.0.1:64533]'
+'2021-04-12 15:43:35,623 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.06, 127.0.0.1:64538]'
+'2021-04-12 15:43:35,747 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.04, 127.0.0.1:64542]'
+'2021-04-12 15:43:37,628 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=15&page=1 200 [0.06, 127.0.0.1:64546]'
+'2021-04-12 15:43:41,200 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/21 200 [0.04, 127.0.0.1:64550]'
+'2021-04-12 15:43:42,409 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.04, 127.0.0.1:64555]'
+'2021-04-12 15:43:58,542 [django.channels.server:141] [INFO]- HTTP GET /admin/ 200 [0.19, 127.0.0.1:64565]'
+'2021-04-12 15:44:00,621 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.08, 127.0.0.1:64565]'
+'2021-04-12 15:44:00,688 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.04, 127.0.0.1:64565]'
+'2021-04-12 15:44:22,742 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:64585]'
+'2021-04-12 15:44:23,151 [django.channels.server:141] [INFO]- HTTP GET /api/users/dashboard/sys 200 [0.07, 127.0.0.1:64589]'
+'2021-04-12 15:44:23,267 [django.channels.server:141] [INFO]- HTTP GET /api/users/dashboard/self 200 [0.04, 127.0.0.1:64591]'
+'2021-04-12 15:44:37,557 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:64653]'
+'2021-04-12 15:44:38,211 [django.channels.server:141] [INFO]- HTTP GET /api/users/dashboard/sys 200 [0.06, 127.0.0.1:64661]'
+'2021-04-12 15:44:38,344 [django.channels.server:141] [INFO]- HTTP GET /api/users/dashboard/self 200 [0.05, 127.0.0.1:64663]'
+'2021-04-12 15:44:45,823 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:64706]'
+'2021-04-12 15:44:46,530 [django.channels.server:141] [INFO]- HTTP GET /api/users/dashboard/sys 200 [0.06, 127.0.0.1:64714]'
+'2021-04-12 15:44:46,657 [django.channels.server:141] [INFO]- HTTP GET /api/users/dashboard/self 200 [0.05, 127.0.0.1:64716]'
+'2021-04-12 15:46:33,415 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:65168]'
+'2021-04-12 15:46:34,070 [django.channels.server:141] [INFO]- HTTP GET /api/users/dashboard/sys 200 [0.07, 127.0.0.1:65172]'
+'2021-04-12 15:46:34,226 [django.channels.server:141] [INFO]- HTTP GET /api/users/dashboard/self 200 [0.07, 127.0.0.1:65174]'
+'2021-04-12 15:46:53,465 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.05, 127.0.0.1:65269]'
+'2021-04-12 15:46:54,167 [django.channels.server:141] [INFO]- HTTP GET /api/users/dashboard/sys 200 [0.07, 127.0.0.1:65273]'
+'2021-04-12 15:46:54,305 [django.channels.server:141] [INFO]- HTTP GET /api/users/dashboard/self 200 [0.05, 127.0.0.1:65275]'
+'2021-04-12 15:47:07,229 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.05, 127.0.0.1:65334]'
+'2021-04-12 15:47:27,786 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.03, 127.0.0.1:65435]'
+'2021-04-12 15:47:28,134 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/21 200 [0.06, 127.0.0.1:65438]'
+'2021-04-12 15:48:48,402 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/21 200 [0.05, 127.0.0.1:49387]'
+'2021-04-12 15:48:54,936 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.03, 127.0.0.1:49431]'
+'2021-04-12 15:48:55,223 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/21 200 [0.06, 127.0.0.1:49435]'
+'2021-04-12 15:49:38,366 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/21 200 [0.04, 127.0.0.1:49612]'
+'2021-04-12 15:50:08,343 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/21 200 [0.04, 127.0.0.1:49737]'
+'2021-04-12 15:50:48,269 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/21 200 [0.05, 127.0.0.1:49917]'
+'2021-04-12 15:50:48,289 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/21 200 [0.05, 127.0.0.1:49919]'
+'2021-04-12 15:51:38,263 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/21 200 [0.05, 127.0.0.1:50127]'
+'2021-04-12 15:51:38,271 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/21 200 [0.04, 127.0.0.1:50129]'
+'2021-04-12 15:52:10,410 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.03, 127.0.0.1:50276]'
+'2021-04-12 15:52:10,711 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/21 200 [0.07, 127.0.0.1:50279]'
+'2021-04-12 15:52:46,558 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.03, 127.0.0.1:50439]'
+'2021-04-12 15:52:46,871 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/21 200 [0.07, 127.0.0.1:50442]'
+'2021-04-12 15:53:58,427 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/21 200 [0.05, 127.0.0.1:50734]'
+'2021-04-12 15:54:08,708 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:50792]'
+'2021-04-12 15:54:09,074 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/21 200 [0.08, 127.0.0.1:50796]'
+'2021-04-12 15:54:31,295 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.03, 127.0.0.1:50900]'
+'2021-04-12 15:54:31,590 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/21 200 [0.06, 127.0.0.1:50904]'
+'2021-04-12 15:55:58,451 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/21 200 [0.05, 127.0.0.1:51275]'
+'2021-04-12 15:58:38,557 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/21 200 [0.05, 127.0.0.1:51928]'
+'2021-04-12 15:58:46,528 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.03, 127.0.0.1:51975]'
+'2021-04-12 15:58:46,836 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/21 200 [0.06, 127.0.0.1:51983]'
+'2021-04-12 15:58:58,416 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/21 200 [0.04, 127.0.0.1:52036]'
+'2021-04-12 15:59:02,433 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.03, 127.0.0.1:52066]'
+'2021-04-12 15:59:02,726 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/21 200 [0.07, 127.0.0.1:52073]'
+'2021-04-12 16:00:49,078 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 16:00:49,428 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 16:00:49,428 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 16:00:49,429 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 16:00:54,662 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:52547]'
+'2021-04-12 16:00:54,935 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/21 200 [0.07, 127.0.0.1:52550]'
+'2021-04-12 16:01:40,584 [django.utils.autoreload:217] [INFO]- /Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py changed, reloading.'
+'2021-04-12 16:01:41,648 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 16:01:41,988 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 16:01:41,988 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 16:01:41,989 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 16:02:27,260 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:52951]'
+'2021-04-12 16:02:27,603 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.08, 127.0.0.1:52959]'
+'2021-04-12 16:03:18,569 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 16:03:18,981 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 16:03:18,981 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 16:03:18,982 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 16:03:22,468 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:53194]'
+'2021-04-12 16:03:22,767 [django.request:222] [ERROR]- Internal Server Error: /api/v1/workflow/template/20'
+Traceback (most recent call last):
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/views.py", line 126, in retrieve
+    return JsonResponseV1(serializer.data)
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/serializers.py", line 562, in data
+    ret = super().data
+  File "/Users/pandonglin/code/YaSQL/yasql/venv/lib/python3.8/site-packages/rest_framework/serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "/Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py", line 40, in to_representation
+    print(ret["display_form"], json.loads(ret["display_form"]))
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/json/__init__.py", line 341, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not list
+'2021-04-12 16:03:22,771 [django.channels.server:154] [ERROR]- HTTP GET /api/v1/workflow/template/20 500 [0.09, 127.0.0.1:53202]'
+'2021-04-12 16:03:38,361 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 16:03:38,702 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 16:03:38,702 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 16:03:38,702 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 16:03:43,159 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:53298]'
+'2021-04-12 16:03:43,443 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.06, 127.0.0.1:53302]'
+'2021-04-12 16:06:58,645 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.05, 127.0.0.1:54134]'
+'2021-04-12 16:06:58,959 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.04, 127.0.0.1:54138]'
+'2021-04-12 16:07:16,470 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 16:07:16,819 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 16:07:16,819 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 16:07:16,820 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 16:07:38,597 [django.channels.server:141] [INFO]- HTTP PUT /api/v1/workflow/template/20 200 [0.05, 127.0.0.1:54311]'
+'2021-04-12 16:08:39,255 [django.channels.server:141] [INFO]- HTTP PUT /api/v1/workflow/template/20 200 [0.04, 127.0.0.1:54559]'
+'2021-04-12 16:10:16,602 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 16:10:16,941 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 16:10:16,942 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 16:10:16,942 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 16:10:29,089 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 16:10:29,434 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 16:10:29,434 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 16:10:29,435 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 16:10:32,128 [django.channels.server:141] [INFO]- HTTP PUT /api/v1/workflow/template/20 200 [0.05, 127.0.0.1:55034]'
+'2021-04-12 16:11:41,854 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 16:11:42,244 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 16:11:42,244 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 16:11:42,245 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 16:11:44,875 [django.channels.server:141] [INFO]- HTTP PUT /api/v1/workflow/template/20 200 [0.06, 127.0.0.1:55330]'
+'2021-04-12 16:12:22,805 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 16:12:23,162 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 16:12:23,162 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 16:12:23,163 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 16:12:31,984 [django.channels.server:141] [INFO]- HTTP PUT /api/v1/workflow/template/20 200 [0.05, 127.0.0.1:55534]'
+'2021-04-12 16:13:06,466 [django.channels.server:141] [INFO]- HTTP PUT /api/v1/workflow/template/20 200 [0.04, 127.0.0.1:55682]'
+'2021-04-12 16:15:06,385 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 16:15:06,727 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 16:15:06,727 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 16:15:06,727 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 16:15:39,734 [django.channels.server:141] [INFO]- HTTP PUT /api/v1/workflow/template/20 200 [0.05, 127.0.0.1:56313]'
+'2021-04-12 16:16:03,249 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 16:16:03,591 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 16:16:03,591 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 16:16:03,592 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 16:16:05,242 [django.channels.server:141] [INFO]- HTTP PUT /api/v1/workflow/template/20 200 [0.06, 127.0.0.1:56425]'
+'2021-04-12 16:16:45,740 [django.utils.autoreload:217] [INFO]- /Users/pandonglin/code/YaSQL/yasql/apps/workflow/views.py changed, reloading.'
+'2021-04-12 16:16:46,787 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 16:16:47,128 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 16:16:47,128 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 16:16:47,128 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 16:16:48,877 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.06, 127.0.0.1:56608]'
+'2021-04-12 16:17:07,193 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 16:17:07,532 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 16:17:07,532 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 16:17:07,533 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 16:17:18,303 [django.channels.server:141] [INFO]- HTTP PUT /api/v1/workflow/template/20 200 [0.08, 127.0.0.1:56733]'
+'2021-04-12 16:17:18,474 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.06, 127.0.0.1:56741]'
+'2021-04-12 16:18:26,911 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 16:18:27,266 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 16:18:27,266 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 16:18:27,267 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 16:18:31,055 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.06, 127.0.0.1:57039]'
+'2021-04-12 16:18:36,671 [django.channels.server:141] [INFO]- HTTP PUT /api/v1/workflow/template/20 200 [0.07, 127.0.0.1:57068]'
+'2021-04-12 16:18:36,810 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.06, 127.0.0.1:57072]'
+'2021-04-12 16:18:46,734 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.06, 127.0.0.1:57123]'
+'2021-04-12 16:18:58,979 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.05, 127.0.0.1:57175]'
+'2021-04-12 16:19:05,636 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.03, 127.0.0.1:57213]'
+'2021-04-12 16:19:05,944 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.06, 127.0.0.1:57221]'
+'2021-04-12 16:19:37,886 [django.channels.server:141] [INFO]- HTTP PUT /api/v1/workflow/template/20 200 [0.06, 127.0.0.1:57337]'
+'2021-04-12 16:19:38,061 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.04, 127.0.0.1:57341]'
+'2021-04-12 16:19:42,099 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.05, 127.0.0.1:57345]'
+'2021-04-12 16:19:44,533 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:57359]'
+'2021-04-12 16:19:44,711 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.05, 127.0.0.1:57363]'
+'2021-04-12 16:19:54,230 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/20/change/ 200 [0.18, 127.0.0.1:57365]'
+'2021-04-12 16:19:54,295 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.04, 127.0.0.1:57365]'
+'2021-04-12 16:20:01,599 [django.channels.server:141] [INFO]- HTTP PUT /api/v1/workflow/template/20 200 [0.07, 127.0.0.1:57373]'
+'2021-04-12 16:20:01,762 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.04, 127.0.0.1:57377]'
+'2021-04-12 16:20:03,662 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.04, 127.0.0.1:57381]'
+'2021-04-12 16:20:06,059 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.07, 127.0.0.1:57395]'
+'2021-04-12 16:20:06,235 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.04, 127.0.0.1:57399]'
+'2021-04-12 16:20:07,369 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/20/change/ 200 [0.18, 127.0.0.1:57365]'
+'2021-04-12 16:20:07,430 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:57365]'
+'2021-04-12 16:20:47,532 [django.channels.server:141] [INFO]- HTTP PUT /api/v1/workflow/template/20 200 [0.07, 127.0.0.1:57416]'
+'2021-04-12 16:20:47,703 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.06, 127.0.0.1:57420]'
+'2021-04-12 16:20:50,904 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.04, 127.0.0.1:57424]'
+'2021-04-12 16:20:53,460 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:57438]'
+'2021-04-12 16:20:53,627 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.05, 127.0.0.1:57442]'
+'2021-04-12 16:21:28,704 [django.channels.server:141] [INFO]- HTTP PUT /api/v1/workflow/template/20 200 [0.07, 127.0.0.1:57447]'
+'2021-04-12 16:21:28,878 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.05, 127.0.0.1:57451]'
+'2021-04-12 16:21:31,158 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.04, 127.0.0.1:57455]'
+'2021-04-12 16:21:32,698 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:57469]'
+'2021-04-12 16:21:32,866 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.05, 127.0.0.1:57473]'
+'2021-04-12 16:25:43,853 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.03, 127.0.0.1:57582]'
+'2021-04-12 16:25:44,124 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.05, 127.0.0.1:57590]'
+'2021-04-12 16:27:15,100 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 16:27:15,441 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 16:27:15,441 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 16:27:15,441 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 16:27:25,975 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:58013]'
+'2021-04-12 16:27:26,249 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.05, 127.0.0.1:58021]'
+'2021-04-12 16:27:38,536 [django.channels.server:141] [INFO]- HTTP PUT /api/v1/workflow/template/20 200 [0.08, 127.0.0.1:58077]'
+'2021-04-12 16:27:38,736 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.05, 127.0.0.1:58081]'
+'2021-04-12 16:27:41,063 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.05, 127.0.0.1:58093]'
+'2021-04-12 16:27:44,359 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.03, 127.0.0.1:58123]'
+'2021-04-12 16:27:44,721 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.07, 127.0.0.1:58127]'
+'2021-04-12 16:29:24,606 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.03, 127.0.0.1:58554]'
+'2021-04-12 16:29:24,921 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.06, 127.0.0.1:58558]'
+'2021-04-12 16:35:04,130 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.03, 127.0.0.1:59964]'
+'2021-04-12 16:35:04,418 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.06, 127.0.0.1:59968]'
+'2021-04-12 16:35:52,128 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.03, 127.0.0.1:60184]'
+'2021-04-12 16:35:52,421 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.06, 127.0.0.1:60188]'
+'2021-04-12 16:36:40,126 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.03, 127.0.0.1:60418]'
+'2021-04-12 16:36:40,410 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.06, 127.0.0.1:60421]'
+'2021-04-12 16:39:05,954 [django.channels.server:141] [INFO]- HTTP PUT /api/v1/workflow/template/20 200 [0.07, 127.0.0.1:61017]'
+'2021-04-12 16:39:06,149 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.05, 127.0.0.1:61021]'
+'2021-04-12 16:39:08,001 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=15&page=1 200 [0.05, 127.0.0.1:61033]'
+'2021-04-12 16:39:10,874 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/21 200 [0.04, 127.0.0.1:61052]'
+'2021-04-12 16:39:12,571 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=15&page=1 200 [0.05, 127.0.0.1:61065]'
+'2021-04-12 16:39:15,367 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.04, 127.0.0.1:61077]'
+'2021-04-12 16:39:20,591 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.05, 127.0.0.1:61105]'
+'2021-04-12 16:39:23,357 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.05, 127.0.0.1:61117]'
+'2021-04-12 16:39:23,576 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=15&page=1 200 [0.05, 127.0.0.1:61121]'
+'2021-04-12 16:39:24,391 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.05, 127.0.0.1:61129]'
+'2021-04-12 16:39:25,086 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.04, 127.0.0.1:61137]'
+'2021-04-12 16:39:31,726 [django.channels.server:141] [INFO]- HTTP PUT /api/v1/workflow/template/20 200 [0.07, 127.0.0.1:61169]'
+'2021-04-12 16:39:31,852 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.04, 127.0.0.1:61173]'
+'2021-04-12 16:39:33,810 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=15&page=1 200 [0.05, 127.0.0.1:61185]'
+'2021-04-12 16:39:36,616 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.04, 127.0.0.1:61201]'
+'2021-04-12 16:40:49,412 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.05, 127.0.0.1:61507]'
+'2021-04-12 16:40:52,129 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.03, 127.0.0.1:61534]'
+'2021-04-12 16:40:52,409 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.06, 127.0.0.1:61537]'
+'2021-04-12 16:40:57,699 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.03, 127.0.0.1:61571]'
+'2021-04-12 16:40:58,032 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.06, 127.0.0.1:61579]'
+'2021-04-12 16:43:09,408 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.05, 127.0.0.1:62131]'
+'2021-04-12 16:43:22,149 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:62198]'
+'2021-04-12 16:43:22,485 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.06, 127.0.0.1:62205]'
+'2021-04-12 16:43:28,768 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/ticket 200 [0.04, 127.0.0.1:62234]'
+'2021-04-12 16:43:35,794 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=15&page=1 200 [0.05, 127.0.0.1:62267]'
+'2021-04-12 16:43:36,560 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.04, 127.0.0.1:62275]'
+'2021-04-12 16:43:37,664 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.04, 127.0.0.1:62285]'
+'2021-04-12 16:43:48,588 [django.channels.server:141] [INFO]- HTTP PUT /api/v1/workflow/template/20 200 [0.06, 127.0.0.1:62327]'
+'2021-04-12 16:43:48,730 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.06, 127.0.0.1:62331]'
+'2021-04-12 16:43:50,256 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=15&page=1 200 [0.06, 127.0.0.1:62335]'
+'2021-04-12 16:43:51,941 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.04, 127.0.0.1:62339]'
+'2021-04-12 16:43:54,294 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.13, 127.0.0.1:62341]'
+'2021-04-12 16:43:54,358 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.04, 127.0.0.1:62341]'
+'2021-04-12 16:43:55,389 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.06, 127.0.0.1:62341]'
+'2021-04-12 16:43:55,450 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:62341]'
+'2021-04-12 16:43:58,357 [django.channels.server:141] [INFO]- HTTP POST /admin/workflow/workflowtpl/ 200 [0.09, 127.0.0.1:62341]'
+'2021-04-12 16:43:59,553 [django.channels.server:147] [INFO]- HTTP POST /admin/workflow/workflowtpl/ 302 [0.10, 127.0.0.1:62341]'
+'2021-04-12 16:43:59,635 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.08, 127.0.0.1:62341]'
+'2021-04-12 16:43:59,695 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.03, 127.0.0.1:62341]'
+'2021-04-12 16:44:05,503 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/ticket 200 [0.04, 127.0.0.1:62357]'
+'2021-04-12 16:44:11,325 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=15&page=1 200 [0.04, 127.0.0.1:62361]'
+'2021-04-12 16:44:11,982 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.05, 127.0.0.1:62365]'
+'2021-04-12 16:44:12,816 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/20 200 [0.05, 127.0.0.1:62369]'
+'2021-04-12 16:45:13,700 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/ticket?page_size=10&page=1 200 [0.07, 127.0.0.1:62379]'
+'2021-04-12 16:45:13,714 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=-1&page=1 200 [0.09, 127.0.0.1:62380]'
+'2021-04-12 16:45:14,961 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/ticket/32/log 200 [0.05, 127.0.0.1:62389]'
+'2021-04-12 16:45:14,965 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/ticket/32 200 [0.05, 127.0.0.1:62388]'
+'2021-04-12 16:45:17,789 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=15&page=1 200 [0.05, 127.0.0.1:62394]'
+'2021-04-12 16:45:19,321 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/1 200 [0.05, 127.0.0.1:62399]'
+'2021-04-12 16:45:20,950 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/ticket 200 [0.09, 127.0.0.1:62404]'
+'2021-04-12 16:45:22,594 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/ticket/33/log 200 [0.04, 127.0.0.1:62411]'
+'2021-04-12 16:45:22,596 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/ticket/33 200 [0.05, 127.0.0.1:62410]'
+'2021-04-12 16:45:27,020 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/ticket/33/action 200 [0.09, 127.0.0.1:62416]'
+'2021-04-12 16:45:27,101 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/ticket/33/log 200 [0.05, 127.0.0.1:62423]'
+'2021-04-12 16:45:27,104 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/ticket/33 200 [0.05, 127.0.0.1:62422]'
+'2021-04-12 16:45:33,145 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/ticket/33/action 200 [0.06, 127.0.0.1:62433]'
+'2021-04-12 16:45:33,217 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/ticket/33 200 [0.05, 127.0.0.1:62439]'
+'2021-04-12 16:45:33,219 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/ticket/33/log 200 [0.05, 127.0.0.1:62440]'
+'2021-04-12 16:45:37,413 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:62455]'
+'2021-04-12 16:45:37,598 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/ticket/33/log 200 [0.06, 127.0.0.1:62460]'
+'2021-04-12 16:45:37,606 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/ticket/33 200 [0.07, 127.0.0.1:62459]'
+'2021-04-12 16:45:40,957 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=-1&page=1 200 [0.05, 127.0.0.1:62464]'
+'2021-04-12 16:45:40,976 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/ticket?page_size=10&page=1 200 [0.07, 127.0.0.1:62463]'
+'2021-04-12 16:45:43,171 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=15&page=1 200 [0.04, 127.0.0.1:62469]'
+'2021-04-12 16:45:44,229 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.05, 127.0.0.1:62473]'
+'2021-04-12 16:45:50,050 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:62477]'
+'2021-04-12 16:46:19,617 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.06, 127.0.0.1:62481]'
+'2021-04-12 16:46:19,741 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.05, 127.0.0.1:62485]'
+'2021-04-12 16:46:21,779 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=15&page=1 200 [0.05, 127.0.0.1:62489]'
+'2021-04-12 16:46:23,795 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/22 200 [0.04, 127.0.0.1:62493]'
+'2021-04-12 16:52:57,920 [django.utils.autoreload:217] [INFO]- /Users/pandonglin/code/YaSQL/yasql/apps/workflow/serializers.py changed, reloading.'
+'2021-04-12 16:52:59,366 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 16:55:38,530 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 16:55:38,882 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 16:55:38,882 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 16:55:38,883 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 17:02:01,164 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.05, 127.0.0.1:62617]'
+'2021-04-12 17:02:01,356 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/22 200 [0.06, 127.0.0.1:62621]'
+'2021-04-12 17:04:14,044 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.05, 127.0.0.1:62644]'
+'2021-04-12 17:04:16,031 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:62648]'
+'2021-04-12 17:04:57,458 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.04, 127.0.0.1:62657]'
+'2021-04-12 17:05:06,223 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.04, 127.0.0.1:62662]'
+'2021-04-12 17:07:23,244 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.04, 127.0.0.1:62682]'
+'2021-04-12 17:08:49,843 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.05, 127.0.0.1:62708]'
+'2021-04-12 17:09:02,801 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:62723]'
+'2021-04-12 17:09:02,959 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.04, 127.0.0.1:62727]'
+'2021-04-12 17:09:24,296 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.04, 127.0.0.1:62742]'
+'2021-04-12 17:09:24,439 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group/1 200 [0.03, 127.0.0.1:62746]'
+'2021-04-12 17:09:37,155 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/template 200 [0.05, 127.0.0.1:62751]'
+'2021-04-12 17:09:37,330 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.06, 127.0.0.1:62755]'
+'2021-04-12 17:09:38,917 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=15&page=1 200 [0.05, 127.0.0.1:62759]'
+'2021-04-12 17:09:41,275 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/template/23 200 [0.04, 127.0.0.1:62763]'
+'2021-04-12 17:09:44,222 [django.channels.server:141] [INFO]- HTTP POST /api/v1/workflow/ticket 200 [0.04, 127.0.0.1:62767]'
+'2021-04-12 17:09:48,786 [django.channels.server:141] [INFO]- HTTP GET /admin/workflow/workflowtpl/ 200 [0.14, 127.0.0.1:62769]'
+'2021-04-12 17:09:48,851 [django.channels.server:141] [INFO]- HTTP GET /admin/jsi18n/ 200 [0.04, 127.0.0.1:62769]'
+'2021-04-12 20:13:11,777 [django.utils.autoreload:597] [INFO]- Watching for file changes with StatReloader'
+'2021-04-12 20:13:12,459 [daphne.server:110] [INFO]- HTTP/2 support not enabled (install the http2 and tls Twisted extras)'
+'2021-04-12 20:13:12,459 [daphne.server:119] [INFO]- Configuring endpoint tcp:port=8000:interface=127.0.0.1'
+'2021-04-12 20:13:12,460 [daphne.server:150] [INFO]- Listening on TCP address 127.0.0.1:8000'
+'2021-04-12 20:14:20,800 [django.channels.server:141] [INFO]- HTTP GET /api/users/info 200 [0.06, 127.0.0.1:49696]'
+'2021-04-12 20:14:21,317 [django.channels.server:141] [INFO]- HTTP GET /api/users/dashboard/sys 200 [0.06, 127.0.0.1:49700]'
+'2021-04-12 20:14:21,440 [django.channels.server:141] [INFO]- HTTP GET /api/users/dashboard/self 200 [0.05, 127.0.0.1:49702]'
+'2021-04-12 20:14:23,967 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=-1&page=1 200 [0.05, 127.0.0.1:49706]'
+'2021-04-12 20:14:24,009 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/ticket?page_size=10&page=1 200 [0.09, 127.0.0.1:49705]'
+'2021-04-12 20:14:25,387 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/summary?page_size=15&page=1 200 [0.04, 127.0.0.1:49712]'
+'2021-04-12 20:14:26,798 [django.channels.server:141] [INFO]- HTTP GET /api/v1/workflow/group?page_size=10&page=1 200 [0.05, 127.0.0.1:49716]'

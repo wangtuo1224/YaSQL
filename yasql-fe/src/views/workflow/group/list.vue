@@ -25,11 +25,25 @@
           size="middle"
           :scroll="{ x: 1100}"
           >
+          <template slot="instance" slot-scope="record">
+            <a href="#" @click="openModal(record)">{{ record.name }}</a>
+          </template>
           <template slot="action" slot-scope="record">
-            <a-button size="small" @click="openModal(record)">修改</a-button>
             <router-link :to="{ name: 'workflow.template.new', params: {pk: record.id}}">
               <a-button size="small" style="margin: 2px">新建流程</a-button>
             </router-link>
+            <a-dropdown :trigger="['click']">
+              <a class="ant-dropdown-link" @click="e => e.preventDefault()">
+                查看流程 <a-icon type="down" />
+              </a>
+              <a-menu slot="overlay">
+                <a-menu-item v-for="(item, index) in workflowTplData.filter(x => x.group.id===record.id)" :key="index" >
+                  <router-link :to="{ name: 'workflow.template.detail', params: {pk: item.id}}">
+                    <a-icon type="link" />{{ item.name }}
+                  </router-link>
+                </a-menu-item>
+              </a-menu>
+            </a-dropdown>
           </template>
         </a-table>
       </a-form>
@@ -37,7 +51,7 @@
     <a-modal v-model="visible" title="修改名称" ok-text="确认" cancel-text="取消" @ok="updateTpl">
       <a-form-model layout="inline" :model="curWorkflowGroup" @submit="updateTpl" @submit.native.prevent>
         <a-form-model-item>
-          <a-input v-model="curWorkflowGroup.name" placeholder="name" />
+          <a-input v-model="curWorkflowGroup.name" placeholder="name" style="width: 250px;" />
         </a-form-model-item>
       </a-form-model>
     </a-modal>
@@ -57,6 +71,7 @@ export default {
       loading: false,
       visible: false,
       workflowGroupData: null,
+      workflowTplData: null,
       curWorkflowGroup: {
         "id": null,
         "name": null,
@@ -82,7 +97,7 @@ export default {
         },
         {
           'title': '工单组名',
-          'dataIndex': 'name',
+          'scopedSlots': { customRender: 'instance' }
         },
         {
           'title': '操作',
@@ -94,6 +109,7 @@ export default {
 
   created() {
     this.fetchWorkflowGroupData()
+    this.fetchWorkflowTplData()
   },
 
   methods: {
@@ -106,6 +122,11 @@ export default {
       ticketFlowApi.getWorkflowGroup(params).then(resp => {
         this.workflowGroupData = resp.results
         this.pagination.total = resp.count
+      })
+    },
+    fetchWorkflowTplData() {
+      ticketFlowApi.getWorkflowTpl().then(resp => {
+        this.workflowTplData = resp.data
       })
     },
     handleSearch(e) {

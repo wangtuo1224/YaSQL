@@ -30,7 +30,7 @@ const route = {
       name: 'ticket.list',
       path: '/workflow/ticket/list',
       component: () => import('./ticket/list.vue'),
-      meta: { title: '工单审批', icon: 'rocket' }
+      meta: { title: '工单审批', icon: 'sound' }
     },
     {
       name: 'ticket.detail',
