@@ -48,6 +48,7 @@ class WorkflowSummary(GenericAPIView):
     pagination_class = Pagination
 
     def get(self, request, *args, **kwargs):
+        # TODO 只能看到授权的模版
         # my_queryset = models.WorkflowGroup.objects.filter(rg_group__user=request.user)
         my_queryset = models.WorkflowGroup.objects.all()
         page = self.paginate_queryset(my_queryset)
@@ -123,6 +124,86 @@ class WorkflowTemplate(ModelViewSet):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         return JsonResponseV1(serializer.data)
+
+
+class WorkflowState(ModelViewSet):
+    """流程状态"""
+    queryset = models.State.objects.all()
+    serializer_class = serializers.WorkflowStateSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponseV1(serializer.data)
+        return JsonResponseV1(code="0002", message=serializer.errors)
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponseV1(serializer.data)
+        return JsonResponseV1(code="0002", message=serializer.errors)
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.delete()
+        return JsonResponseV1()
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return JsonResponseV1(serializer.data)
+
+    def tpl_state(self, request, *args, **kwargs):
+        try:
+            tpl = models.WorkflowTpl.objects.get(pk=kwargs.get("pk"))
+            instance = tpl.wf_state.all()
+            serializer = self.get_serializer(instance, many=True)
+            return JsonResponseV1(serializer.data)
+        except:
+            return JsonResponseV1(code="0002", message="not found")
+
+
+class WorkflowTransition(ModelViewSet):
+    """状态转换"""
+    queryset = models.Transition.objects.all()
+    serializer_class = serializers.WorkflowTransitionSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponseV1(serializer.data)
+        return JsonResponseV1(code="0002", message=serializer.errors)
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponseV1(serializer.data)
+        return JsonResponseV1(code="0002", message=serializer.errors)
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.delete()
+        return JsonResponseV1()
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return JsonResponseV1(serializer.data)
+
+    def tpl_transition(self, request, *args, **kwargs):
+        try:
+            tpl = models.WorkflowTpl.objects.get(pk=kwargs.get("pk"))
+            instance = tpl.wf_transition.all()
+            serializer = self.get_serializer(instance, many=True)
+            return JsonResponseV1(serializer.data)
+        except:
+            return JsonResponseV1(code="0002", message="not found")
 
 
 class TicketFlow(GenericAPIView):

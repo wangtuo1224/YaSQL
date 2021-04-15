@@ -131,11 +131,11 @@ class State(BaseModel):
     )
     workflow = models.ForeignKey(WorkflowTpl, related_name="wf_state", on_delete=models.CASCADE, verbose_name="关联流程")
     name = models.CharField(max_length=64, verbose_name='状态名称')
+    order_id = models.IntegerField(default=0, verbose_name='状态顺序', help_text='用于工单步骤接口时，step上状态的顺序，值越小越靠前')
+    state_type = models.IntegerField(choices=STATE_TYPE, default=0, verbose_name='状态类型',
+                                     help_text="初始状态:新建工单时,获取对应的字段必填及transition信息，结束状态：此状态下的工单不再处理，即没有对应的transition")
     is_hidden = models.BooleanField(default=False, verbose_name='是否隐藏',
                                     help_text='设置为True时,获取工单步骤api中不显示此状态(当前处于此状态时除外)')
-    order_id = models.IntegerField(default=0, verbose_name='状态顺序', help_text='用于工单步骤接口时，step上状态的顺序，值越小越靠前')
-    state_type = models.IntegerField(choices=STATE_TYPE, default=0, verbose_name='状态类型id',
-                                     help_text="初始状态:新建工单时,获取对应的字段必填及transition信息，结束状态：此状态下的工单不得再处理，即没有对应的transition")
     participant_type = models.IntegerField(choices=PARTICIPANT_TYPE, default=1, verbose_name='操作人类型')
     participant = models.CharField(max_length=1024, null=True, blank=True, verbose_name='操作人',
                                    help_text='可以为空、用户\多用户(以,隔开)\部门id\角色id\变量(creator,creator_tl)\脚本记录的id等，包含子工作流的需要设置处理人为bot')
@@ -160,15 +160,15 @@ class Transition(BaseModel):
         (2, "其他")
     )
     workflow = models.ForeignKey(WorkflowTpl, related_name="wf_transition", on_delete=models.CASCADE, verbose_name="关联流程")
-    action = models.CharField(max_length=64, verbose_name='状态转换动作')
+    action = models.CharField(max_length=64, verbose_name='状态流转名称')
     transition_type = models.IntegerField(choices=TRANSITION_TYPE, verbose_name='流转类型', help_text='1.常规流转，2.其他')
     source_state = models.ForeignKey(State, related_name="state_source", on_delete=models.CASCADE, verbose_name='源状态')
-    destination_state = models.ForeignKey(State, related_name="state_destination", on_delete=models.CASCADE, verbose_name='目的状态')
+    destination_state = models.ForeignKey(State, related_name="state_destination", on_delete=models.CASCADE, verbose_name='目标状态')
+    attribute_type = models.IntegerField(default=1, verbose_name='属性类型', help_text='1.同意，2.拒绝，3.超时，4.其他')
     condition_expression = models.CharField(max_length=2048, default='[]', verbose_name='条件表达式',
                                             help_text='流转条件表达式，根据表达式中的条件来确定流转的下个状态')
-    attribute_type = models.IntegerField(default=1, verbose_name='属性类型', help_text='1.同意，2.拒绝，3.超时，4.其他')
-    field_require_check = models.BooleanField(default=True, verbose_name='是否校验必填项',
-                                              help_text='提交数据时需要校验工单表单的必填项。如"退回"属性的操作，不需要填写表单内容')
+    field_require_check = models.BooleanField(default=True, verbose_name='是否校验参数',
+                                              help_text='提交工单时需要校验数据。如"退回"属性的操作，表单不需要提交数据')
 
     class Meta:
         verbose_name = "流程状态流转"

@@ -13,8 +13,8 @@
             <a-list :grid="{ gutter: 16, column: 4 }" :data-source="group.children">
               <a-list-item slot="renderItem" slot-scope="item" class="ant-aaa">
                 <router-link :to="{ name: 'ticket.new', params: { pk: item.wf_id }}">
-                  <a-card>
-                    <a-list-item-meta :description="item.description">
+                  <a-card style="word-break: break-all;">
+                    <a-list-item-meta :description="item.description.length<40?item.description:item.description.substring(0,35)+'...'">
                       <a slot="title">{{ item.name }}</a>
                     </a-list-item-meta>
                   </a-card>

@@ -1,5 +1,5 @@
 <template>
-  <a-card :bordered="false" title="工单字段" style="margin: 5px">
+  <a-card :bordered="false" title="工单字段">
     <a-card v-for="(v, index) in keysInitialValue" :key="index">
       <a-row :gutter="10">
         <a-col :md="8" :sm="24">

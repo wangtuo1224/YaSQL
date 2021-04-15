@@ -1,7 +1,7 @@
 <template>
   <a-card>
     <div class="table-page-search-wrapper">
-      <a-form layout="inline" :form="form" @keyup.enter.native="handleSearch">
+      <a-form layout="inline" :form="form" @keyup.enter.native="handleSearch" v-if="workflowTplData">
         <a-row :gutter="48">
           <a-col :md="6" :sm="24" style="padding-right: 0px;" align="right">
             <a-form-item>
@@ -30,8 +30,9 @@
           </template>
           <template slot="action" slot-scope="record">
             <router-link :to="{ name: 'workflow.template.new', params: {pk: record.id}}">
-              <a-button size="small" style="margin: 2px">新建流程</a-button>
+              <a size="small" style="margin: 2px">新建流程</a>
             </router-link>
+            <a-divider type="vertical" />
             <a-dropdown :trigger="['click']">
               <a class="ant-dropdown-link" @click="e => e.preventDefault()">
                 查看流程 <a-icon type="down" />

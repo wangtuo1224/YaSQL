@@ -1,28 +1,31 @@
 <template>
-  <a-form :form="form" v-if="currentTplData.group">
-    <a-spin :spinning="pushing">
-      <a-card style="margin: 5px">
-        <a-row :gutter="48">
-          <a-col :md="18" :sm="18">
-            <h3>创建工作流程</h3>
-          </a-col>
-          <a-col :md="6" :sm="6">
-            <div style="text-align:right">
-              <a-button type="primary" style="margin: 5px" @click="handleNewTicket">提交</a-button>
-            </div>
-          </a-col>
-        </a-row>
-        <a-divider />
-        <WorkflowTpl
-          :currentTplData="currentTplData" 
-        />
-      </a-card>
-      <!-- 动态参数部分  -->
-      <CustomField 
-        :tplKwarg="tplKwarg"
-      />
-    </a-spin>
-  </a-form>
+  <a-card style="margin: 5px">
+    <a-tabs type="card" @change="callback">
+      <a-tab-pane key="1" tab="流程模版">
+        <a-spin :spinning="pushing">
+          <a-form :form="form" v-if="currentTplData.group">
+            <WorkflowTpl :currentTplData="currentTplData" @handlePushTpl="handlePushTpl" />
+            <!-- 动态参数部分  -->
+            <CustomField  :tplKwarg="tplKwarg" />
+          </a-form>
+        </a-spin>
+      </a-tab-pane>
+      <a-tab-pane key="2" tab="状态">
+        <a-spin :spinning="pushing">
+          <a-form :form="form">
+            <State :currentTplData="currentTplData" :currentTplState.sync="currentTplState" />
+          </a-form>
+        </a-spin>
+      </a-tab-pane>
+      <a-tab-pane key="3" tab="状态流转">
+        <a-spin :spinning="pushing">
+          <a-form :form="form">
+            <Transition :currentTplData="currentTplData" :currentTplState="currentTplState" />
+          </a-form>
+        </a-spin>
+      </a-tab-pane>
+    </a-tabs>
+  </a-card>
 </template>
 
 
@@ -31,13 +34,17 @@ import ticketFlowApi from "@/api/workflow.js"
 import notification from 'ant-design-vue/es/notification'
 import WorkflowTpl from './WorkflowTpl.vue'
 import CustomField from './CustomField.vue'
+import State from './State.vue'
+import Transition from './Transition.vue'
 
 
 export default {
   name: 'templateDetail',
   components: {
     WorkflowTpl,
-    CustomField
+    CustomField,
+    State,
+    Transition
   },
   props: {
     pk: [Number, String]
@@ -49,6 +56,7 @@ export default {
       currentTplData: {
         "group": null,
       },
+      currentTplState: [],
       tplKwarg: [], 
     }
   },
@@ -72,7 +80,10 @@ export default {
           })})
       })
     },
-    handleNewTicket (e) {
+    callback (data){
+      console.log(data)
+    }, 
+    handlePushTpl (e) {
       e.preventDefault()
       let data = {}
       this.form.validateFields((err, values) => {
@@ -133,7 +144,11 @@ export default {
         this.pushing = true
         ticketFlowApi.updateWorkflowTpl(this.pk, data).then(resp => {
           if (resp.code === "0000") {
-            this.$router.push({ name: 'workflow.group' })
+            this.currentTplData = { ...resp.data }
+            notification.info({
+              message: '更新工作流程',
+              description: "提交成功",
+            })
           } else {
             notification.error({
               message: '更新工作流程',

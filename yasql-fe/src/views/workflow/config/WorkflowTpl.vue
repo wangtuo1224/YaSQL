@@ -1,5 +1,16 @@
 <template>
-  <div>
+  <a-card>
+    <a-row :gutter="48">
+      <a-col :md="18" :sm="18">
+        <h3>工作流程</h3>
+      </a-col>
+      <a-col :md="6" :sm="6">
+        <div style="text-align:right">
+          <a-button type="primary" style="margin: 5px" @click="handleTicket">提交</a-button>
+        </div>
+      </a-col>
+    </a-row>
+    <a-divider />
     <a-form-item 
       label="流程组"
       :labelCol="{lg: {span: 4}, sm: {span: 4}}"
@@ -31,7 +42,7 @@
       :wrapperCol="{lg: {span: 16}, sm: {span: 20}}">
       <a-input v-decorator="decorator['display_form']" placeholder="提交工单时对用户可见字段" />
     </a-form-item>
-  </div>
+  </a-card>
 </template>
 
 
@@ -66,6 +77,9 @@ export default {
     }
   },
   methods: {
+    handleTicket(e) {
+      this.$emit('handlePushTpl', e)
+    },
   }
 }
 </script>

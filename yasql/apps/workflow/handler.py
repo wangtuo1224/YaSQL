@@ -20,8 +20,8 @@ class TicketFlow:
             return False, "工单已完成"
 
         if self.user.is_superuser:  # 超级管理员流程，加入到关联用户中
-            t_user_obj, _ = models.TicketFlowUser.objects.get_or_create(ticket=self.ticket_obj, state=self.data["state"],
-                                                                        username=self.user.username)
+            t_user_obj, _ = models.TicketFlowUser.objects.get_or_create(ticket=self.ticket_obj,
+                                                                        state=self.data["state"], username=self.user.username)
             t_user_obj.process = True
             t_user_obj.action = self.data["action"]
             t_user_obj.save()

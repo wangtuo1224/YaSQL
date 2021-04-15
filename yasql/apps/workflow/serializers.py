@@ -114,6 +114,52 @@ class WorkflowTplSerializer(serializers.ModelSerializer):
         return instance
 
 
+class WorkflowStateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.State
+        fields = "__all__"
+
+    def validate(self, data):
+        return data
+
+    def create(self, validated_data):
+        instance = models.State.objects.create(**validated_data)
+        return instance
+
+    def update(self, instance, validated_data):
+        for k, v in validated_data.items():
+            setattr(instance, k, v)
+        instance.save()
+        return instance
+
+
+class WorkflowTransitionSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Transition
+        fields = "__all__"
+
+    def to_representation(self, instance):
+        ret = super(WorkflowTransitionSerializer, self).to_representation(instance)
+        ret["source_state_name"] = instance.source_state.name
+        ret["destination_state_name"] = instance.destination_state.name
+        return ret
+
+    def validate(self, data):
+        return data
+
+    def create(self, validated_data):
+        instance = models.Transition.objects.create(**validated_data)
+        return instance
+
+    def update(self, instance, validated_data):
+        for k, v in validated_data.items():
+            setattr(instance, k, v)
+        instance.save()
+        return instance
+
+
 class TicketFlowSerializer(serializers.ModelSerializer):
     creator = serializers.CharField(read_only=True)
     state = serializers.CharField(read_only=True)
@@ -142,7 +188,12 @@ class TicketFlowSerializer(serializers.ModelSerializer):
     def create_ticket(self, user):
         data = self.validated_data
         # data["token"] = get_random_code(16)
-        data['creator'] = user.username or "nobody"
+        # TODO 检查用户是否有权限
+        # tpl = models.WorkflowTpl.objects.filter(user=user.username)
+        # if len(tpl) === 0:
+        #     raise serializers.ValidationError('对此工单没有操作权限')
+
+        data['creator'] = user.username
         field_kwargs = data.pop("field_kwargs")
         self.save()
 
