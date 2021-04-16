@@ -88,7 +88,7 @@ class WorkflowTplSerializer(serializers.ModelSerializer):
         if len(error_list) > 0:
             raise serializers.ValidationError('\n'.join(error_list))
         elif len(file_field) > 1:
-            raise serializers.ValidationError('每个工单只能有一个file类型的字段')
+            raise serializers.ValidationError('每个工单只能有一个附件类型的字段')
         else:
             data["field_kwargs"] = field_kwargs
             return data
@@ -115,12 +115,42 @@ class WorkflowTplSerializer(serializers.ModelSerializer):
 
 
 class WorkflowStateSerializer(serializers.ModelSerializer):
+    participant = serializers.ListField(write_only=True)
 
     class Meta:
         model = models.State
         fields = "__all__"
 
+    def to_representation(self, instance):
+        ret = super(WorkflowStateSerializer, self).to_representation(instance)
+        ret["participant"] = json.loads(instance.participant) if instance.participant else []
+        return ret
+
+    def validate_participant(self, data):
+        return json.dumps(data)
+
     def validate(self, data):
+        request = self.context["request"]
+        state_list = models.State.objects.filter(workflow=data["workflow"])
+        state_type_list = [x.state_type for x in state_list]
+        order_id_list = [x.order_id for x in state_list]
+
+        if request.method.upper() == "POST":   # 创建状态检测
+            if data["state_type"] == 1 and (1 in state_type_list):
+                raise serializers.ValidationError('初始状态已存在')
+            if data["state_type"] == 2 and (2 in state_type_list):
+                raise serializers.ValidationError('结束状态已存在')
+
+            if data["order_id"] in order_id_list:
+                raise serializers.ValidationError('状态顺序重复')
+
+        if request.method.upper() == "PUT":   # 更新状态检测
+            if data["state_type"] != self.instance.state_type and data["state_type"] == 1 and (1 in state_type_list):
+                raise serializers.ValidationError('初始状态已存在')
+            if data["state_type"] != self.instance.state_type and data["state_type"] == 2 and (2 in state_type_list):
+                raise serializers.ValidationError('结束状态已存在')
+            if data["order_id"] != self.instance.order_id and data["order_id"] in order_id_list:
+                raise serializers.ValidationError('状态顺序重复')
         return data
 
     def create(self, validated_data):
@@ -198,8 +228,9 @@ class TicketFlowSerializer(serializers.ModelSerializer):
         self.save()
 
         for k,v in field_kwargs.items():
-            name = self.instance.workflow.get_field_name(k)
-            models.TicketFlowField.objects.create(ticket=self.instance, field_name=name, field_key=k, field_value=v)
+            name, field_type = self.instance.workflow.get_field_attr(k)
+            models.TicketFlowField.objects.create(ticket=self.instance, field_name=name,
+                                                  field_type=field_type, field_key=k, field_value=v)
 
         models.TicketFlowLog.objects.create(ticket=self.instance, participant=user.username,
                                             state=self.instance.state_display, act_status=constant.TICKET_ACT_STATE_FINISH)

@@ -45,8 +45,9 @@
             :labelCol="{lg: {span: 6}, sm: {span: 24}}"
             :wrapperCol="{lg: {span: 18}, sm: {span: 24}}">
             <a-input-number
+              :min="1"
               placeholder="前端表单根据此值顺序展示"
-              v-decorator="[`${index}__order_id`, {rules: [{ required: true }], initialValue: v[`${index}__order_id`]}]" />
+              v-decorator="[`${index}__order_id`, {rules: [{ validator: checkOrderID }], validateTrigger: 'blur', initialValue: v[`${index}__order_id`]}]" />
           </a-form-item>
         </a-col>
         <a-col :md="8" :sm="24" v-if='filedFlag[index] !== "file"'>
@@ -109,6 +110,7 @@
 
 <script>
 
+
 export default {
   props: {
     tplKwarg: Array,
@@ -134,6 +136,7 @@ export default {
   },
   computed: {
     keysInitialValue() {
+      // console.log(this.tplKwarg)
       let initialValue = []
       for(var i=0; i<this.tplKwarg.length; i++) {
         let x = {}
@@ -148,8 +151,31 @@ export default {
     }
   },
   methods: {
+    checkOrderID(rule, value, callback) {
+      if(!value) {
+        callback(new Error("字段顺序必填"))
+      }
+      const kw = this.tplKwarg.filter(x => x.order_id.toString() === value)
+      if(kw.length > 1){
+        callback(new Error("字段顺序必须唯一"))
+      } else {
+        callback() 
+      } 
+    },
     filedChangeCategory(e, index) {
       this.filedFlag[index] = e
+      const data = {
+        "field_name": null,
+        "field_key": null,
+        "field_type": e,
+        "required": false,
+        "order_id": 1,
+        "default_value": null,
+        "placeholder": null,
+        "field_value": null,    
+      }
+      this.$set(this.tplKwarg, index, data)
+      this.$emit('update:tplKwarg', this.tplKwarg)
     },
     addField() {
       const item = {

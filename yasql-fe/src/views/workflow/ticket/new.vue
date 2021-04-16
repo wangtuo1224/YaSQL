@@ -54,7 +54,7 @@
                   <a-icon type="upload" /> {{ uploading ? '已上传' : '上传文件' }} 
                 </a-button>
               </a-upload>
-              <!-- 时间类型和用户类型待处理 -->
+              <!-- 用户类型待处理 -->
           </a-form-item>
         </div>
       </a-card>
@@ -77,6 +77,10 @@ export default {
       pushing: false,
       uploading: false,
       fileList: [],
+      fileObj: {
+        "key": null,
+        "value": null
+      },
       form: this.$form.createForm(this),
     }
   },
@@ -89,6 +93,8 @@ export default {
     getTicketTemplateData() {
       ticketFlowApi.getTicketTemplate(this.pk).then(resp => {
         this.tpl = resp.data
+        const f = this.tpl.display_form_field.filter(x => x.field_type ==='file')
+        this.fileObj["key"] = f[0]["field_key"]
       })
     },
     handleUpload(data) {
@@ -98,7 +104,7 @@ export default {
       ticketFlowApi.uploadFile(formData).then(resp => {
         if (resp.code === "0000") {
           this.fileList.push(data.file)
-          this.filePath = resp.data.file_name
+          this.fileObj["value"] = resp.data.file_name
         } else {
           this.$message.error("上传附件错误")
         }
@@ -121,13 +127,12 @@ export default {
         }
         // 增加附件
         if(this.fileList.length > 0) {
-          values["file"] = this.filePath
+          values[this.fileObj["key"]] = this.fileObj["value"]
         }
         const data = {
           "field_kwargs": values,
           "workflow": this.pk,
         }
-
         this.pushing = true
         ticketFlowApi.createTicket(data).then(resp => {
           if(resp.code === "0000") {

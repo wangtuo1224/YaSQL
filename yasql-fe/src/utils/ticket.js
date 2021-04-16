@@ -22,7 +22,7 @@ export const StateType = [
 ]
 
 export const DistributeType = [
-    {"key": "any", "value": "其中之一"},
+    {"key": "any", "value": "其中一人"},
     {"key": "all", "value": "所有人"},
 ]
 
@@ -37,7 +37,7 @@ export const ParticipantType = [
 ]
 
 export const TransitionType = [
-    {"key": 1, "value": "常规流转"},
+    {"key": 1, "value": "常规"},
     {"key": 2, "value": "其他"},
 ]
 

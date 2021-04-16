@@ -46,11 +46,11 @@ class WorkflowTpl(BaseModel):
     def __str__(self):
         return self.name
 
-    def get_field_name(self, key):
-        f = self.wf_field.filter(field_key=key)
+    def get_field_attr(self, key):
+        f = self.wf_field.filter(field_key=key).first()
         if f:
-            return f[0].field_name
-        return key
+            return f.field_name, f.field_type
+        return '', ''
 
     @property
     def all_state(self):
@@ -140,8 +140,6 @@ class State(BaseModel):
     participant = models.CharField(max_length=1024, null=True, blank=True, verbose_name='操作人',
                                    help_text='可以为空、用户\多用户(以,隔开)\部门id\角色id\变量(creator,creator_tl)\脚本记录的id等，包含子工作流的需要设置处理人为bot')
     distribute_type = models.CharField(choices=DISTRIBUTE_TYPE, max_length=32, verbose_name='流转方式', help_text='any其中一人处理即可，all所有人都要处理')
-    #'json格式字典存储,包括读写属性1：只读，2：必填，3：可选. 示例：{"created_at":1,"title":2, "sn":1},
-    state_field_str = models.TextField(default='{}', verbose_name='表单字段')
 
     class Meta:
         verbose_name = "流程状态"
@@ -156,16 +154,16 @@ class State(BaseModel):
 class Transition(BaseModel):
     """流程流转，条件(允许跳过)"""
     TRANSITION_TYPE = (
-        (1, "常规流转"),
+        (1, "常规"),
         (2, "其他")
     )
     workflow = models.ForeignKey(WorkflowTpl, related_name="wf_transition", on_delete=models.CASCADE, verbose_name="关联流程")
-    action = models.CharField(max_length=64, verbose_name='状态流转名称')
+    action = models.CharField(max_length=64, verbose_name='流转名称')
     transition_type = models.IntegerField(choices=TRANSITION_TYPE, verbose_name='流转类型', help_text='1.常规流转，2.其他')
     source_state = models.ForeignKey(State, related_name="state_source", on_delete=models.CASCADE, verbose_name='源状态')
     destination_state = models.ForeignKey(State, related_name="state_destination", on_delete=models.CASCADE, verbose_name='目标状态')
     attribute_type = models.IntegerField(default=1, verbose_name='属性类型', help_text='1.同意，2.拒绝，3.超时，4.其他')
-    condition_expression = models.CharField(max_length=2048, default='[]', verbose_name='条件表达式',
+    condition_expression = models.CharField(max_length=2048, null=True, blank=True, verbose_name='条件表达式',
                                             help_text='流转条件表达式，根据表达式中的条件来确定流转的下个状态')
     field_require_check = models.BooleanField(default=True, verbose_name='是否校验参数',
                                               help_text='提交工单时需要校验数据。如"退回"属性的操作，表单不需要提交数据')
@@ -215,7 +213,7 @@ class TicketFlow(models.Model):
 
     @property
     def all_ticket_field(self):
-        return [{"name": x.field_name, "key": x.field_key, "value": x.field_value} for x in self.tf_filed.all()]
+        return [{"name": x.field_name, "type": x.field_type, "key": x.field_key, "value": x.field_value} for x in self.tf_filed.all()]
 
     @property
     def state_display(self):
@@ -237,6 +235,7 @@ class TicketFlowField(BaseModel):
     """工单自定义字段， 工单自定义字段实际的值"""
     ticket = models.ForeignKey(TicketFlow, related_name="tf_filed", on_delete=models.CASCADE, verbose_name="工单")
     field_name = models.CharField(max_length=64, verbose_name="字段名称")
+    field_type = models.CharField(max_length=32, verbose_name="字段类型")
     field_key = models.CharField(max_length=64, verbose_name="字段key")
     field_value = models.CharField(max_length=2048, null=True, blank=True, verbose_name='字符串值')
 

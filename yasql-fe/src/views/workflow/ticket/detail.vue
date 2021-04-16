@@ -30,7 +30,8 @@
         <a-col :md="24" :sm="24">
           <a-descriptions size="small" :column="2">
             <a-descriptions-item v-for="(f, index) in ticketFlowInfo.field_kwargs" :key="index" :label="f.name">
-              {{ f.value }}
+              <a :href="f.value" v-if="f.type==='file'">点击下载</a>
+              <span v-else>{{ f.value }}</span>
             </a-descriptions-item>
           </a-descriptions>
         </a-col>

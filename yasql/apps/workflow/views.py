@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 # by pandonglin
-import logging
+import logging, os
 from django.http import Http404
 from libs.response import JsonResponseV1
 from libs.Pagination import Pagination
@@ -16,30 +16,29 @@ logger = logging.getLogger("main")
 
 
 class UploadFileView(APIView):
-    pass
-#     def post(self, request):
-#         file_name = request.FILES.get('file')
-#         if file_name is None:
-#             return ErrorResponse(error="未发现可上传文件")
-#
-#         try:
-#             if not os.path.exists("media/autotask"):
-#                 os.makedirs("media/autotask")
-#
-#             os_file_path = os.path.join('media/autotask', file_name.name)
-#             if os.path.exists(os_file_path):
-#                 os.remove(os_file_path)
-#
-#             f = open(os_file_path, 'wb')
-#             for chunk in file_name.chunks():  # 循环读取文件的内容
-#                 f.write(chunk)
-#             f.close()
-#
-#             logger.info("UploadFileView %s upload success" % os_file_path)
-#             return JsonResponse({"file_name": os_file_path})
-#         except Exception as error:
-#             logger.error("UploadFileView %s upload error: %s" % error)
-#             return ErrorResponse(error=error)
+    def post(self, request):
+        file_name = request.FILES.get('file')
+        if file_name is None:
+            return JsonResponseV1(code="0002", message="未发现可上传文件")
+
+        try:
+            if not os.path.exists("media/workflow"):
+                os.makedirs("media/workflow")
+
+            os_file_path = os.path.join('media/workflow', file_name.name)
+            if os.path.exists(os_file_path):
+                os.remove(os_file_path)
+
+            f = open(os_file_path, 'wb')
+            for chunk in file_name.chunks():  # 循环读取文件的内容
+                f.write(chunk)
+            f.close()
+
+            logger.info("UploadFileView %s upload success" % os_file_path)
+            return JsonResponseV1(data={"file_name": os_file_path})
+        except Exception as error:
+            logger.error("UploadFileView %s upload error: %s" % error)
+            return JsonResponseV1(code="0002", message=error)
 
 
 class WorkflowSummary(GenericAPIView):

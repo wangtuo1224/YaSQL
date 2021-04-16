@@ -6,7 +6,7 @@
           <a-form :form="form" v-if="currentTplData.group">
             <WorkflowTpl :currentTplData="currentTplData" @handlePushTpl="handlePushTpl" />
             <!-- 动态参数部分  -->
-            <CustomField  :tplKwarg="tplKwarg" />
+            <CustomField :tplKwarg.sync="tplKwarg" />
           </a-form>
         </a-spin>
       </a-tab-pane>
