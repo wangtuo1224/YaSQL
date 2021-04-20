@@ -28,12 +28,10 @@ export const DistributeType = [
 
 export const ParticipantType = [
     {"key": 1, "value": "个人"},
-    {"key": 2, "value": "多人"},
-    {"key": 3, "value": "部门"},
-    {"key": 4, "value": "角色"},
-    {"key": 5, "value": "机器人"},
-    {"key": 6, "value": "工单字段"},
-    {"key": 7, "value": "Hook"},
+    {"key": 2, "value": "角色"},
+    {"key": 3, "value": "机器人"},
+    {"key": 4, "value": "工单字段"},
+    {"key": 5, "value": "Hook"},
 ]
 
 export const TransitionType = [

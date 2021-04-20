@@ -94,7 +94,9 @@ export default {
       ticketFlowApi.getTicketTemplate(this.pk).then(resp => {
         this.tpl = resp.data
         const f = this.tpl.display_form_field.filter(x => x.field_type ==='file')
-        this.fileObj["key"] = f[0]["field_key"]
+        if(f.length >0) {
+          this.fileObj["key"] = f[0]["field_key"]
+        }
       })
     },
     handleUpload(data) {

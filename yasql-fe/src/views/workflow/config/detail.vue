@@ -1,6 +1,6 @@
 <template>
   <a-card style="margin: 5px">
-    <a-tabs type="card" @change="callback">
+    <a-tabs type="card">
       <a-tab-pane key="1" tab="流程模版">
         <a-spin :spinning="pushing">
           <a-form :form="form" v-if="currentTplData.group">
@@ -11,18 +11,14 @@
         </a-spin>
       </a-tab-pane>
       <a-tab-pane key="2" tab="状态">
-        <a-spin :spinning="pushing">
-          <a-form :form="form">
-            <State :currentTplData="currentTplData" :currentTplState.sync="currentTplState" />
-          </a-form>
-        </a-spin>
+        <a-form :form="form">
+          <State :currentTplData="currentTplData" :currentTplState.sync="currentTplState" />
+        </a-form>
       </a-tab-pane>
       <a-tab-pane key="3" tab="状态流转">
-        <a-spin :spinning="pushing">
-          <a-form :form="form">
-            <Transition :currentTplData="currentTplData" :currentTplState="currentTplState" />
-          </a-form>
-        </a-spin>
+        <a-form :form="form">
+          <Transition :currentTplData="currentTplData" :currentTplState="currentTplState" />
+        </a-form>
       </a-tab-pane>
     </a-tabs>
   </a-card>
@@ -80,8 +76,8 @@ export default {
           })})
       })
     },
-    callback (data){
-      console.log(data)
+    callback (key){
+      this.activeKey = key
     }, 
     handlePushTpl (e) {
       e.preventDefault()

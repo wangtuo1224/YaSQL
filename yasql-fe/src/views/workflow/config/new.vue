@@ -1,6 +1,6 @@
 <template>
   <a-card style="margin: 5px">
-    <a-tabs type="card" @change="callback">
+    <a-tabs type="card" :activeKey="activeKey" @change="callback">
       <a-tab-pane key="1" tab="流程模版">
         <a-spin :spinning="pushing">
           <a-form :form="form" v-if="currentTplData.group">
@@ -10,19 +10,15 @@
           </a-form>
         </a-spin>
       </a-tab-pane>
-      <a-tab-pane key="2" tab="状态">
-        <a-spin :spinning="pushing">
-          <a-form :form="form">
-            <State :currentTplData="currentTplData" :currentTplState.sync="currentTplState" />
-          </a-form>
-        </a-spin>
+      <a-tab-pane key="2" tab="状态" :disabled="disableTab">
+        <a-form :form="form">
+          <State :currentTplData="currentTplData" :currentTplState.sync="currentTplState" />
+        </a-form>
       </a-tab-pane>
-      <a-tab-pane key="3" tab="状态流转">
-        <a-spin :spinning="pushing">
-          <a-form :form="form">
-            <Transition :currentTplData="currentTplData" :currentTplState="currentTplState" />
-          </a-form>
-        </a-spin>
+      <a-tab-pane key="3" tab="状态流转" :disabled="disableTab">
+        <a-form :form="form">
+          <Transition :currentTplData="currentTplData" :currentTplState="currentTplState" />
+        </a-form>
       </a-tab-pane>
     </a-tabs>
   </a-card>
@@ -52,6 +48,8 @@ export default {
   data () {
     return {
       pushing: false,
+      disableTab: true,
+      activeKey: '1',
       form: this.$form.createForm(this),
       currentTplData: {
         "group": null,
@@ -72,8 +70,8 @@ export default {
         this.currentTplData["group"] = resp.data
       })
     },
-    callback (data){
-      console.log(data)
+    callback (key){
+      this.activeKey = key
     }, 
     handlePushTpl (e) {
       e.preventDefault()
@@ -138,6 +136,8 @@ export default {
         ticketFlowApi.createWorkflowTpl(data).then(resp => {
           if (resp.code === "0000") {
             this.currentTplData = { ...resp.data }
+            this.disableTab = false
+            this.activeKey = '2'
             notification.info({
               message: '新建工作流程',
               description: "提交成功",
