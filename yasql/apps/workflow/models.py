@@ -162,7 +162,7 @@ class Transition(BaseModel):
     transition_type = models.IntegerField(choices=TRANSITION_TYPE, verbose_name='流转类型', help_text='1.常规流转，2.其他')
     source_state = models.ForeignKey(State, related_name="state_source", on_delete=models.CASCADE, verbose_name='源状态')
     destination_state = models.ForeignKey(State, related_name="state_destination", on_delete=models.CASCADE, verbose_name='目标状态')
-    attribute_type = models.IntegerField(default=1, verbose_name='属性类型', help_text='1.同意，2.拒绝，3.超时，4.其他')
+    attribute_type = models.IntegerField(default=1, verbose_name='属性类型', help_text='1.同意，2.拒绝，3.其他')
     condition_expression = models.CharField(max_length=2048, null=True, blank=True, verbose_name='条件表达式',
                                             help_text='流转条件表达式，根据表达式中的条件来确定流转的下个状态')
     field_require_check = models.BooleanField(default=True, verbose_name='是否校验参数',
@@ -172,6 +172,7 @@ class Transition(BaseModel):
         verbose_name = "流程状态流转"
         verbose_name_plural = verbose_name
         db_table = 'yasql_workflow_transition'
+        unique_together = ["source_state", "destination_state", "attribute_type"]
         ordering = ('-workflow__id', 'destination_state')
 
     def __str__(self):
@@ -189,8 +190,7 @@ class TicketFlow(models.Model):
     parent_ticket_id = models.IntegerField(default=0, verbose_name="父工单id")
     participant = models.CharField(max_length=32, null=True, blank=True, verbose_name="当前处理人")
     act_status = models.IntegerField(choices=TICKET_ACT_STATE_MAP, default=1, verbose_name="操作状态")
-    multi_all_person = models.CharField(max_length=1024, null=True, blank=True, verbose_name="全部处理的结果", help_text='需要当前状态处理人全部处理时实际的处理结果，json格式')
-    run_result = models.TextField(default='', verbose_name="执行结果")
+    multi_result = models.TextField(null=True, blank=True, verbose_name="全部处理的结果", help_text='当前状态处理人全部处理时实际的处理结果，json格式')
 
     class Meta:
         verbose_name = '工单'
@@ -224,6 +224,9 @@ class TicketFlow(models.Model):
 
     @property
     def next_state(self):
+        if self.act_status in TICKET_ACT_STATE_END:
+            return None
+
         cur_state = State.objects.filter(pk=self.state).first()
         if cur_state:  # 当前状态非完成状态
             next_state_obj = State.objects.filter(workflow=self.workflow, order_id__gt=cur_state.order_id).order_by("order_id").first()

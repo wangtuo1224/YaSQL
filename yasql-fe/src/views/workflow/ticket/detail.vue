@@ -89,7 +89,7 @@
         <a-icon type="frown-o"/>暂无数据
       </div>
     </a-card>
-    <a-modal v-model="visible" :title="allState[currentState].name">
+    <a-modal v-model="visible" :title="allState[currentState+1].name" v-if="currentState<(allState.length-1)">
       <template slot="footer">
         <a-button :disabled="pushing" @click="handleTicketFlow('deny')">驳回</a-button>
         <a-button type="primary" :disabled="pushing" @click="handleTicketFlow('allow')">通过</a-button>

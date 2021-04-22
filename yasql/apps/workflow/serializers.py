@@ -127,6 +127,9 @@ class WorkflowStateSerializer(serializers.ModelSerializer):
         return ret
 
     def validate_participant(self, data):
+        set_data = set(data)
+        if len(set_data) != len(data):
+            raise serializers.ValidationError('操作人不能重复')
         return json.dumps(data)
 
     def validate(self, data):
@@ -218,10 +221,6 @@ class TicketFlowSerializer(serializers.ModelSerializer):
     def create_ticket(self, user):
         data = self.validated_data
         # data["token"] = get_random_code(16)
-        # TODO 检查用户是否有权限
-        # tpl = models.WorkflowTpl.objects.filter(user=user.username)
-        # if len(tpl) === 0:
-        #     raise serializers.ValidationError('对此工单没有操作权限')
 
         data['creator'] = user.username
         field_kwargs = data.pop("field_kwargs")
