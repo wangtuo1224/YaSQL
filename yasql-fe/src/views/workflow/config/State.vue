@@ -52,7 +52,7 @@
           </a-tooltip>
         </a-form-model-item>
         <a-form-model-item label="类型" required prop="state_type">
-          <a-select v-model="curRecord.state_type" placeholder="状态类型">
+          <a-select v-model="curRecord.state_type" @change="handleChangeStateType" placeholder="状态类型">
             <a-select-option v-for="item in stateType" :key="item.key" :value="item.key">
               {{ item.value }}
             </a-select-option>
@@ -61,26 +61,53 @@
             <a-icon type="question-circle" />
           </a-tooltip>
         </a-form-model-item>
-        <a-form-model-item label="操作人类型" required prop="participant_type">
-          <a-select v-model="curRecord.participant_type" placeholder="操作人类型">
+        <a-form-model-item label="操作人类型">
+          <a-select v-model="curRecord.participant_type" 
+            :disabled="curRecord.state_type===1" 
+            @change="handleChangeParticipantType" placeholder="操作人类型">
             <a-select-option v-for="item in participantType" :key="item.key" :value="item.key">
               {{ item.value }}
             </a-select-option>
           </a-select>
         </a-form-model-item>
-        <a-form-model-item label="操作人" prop="participant">
-          <a-select v-model="curRecord.participant" mode="tags" placeholder="请输入相关操作人，不是必填项">
-          </a-select>
+        <a-form-model-item label="操作人">
+          <div v-if="curRecord.participant_type===1">
+            <a-select v-model="curRecord.participant" mode="tags" placeholder="请输入相关操作人">
+            </a-select>
+          </div>
+          <div v-else-if="curRecord.participant_type===2">
+            <a-select v-model="curRecord.participant" mode="tags" placeholder="请输入相关角色">
+              <a-select-option v-for="item in RoleList" :key="item.rid" :value="item.role_name">
+                {{ item.role_name }}
+              </a-select-option>
+            </a-select>
+          </div>
+          <div v-else-if="curRecord.participant_type===4">
+            <a-select v-model="curRecord.participant" mode="tags" placeholder="请输入工单字段">
+              <a-select-option v-for="item in tplKwarg" :key="item.field_key" :value="item.field_key">
+                {{ item.field_name }}
+              </a-select-option>
+            </a-select>
+          </div>
+          <div v-else>
+            <a-select v-model="curRecord.participant" disabled mode="tags" placeholder="请输入相关操作人">
+            </a-select>
+          </div>
         </a-form-model-item>
-        <a-form-model-item label="流转方式" required prop="distribute_type">
-          <a-select v-model="curRecord.distribute_type" placeholder="审核：其中一人处理，还是所有人都要处理">
+        <a-form-model-item label="流转方式">
+          <a-select v-model="curRecord.distribute_type" 
+            :disabled="curRecord.state_type===1 || [2, 3, 5].indexOf(curRecord.participant_type) >= 0"
+            placeholder="审核：其中一人处理，还是所有人都要处理">
             <a-select-option v-for="item in distributeType" :key="item.key" :value="item.key">
               {{ item.value }}
             </a-select-option>
           </a-select>
         </a-form-model-item>
-        <a-form-model-item label="是否隐藏">
+        <a-form-model-item label="隐藏此状态">
           <a-switch v-model="curRecord.is_hidden" />
+          <a-tooltip placement="rightBottom" title="前端页面不展示此阶段状态">
+            <a-icon type="question-circle" style="margin-left: 10px" />
+          </a-tooltip>
         </a-form-model-item>
       </a-form-model>
     </a-modal>
@@ -105,6 +132,8 @@ export default {
       visible: false,
       curRecord: null,
       stateData: [],
+      RoleList: [],
+      tplKwarg: [],
       stateType: StateType,
       distributeType: DistributeType,
       participantType: ParticipantType,
@@ -149,8 +178,6 @@ export default {
         ],
         order_id: [{ required: true, message: '必须填写', trigger: 'blur' }],
         state_type: [{ required: true, message: '必须选择', trigger: 'change' }],
-        participant_type: [{ required: true, message: '必须选择', trigger: 'change' }],
-        distribute_type: [{ required: true, message: '必须选择', trigger: 'change' }],
       },
     }
   },
@@ -181,6 +208,8 @@ export default {
   },
   created() {
     this.fetchStateData()
+    this.fetchUserRole()
+    this.fetchtplKwarg()
   },
   methods: {
     fetchStateData() {
@@ -188,6 +217,30 @@ export default {
         this.stateData = resp.data
         this.$emit('update:currentTplState', this.stateData)
       })
+    },
+    fetchUserRole() {
+      ticketFlowApi.getUserRole().then(resp => {
+        this.RoleList = resp.data
+      })
+    },
+    fetchtplKwarg(){
+      ticketFlowApi.getTicketTemplate(this.currentTplData.id).then(resp => {
+        const data = resp.data
+        this.tplKwarg = data.display_form_field
+      })
+    },
+    handleChangeStateType(value) {
+      if(value === 1){
+        delete this.curRecord.participant_type
+        delete this.curRecord.participant
+        delete this.curRecord.distribute_type
+      }
+    },
+    handleChangeParticipantType(value) {
+      delete this.curRecord.participant
+      if([2, 3, 5].indexOf(value) >= 0){
+        delete this.curRecord.distribute_type
+      }
     },
     newState () {
       this.visible = true

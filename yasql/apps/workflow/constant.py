@@ -49,24 +49,6 @@ TRANSITION_ATTRIBUTE_TYPE_REFUSE = 2  # 拒绝
 TRANSITION_ATTRIBUTE_TYPE_TIMEOUT = 3   # 超时
 TRANSITION_ATTRIBUTE_TYPE_OTHER = 4   # 其他
 
-TRANSITION_INTERVENE_TYPE_DELIVER = 1  # 转交操作
-TRANSITION_INTERVENE_TYPE_ADD_NODE = 2  # 加签操作
-TRANSITION_INTERVENE_TYPE_ADD_NODE_END = 3  # 加签处理完成
-TRANSITION_INTERVENE_TYPE_ACCEPT = 4  # 接单操作
-TRANSITION_INTERVENE_TYPE_COMMENT = 5  # 评论操作
-TRANSITION_INTERVENE_TYPE_DELETE = 6  # 删除操作
-TRANSITION_INTERVENE_TYPE_CLOSE = 7   # 强制关闭操作
-TRANSITION_INTERVENE_TYPE_ALTER_STATE = 8  # 强制修改状态操作
-TRANSITION_INTERVENE_TYPE_HOOK = 9  # hook操作
-TRANSITION_INTERVENE_TYPE_RETREAT = 10  # 撤回
-
 FIELD_ATTRIBUTE_RO = 1  # 只读
 FIELD_ATTRIBUTE_REQUIRED = 2  # 必填
 FIELD_ATTRIBUTE_OPTIONAL = 3  # 可选
-
-TICKET_PERMISSION_HANDLE = 1  # 处理权限
-TICKET_PERMISSION_VIEW = 2    # 查看权限
-
-TICKET_BASE_FIELD_LIST = ['id', 'sn', 'title', 'state_id', 'parent_ticket_id', 'parent_ticket_state_id',
-                               'participant_type_id', 'participant', 'workflow_id', 'ticket_type_id',
-                               'creator', 'is_deleted', 'gmt_created', 'gmt_modified', 'script_run_last_result']

@@ -60,6 +60,17 @@ class UserInfo(APIView):
         return JsonResponseV1(data=user.data)
 
 
+class GetRole(ListAPIView):
+    """获取系统角色"""
+    queryset = models.UserRoles.objects.all()
+    serializer_class = serializers.UserRoleSerializer
+
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return JsonResponseV1(data=serializer.data)
+
+
 class GetUsers(ListAPIView):
     queryset = models.UserAccounts.objects.all()
     serializer_class = serializers.UsersListSerializer

@@ -237,7 +237,10 @@ class TicketFlowDetail(GenericAPIView):
 
     def get(self, request, *args, **kwargs):
         queryset = self.get_object()
-        serializer = self.get_serializer(queryset)
+        if queryset.workflow.all_view or request.user.username == queryset.creator or request.user.username in queryset.relation_user:
+            serializer = self.get_serializer(queryset)
+        else:
+            raise Http404
         return JsonResponseV1(serializer.data)
 
 
@@ -245,8 +248,8 @@ class TicketFlowAction(APIView):
     """更新工单状态"""
     def get_obj(self, pk):
         try:
-            task_obj = models.TicketFlow.objects.get(pk=pk)
-            return task_obj
+            ticket_obj = models.TicketFlow.objects.get(pk=pk)
+            return ticket_obj
         except models.TicketFlow.DoesNotExist:
             raise Http404
 

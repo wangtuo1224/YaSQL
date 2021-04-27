@@ -1,7 +1,9 @@
 # -*- coding:utf-8 -*-
 # by pandonglin
-import json, datetime
+import json
 from django.db import models
+from users.models import UserAccounts
+from workflow import constant
 from workflow.constant import TICKET_ACT_STATE_MAP, PARTICIPANT_TYPE, TICKET_ACT_STATE_END
 
 
@@ -107,7 +109,7 @@ class WorkflowCustomField(BaseModel):
     placeholder = models.CharField(max_length=128, null=True, blank=True, verbose_name='占位符',
                                    help_text='用户工单详情表单中作为字段的占位符显示')
     field_value = models.TextField(null=True, blank=True, verbose_name='字段数据',
-                                    help_text='select/multiselect提供选项，格式为json如:{"1":"需要","0":"不需要"},{"1":"中国", "2":"美国"}')
+                                   help_text='select/multiselect提供选项，格式为json如:{"1":"需要","0":"不需要"},{"1":"中国", "2":"美国"}')
 
     class Meta:
         verbose_name = "流程字段"
@@ -133,13 +135,14 @@ class State(BaseModel):
     name = models.CharField(max_length=64, verbose_name='状态名称')
     order_id = models.IntegerField(default=0, verbose_name='状态顺序', help_text='用于工单步骤接口时，step上状态的顺序，值越小越靠前')
     state_type = models.IntegerField(choices=STATE_TYPE, default=0, verbose_name='状态类型',
-                                     help_text="初始状态:新建工单时,获取对应的字段必填及transition信息，结束状态：此状态下的工单不再处理，即没有对应的transition")
+                                     help_text="初始状态:新建工单时,获取必填字段及状态流转，结束状态：此状态下的工单不再处理，没有对应的状态流转")
     is_hidden = models.BooleanField(default=False, verbose_name='是否隐藏',
                                     help_text='设置为True时,获取工单步骤api中不显示此状态(当前处于此状态时除外)')
-    participant_type = models.IntegerField(choices=PARTICIPANT_TYPE, default=1, verbose_name='操作人类型')
+    participant_type = models.IntegerField(choices=PARTICIPANT_TYPE, null=True, blank=True, verbose_name='操作人类型')
     participant = models.CharField(max_length=1024, null=True, blank=True, verbose_name='操作人',
-                                   help_text='可以为空、用户\多用户(以,隔开)\部门id\角色id\变量(creator,creator_tl)\脚本记录的id等，包含子工作流的需要设置处理人为bot')
-    distribute_type = models.CharField(choices=DISTRIBUTE_TYPE, max_length=32, verbose_name='流转方式', help_text='any其中一人处理即可，all所有人都要处理')
+                                   help_text='可以为空、多用户/部门/角色/变量等，包含子工作流的需要设置处理人为bot')
+    distribute_type = models.CharField(choices=DISTRIBUTE_TYPE, max_length=32, null=True, blank=True,
+                                       verbose_name='流转方式', help_text='any其中一人处理即可，all所有人都要处理')
 
     class Meta:
         verbose_name = "流程状态"
@@ -190,7 +193,7 @@ class TicketFlow(models.Model):
     parent_ticket_id = models.IntegerField(default=0, verbose_name="父工单id")
     participant = models.CharField(max_length=32, null=True, blank=True, verbose_name="当前处理人")
     act_status = models.IntegerField(choices=TICKET_ACT_STATE_MAP, default=1, verbose_name="操作状态")
-    multi_result = models.TextField(null=True, blank=True, verbose_name="全部处理的结果", help_text='当前状态处理人全部处理时实际的处理结果，json格式')
+    multi_result = models.TextField(null=True, blank=True, verbose_name="所有处理结果", help_text='当前状态处理人全部处理时实际的处理结果，json格式')
 
     class Meta:
         verbose_name = '工单'
@@ -202,8 +205,39 @@ class TicketFlow(models.Model):
         return "#%s" % self.id
 
     @property
+    def all_state(self):
+        data = []
+        states = self.workflow.wf_state.filter(is_hidden=False)
+        for state in states:
+            if state.participant_type == constant.PARTICIPANT_TYPE_FIELD:
+                field_list = self.tf_field.filter(field_key__in=json.loads(state.participant))
+                data.append({
+                    "id": state.id,
+                    "name": state.name,
+                    "participant": [x["field_value"] for x in field_list.values("field_value")],
+                })
+            else:
+                data.append({
+                    "id": state.id,
+                    "name": state.name,
+                    "participant": json.loads(state.participant) if state.participant else [],
+                })
+        return data
+
+    @property
     def relation_user(self):
-        return [x["username"] for x in self.tf_user.all().values("username")]
+        user_list = []
+        state_list = self.workflow.wf_state.all()
+        for state in state_list:
+            if state.participant_type == constant.PARTICIPANT_TYPE_PERSONAL and state.participant:
+                user_list.extend(json.loads(state.participant))
+            elif state.participant_type == constant.PARTICIPANT_TYPE_ROLE and state.participant:
+                users = UserAccounts.objects.filter(userroles__role_name__in=json.loads(state.participant))
+                user_list.extend([x["username"] for x in users.values("username")])
+            elif state.participant_type == constant.PARTICIPANT_TYPE_FIELD and state.participant:
+                field_list = self.tf_field.filter(field_key__in=json.loads(state.participant))
+                user_list.extend([x["field_value"] for x in field_list.values("field_value")])
+        return user_list
 
     @property
     def ticket_is_end(self):
@@ -213,7 +247,7 @@ class TicketFlow(models.Model):
 
     @property
     def all_ticket_field(self):
-        return [{"name": x.field_name, "type": x.field_type, "key": x.field_key, "value": x.field_value} for x in self.tf_filed.all()]
+        return [{"name": x.field_name, "type": x.field_type, "key": x.field_key, "value": x.field_value} for x in self.tf_field.all()]
 
     @property
     def state_display(self):
@@ -236,7 +270,7 @@ class TicketFlow(models.Model):
 
 class TicketFlowField(BaseModel):
     """工单自定义字段， 工单自定义字段实际的值"""
-    ticket = models.ForeignKey(TicketFlow, related_name="tf_filed", on_delete=models.CASCADE, verbose_name="工单")
+    ticket = models.ForeignKey(TicketFlow, related_name="tf_field", on_delete=models.CASCADE, verbose_name="工单")
     field_name = models.CharField(max_length=64, verbose_name="字段名称")
     field_type = models.CharField(max_length=32, verbose_name="字段类型")
     field_key = models.CharField(max_length=64, verbose_name="字段key")
@@ -274,7 +308,8 @@ class TicketFlowLog(BaseModel):
     participant = models.CharField(max_length=64, verbose_name="处理人")
     state = models.CharField(max_length=64, verbose_name="当前状态")
     suggestion = models.CharField(max_length=2048, null=True, blank=True, verbose_name="处理意见")
-    act_status = models.IntegerField(choices=TICKET_ACT_STATE_MAP, default=1, verbose_name="操作状态", help_text='constant中定义：拒绝/通过/中止/超时')
+    act_status = models.IntegerField(choices=TICKET_ACT_STATE_MAP, default=1, verbose_name="操作状态",
+                                     help_text='constant中定义：拒绝/通过/中止/超时')
     ticket_data = models.TextField(null=True, blank=True, verbose_name="工单数据", help_text='可以用于记录当前表单数据，json格式')
 
     class Meta:

@@ -1,6 +1,12 @@
 import axios from '@/utils/request'
 
 export default {
+  getUserRole() {
+    return axios.request({
+      method: 'get',
+      url: '/users/role',
+    })
+  },
   getWorkflowSummary(params) {
     return axios.request({
       method: 'get',

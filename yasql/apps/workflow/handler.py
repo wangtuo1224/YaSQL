@@ -28,33 +28,7 @@ class TicketFlow:
         if self.data["action"] == "close":
             return self.close_ticket()
         else:
-            return self.next_flow()
-
-    def close_ticket(self):
-        self.ticket_obj.participant = self.user.username
-        self.ticket_obj.act_status = constant.TICKET_ACT_STATE_CLOSE
-        self.ticket_obj.save()
-        self._update_user_action()
-        models.TicketFlowLog.objects.create(ticket=self.ticket_obj, participant=self.user.username,
-                                            state="关闭工单", act_status=constant.TICKET_ACT_STATE_CLOSE)
-        return True, '关闭成功'
-
-    def next_flow(self):
-        if self.data["action"] == "allow":
-            ticket_status = constant.TICKET_ACT_STATE_DOING  # 更新状态中
-            log_status = constant.TICKET_ACT_STATE_PASS
-        else:
-            ticket_status = constant.TICKET_ACT_STATE_REFUSE   # 不通过进入 "未通过" 状态
-            log_status = constant.TICKET_ACT_STATE_REFUSE
-
-        self.ticket_obj.act_status = ticket_status
-        self.ticket_obj.participant = self.user.username
-        self.ticket_obj.save()
-
-        models.TicketFlowLog.objects.create(ticket=self.ticket_obj, participant=self.user.username,
-                                            suggestion=self.data["suggestion"], state=self.ticket_obj.state_display,
-                                            act_status=log_status)
-        return True, ''
+            return self.transition_state()
 
     def _check_user_action(self):
         participant = self.ticket_obj.tf_user.filter(ticket=self.ticket_obj, state=self.ticket_obj.state,
@@ -66,16 +40,52 @@ class TicketFlow:
         models.TicketFlowUser.objects.create(ticket=self.ticket_obj, state=self.data["state"],
                                              username=self.user.username, process=True, action=self.data["action"])
 
-    def _update_ticket_state(self):
-        transition = models.Transition.objects.filter(workflow=self.ticket_obj.workflow,
-                                                      source_state=self.ticket_obj.state,
-                                                      destination_state=self.ticket_obj.next_state)
+    def _ticket_log(self, state, status, suggestion=None):
+        models.TicketFlowLog.objects.create(ticket=self.ticket_obj, participant=self.user.username, state=state,
+                                            act_status=status, suggestion=suggestion)
 
-        # if self.ticket_obj.next_state:  # 检查当前阶段是否为最终阶段
-        #     if self._update_ticket_state():  # 满足条件 进入下一阶段
-        #         self.ticket_obj.state = self.ticket_obj.next_state
-        #         self.ticket_obj.save()
-        # else:  # 结束阶段工单修改为完成状态
-        #     self.ticket_obj.act_status = constant.TICKET_ACT_STATE_FINISH
-        #     self.ticket_obj.save()
-        return True
+    def close_ticket(self):
+        self.ticket_obj.participant = self.user.username
+        self.ticket_obj.act_status = constant.TICKET_ACT_STATE_CLOSE
+        self.ticket_obj.save()
+        self._update_user_action()
+        self._ticket_log("关闭工单", constant.TICKET_ACT_STATE_CLOSE)
+        return True, '关闭成功'
+
+    def transition_state(self):
+        if self.data["action"] == "allow":
+            return self._transition_state_for_allow()
+        else:
+            return self._transition_state_for_deny()
+
+    def _transition_state_for_allow(self):
+        transition = models.Transition.objects.filter(workflow=self.ticket_obj.workflow,
+                                                      source_state=self.ticket_obj.state, attribute_type=1).first()
+        if transition is None:
+            return False, '状态流转错误'
+        if transition.condition_expression:  # 状态流转判断
+            pass
+        if transition.source_state.distribute_type == "any":  # 其中一人处理即可
+            if transition.destination_state.state_type == constant.STATE_TYPE_END:  # 目标状态是结束状态
+                self.ticket_obj.act_status = constant.TICKET_ACT_STATE_FINISH
+            else:  # 目标状态是开始/中间状态
+                self.ticket_obj.act_status = constant.TICKET_ACT_STATE_DOING  # 更新状态中
+                self.ticket_obj.state = transition.destination_state.id
+        else:
+            # TODO 判断所有人是否都已经处理
+            if transition.destination_state.state_type == constant.STATE_TYPE_END:  # 目标状态是结束状态
+                self.ticket_obj.act_status = constant.TICKET_ACT_STATE_FINISH
+            else:  # 目标状态是开始/中间状态
+                self.ticket_obj.act_status = constant.TICKET_ACT_STATE_DOING  # 更新状态中
+                self.ticket_obj.state = transition.destination_state.id
+        self.ticket_obj.participant = self.user.username
+        self.ticket_obj.save()
+        self._ticket_log(self.ticket_obj.state_display, constant.TICKET_ACT_STATE_PASS, self.data["suggestion"])
+        return True, ''
+
+    def _transition_state_for_deny(self):
+        self.ticket_obj.act_status = constant.TICKET_ACT_STATE_REFUSE  # 不通过进入 "未通过" 状态
+        self.ticket_obj.participant = self.user.username
+        self.ticket_obj.save()
+        self._ticket_log(self.ticket_obj.state_display, constant.TICKET_ACT_STATE_REFUSE, self.data["suggestion"])
+        return True, ''

@@ -33,7 +33,7 @@
       :labelCol="{lg: {span: 4}, sm: {span: 4}}"
       :wrapperCol="{lg: {span: 16}, sm: {span: 20}}">
       <a-switch v-decorator="decorator['all_view']" />
-      <a-tooltip placement="rightBottom" title="默认所有人可见，否则只有工单相关人可见">
+      <a-tooltip placement="rightBottom" title="默认所有人可见，关闭后只有工单相关人可见">
         <a-icon type="question-circle" style="margin-left: 5px" />
       </a-tooltip>
     </a-form-item>
@@ -72,7 +72,7 @@ export default {
         'name': ['name', {rules: [{ required: true,  message: '请输入流程名称' }]}],
         'description': ['description', {rules: [{ required: true, message: '流程描述' }]}],
         'all_view': ['all_view', {rules: [{ required: false }], initialValue: true, valuePropName: 'checked'}],
-        'display_form': ['display_form', {rules: [{ validator: checkDisplayForm }], validateTrigger: 'blur'}]
+        'display_form': ['display_form', {rules: [{ required: true, validator: checkDisplayForm }], validateTrigger: 'blur'}]
       },
     }
   },

@@ -52,6 +52,12 @@ class UserInfoSerializer(serializers.ModelSerializer):
         fields = ['uid', 'displayname', 'mobile', 'avatar_file', 'username', 'is_superuser', 'email']
 
 
+class UserRoleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.UserRoles
+        fields = ['rid', 'role_name']
+
+
 class UsersListSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.UserAccounts

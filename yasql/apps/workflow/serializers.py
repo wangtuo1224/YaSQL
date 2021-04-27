@@ -53,19 +53,19 @@ class WorkflowTplSerializer(serializers.ModelSerializer):
     def validate(self, data):
         """校验字段"""
         field_kwargs = data.get('field_kwargs')
-        if not field_kwargs:
+        if field_kwargs is None:
             raise serializers.ValidationError('未配置表单字段')
 
         file_field = []
         error_list = []
         for x in field_kwargs:
-            if not x.get("field_name"):
+            if x.get("field_name") is None:
                 error_list.append("字段名必填")
-            if not x.get("field_key"):
+            if x.get("field_key") is None:
                 error_list.append("字段key必填")
-            if not x.get("field_type"):
+            if x.get("field_type") is None:
                 error_list.append("字段类型必填")
-            if not x.get("order_id"):
+            if x.get("order_id") is None:
                 error_list.append("字段顺序必填")
 
             # 对select类型进行验证，需要有field_value有值
@@ -115,7 +115,7 @@ class WorkflowTplSerializer(serializers.ModelSerializer):
 
 
 class WorkflowStateSerializer(serializers.ModelSerializer):
-    participant = serializers.ListField(write_only=True)
+    participant = serializers.ListField(write_only=True, required=False)
 
     class Meta:
         model = models.State
@@ -130,9 +130,23 @@ class WorkflowStateSerializer(serializers.ModelSerializer):
         set_data = set(data)
         if len(set_data) != len(data):
             raise serializers.ValidationError('操作人不能重复')
-        return json.dumps(data)
+        return json.dumps(data, ensure_ascii=False)
 
     def validate(self, data):
+        participant_type = data.get("participant_type")
+        # 操作人类型为：角色时，流转方式为空
+        if participant_type == constant.PARTICIPANT_TYPE_ROLE and data.get("distribute_type"):
+            raise serializers.ValidationError('流转方式必须为空')
+        # 操作人类型为：个人, 工单字段时，需要填操作人和流转方式
+        if participant_type in [constant.PARTICIPANT_TYPE_PERSONAL, constant.PARTICIPANT_TYPE_FIELD]:
+            if data.get("participant") is None:
+                raise serializers.ValidationError('操作人必填')
+            if data.get("distribute_type") is None:
+                raise serializers.ValidationError('流转方式必填')
+        # 操作人类型为：机器人, Hook时，order_id不能为1
+        if participant_type in [constant.PARTICIPANT_TYPE_ROBOT, constant.PARTICIPANT_TYPE_HOOK] and data["order_id"] == 1:
+            raise serializers.ValidationError('顺序为1时，与操作人类型[%s]冲突' % self._participant_type_display(participant_type))
+
         request = self.context["request"]
         state_list = models.State.objects.filter(workflow=data["workflow"])
         state_type_list = [x.state_type for x in state_list]
@@ -157,14 +171,28 @@ class WorkflowStateSerializer(serializers.ModelSerializer):
         return data
 
     def create(self, validated_data):
+        if validated_data.get("participant"):
+            validated_data["participant"] = "[]"
         instance = models.State.objects.create(**validated_data)
         return instance
 
     def update(self, instance, validated_data):
+        if validated_data.get("participant_type") is None:
+            instance.participant_type = None
+        if validated_data.get("participant") is None:
+            instance.participant = "[]"
+        if validated_data.get("distribute_type") is None:
+            instance.distribute_type = None
+
         for k, v in validated_data.items():
             setattr(instance, k, v)
         instance.save()
         return instance
+
+    def _participant_type_display(self, key):
+        for item in constant.PARTICIPANT_TYPE:
+            if item[0] == key:
+                return item[1]
 
 
 class WorkflowTransitionSerializer(serializers.ModelSerializer):
@@ -244,7 +272,7 @@ class TicketFlowDetailSerializer(serializers.ModelSerializer):
         ret = super(TicketFlowDetailSerializer, self).to_representation(instance)
         ret["workflow"] = instance.workflow.name
         ret["status"] = instance.get_act_status_display()
-        ret["all_state"] = instance.workflow.all_state
+        ret["all_state"] = instance.all_state
         ret["field_kwargs"] = instance.all_ticket_field
         ret["ticket_is_end"] = instance.ticket_is_end
         return ret
