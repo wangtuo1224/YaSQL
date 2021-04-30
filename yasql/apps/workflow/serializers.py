@@ -3,6 +3,7 @@
 import json
 from rest_framework import serializers
 from workflow import models, constant
+from users.models import UserAccounts
 
 
 class WorkflowSummarySerializers(serializers.ModelSerializer):
@@ -235,15 +236,30 @@ class TicketFlowSerializer(serializers.ModelSerializer):
         ret["workflow"] = instance.workflow.name
         return ret
 
-    # def to_internal_value(self, data):
-    #     return super(TicketFlowSerializer, self).to_internal_value(data)
+    def _get_workflow_start_state(self, workflow):    # 获取流程的初始状态
+        state_obj = models.State.objects.filter.filter(workflow=workflow, state_type=constant.STATE_TYPE_START).first()
+        return state_obj
+
+    def _get_ticket_relation_user(self, ticket_obj):   # 获取工单关联人
+        data = []
+        state_list = models.State.objects.filter.filter(workflow=ticket_obj.workflow)
+        for state in state_list:
+            if state.participant_type == constant.PARTICIPANT_TYPE_PERSONAL and state.participant:
+                data.extend({"state": state.id, "user": json.loads(state.participant)})
+            elif state.participant_type == constant.PARTICIPANT_TYPE_ROLE and state.participant:
+                users = UserAccounts.objects.filter(userroles__role_name__in=json.loads(state.participant))
+                data.extend({"state": state.id, "user": [x["username"] for x in users.values("username")]})
+            elif state.participant_type == constant.PARTICIPANT_TYPE_FIELD and state.participant:
+                field_list = ticket_obj.tf_field.filter(field_key__in=json.loads(state.participant))
+                data.extend({"state": state.id, "user": [x["field_value"] for x in field_list.values("field_value")]})
+        return data
 
     def validate(self, data):
-        state = data["workflow"].wf_state.filter(state_type=1).first()  # 获取初始状态
-        if not state:
-            raise serializers.ValidationError("%s no init state" % data["workflow"].name)
+        start_state = self._get_workflow_start_state(data["workflow"])
+        if not start_state:
+            raise serializers.ValidationError("%s no start state" % data["workflow"].name)
         else:
-            data["state"] = state.id
+            data["state"] = start_state.id
             return data
 
     def create_ticket(self, user):
@@ -254,10 +270,17 @@ class TicketFlowSerializer(serializers.ModelSerializer):
         field_kwargs = data.pop("field_kwargs")
         self.save()
 
+        # 更新工单字段值
         for k,v in field_kwargs.items():
             name, field_type = self.instance.workflow.get_field_attr(k)
             models.TicketFlowField.objects.create(ticket=self.instance, field_name=name,
                                                   field_type=field_type, field_key=k, field_value=v)
+
+        # 更新工单处理人
+        relation_user = self._get_ticket_relation_user(self.instance)
+        for item in relation_user:
+            for user in item.get("user"):
+                models.TicketFlowUser.objects.create(ticket=self.instance, state=item["state"], username=user)
 
         models.TicketFlowLog.objects.create(ticket=self.instance, participant=user.username,
                                             state=self.instance.state_display, act_status=constant.TICKET_ACT_STATE_FINISH)

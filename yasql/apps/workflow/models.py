@@ -207,21 +207,29 @@ class TicketFlow(models.Model):
     @property
     def all_state(self):
         data = []
-        states = self.workflow.wf_state.filter(is_hidden=False)
+        if self.act_status == constant.TICKET_ACT_STATE_CLOSE:
+            cur_state = self.workflow.wf_state.get(pk=self.state)
+            states = self.workflow.wf_state.filter(is_hidden=False, order_id__lte=cur_state.order_id)
+        else:
+            states = self.workflow.wf_state.filter(is_hidden=False)
+
         for state in states:
             if state.participant_type == constant.PARTICIPANT_TYPE_FIELD:
                 field_list = self.tf_field.filter(field_key__in=json.loads(state.participant))
-                data.append({
-                    "id": state.id,
-                    "name": state.name,
-                    "participant": [x["field_value"] for x in field_list.values("field_value")],
-                })
+                participant = [x["field_value"] for x in field_list.values("field_value")]
             else:
-                data.append({
-                    "id": state.id,
-                    "name": state.name,
-                    "participant": json.loads(state.participant) if state.participant else [],
-                })
+                participant = json.loads(state.participant) if state.participant else []
+            data.append({
+                "id": state.id,
+                "name": state.name,
+                "participant": participant,
+            })
+        # 增加结束状态
+        data.append({
+            "id": -1,
+            "name": '结束' if self.act_status != constant.TICKET_ACT_STATE_CLOSE else '关闭',
+            "participant": []
+        })
         return data
 
     @property
@@ -264,7 +272,7 @@ class TicketFlow(models.Model):
         cur_state = State.objects.filter(pk=self.state).first()
         if cur_state:  # 当前状态非完成状态
             next_state_obj = State.objects.filter(workflow=self.workflow, order_id__gt=cur_state.order_id).order_by("order_id").first()
-            return next_state_obj.id if next_state_obj else None
+            return next_state_obj
         return None
 
 

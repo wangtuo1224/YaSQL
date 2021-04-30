@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 # by pandonglin
+import json
 from workflow import constant, models
 
 
@@ -28,7 +29,15 @@ class TicketFlow:
         if self.data["action"] == "close":
             return self.close_ticket()
         else:
-            return self.transition_state()
+            status, result = self.transition_state()
+            if self.ticket_obj.next_state is not None:
+                if self.ticket_obj.next_state.participant_type == constant.PARTICIPANT_TYPE_ROBOT:
+                    pass
+                elif self.ticket_obj.next_state.participant_type == constant.PARTICIPANT_TYPE_HOOK:
+                    pass
+                else:  # 其他不处理
+                    pass
+        return status, result
 
     def _check_user_action(self):
         participant = self.ticket_obj.tf_user.filter(ticket=self.ticket_obj, state=self.ticket_obj.state,
@@ -36,9 +45,19 @@ class TicketFlow:
         if participant:
             return True
 
-    def _update_user_action(self):
-        models.TicketFlowUser.objects.create(ticket=self.ticket_obj, state=self.data["state"],
-                                             username=self.user.username, process=True, action=self.data["action"])
+    def _update_user_action(self, clean_flag=False):
+        ticketflow_user = models.TicketFlowUser.objects.get(ticket=self.ticket_obj, state=self.data["state"],
+                                                            username=self.user.username)
+        ticketflow_user.process = True
+        ticketflow_user.action = self.data["action"]
+        ticketflow_user.save()
+
+        if clean_flag:
+            models.TicketFlowUser.objects.filter(ticket=self.ticket_obj, state=self.data["state"],
+                                                 process=False).delete()
+
+        if self.ticket_obj.act_status in constant.TICKET_ACT_STATE_END:  # 结束状态，清洗数据
+            models.TicketFlowUser.objects.filter(ticket=self.ticket_obj, process=False).delete()
 
     def _ticket_log(self, state, status, suggestion=None):
         models.TicketFlowLog.objects.create(ticket=self.ticket_obj, participant=self.user.username, state=state,
@@ -63,8 +82,14 @@ class TicketFlow:
                                                       source_state=self.ticket_obj.state, attribute_type=1).first()
         if transition is None:
             return False, '状态流转错误'
-        if transition.condition_expression:  # 状态流转判断
-            pass
+        # if transition.condition_expression and json.loads(transition.condition_expression):   # 状态流转判断
+        #     ticket_value = self.ticket_obj.all_ticket_field
+        #     condition_expression_list = json.loads(transition.condition_expression)
+        #     for condition_expression in condition_expression_list:
+        #         expression = condition_expression.get('expression')
+        #         expression_format = expression.format(**ticket_value)
+        #         if eval(expression_format):
+        #             break
         if transition.source_state.distribute_type == "any":  # 其中一人处理即可
             if transition.destination_state.state_type == constant.STATE_TYPE_END:  # 目标状态是结束状态
                 self.ticket_obj.act_status = constant.TICKET_ACT_STATE_FINISH
@@ -77,7 +102,7 @@ class TicketFlow:
                 self.ticket_obj.act_status = constant.TICKET_ACT_STATE_FINISH
             else:  # 目标状态是开始/中间状态
                 self.ticket_obj.act_status = constant.TICKET_ACT_STATE_DOING  # 更新状态中
-                self.ticket_obj.state = transition.destination_state.id
+        self.ticket_obj.state = transition.destination_state.id
         self.ticket_obj.participant = self.user.username
         self.ticket_obj.save()
         self._ticket_log(self.ticket_obj.state_display, constant.TICKET_ACT_STATE_PASS, self.data["suggestion"])

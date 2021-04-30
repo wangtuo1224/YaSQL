@@ -38,7 +38,7 @@
       </a-row>
     </a-card>
     <a-card :bordered="false" title="工单进度" style="margin-left: 5px; margin-right: 5px">
-      <a-steps :current="currentState" progressDot>
+      <a-steps :current="currentState+1" progressDot>
         <a-step v-for="state in allState" :key="state.id">
           <template v-slot:title>
             <span>{{ state.name }}</span>
@@ -46,9 +46,6 @@
           <template v-slot:description>
             <div class="antd-pro-pages-profile-advanced-style-stepDescription">
               {{ state.participant }}
-              <div v-if="state.participant && currentState<(allState.length-1) &&allState[currentState+1].id===state.id">
-                <a>催一下</a>
-              </div>
             </div>
           </template>
         </a-step>
