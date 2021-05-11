@@ -36,12 +36,12 @@ class WorkflowTplAdmin(admin.ModelAdmin):
 
 class StateAdmin(admin.ModelAdmin):
     list_display = (
-        'id', 'workflow', 'name', 'is_hidden', 'order_id', 'state_type', 'participant_type', 'participant', 'distribute_type',
-    )
+        'id', 'workflow', 'name', 'is_hidden', 'order_id', 'state_type', 'participant_type', 'participant_data',
+        'distribute_type',)
     list_display_links = ('name',)
     search_fields = ('workflow__name',)
     list_filter = ("workflow__name",)
-    list_editable = ('is_hidden', 'order_id', 'state_type', 'participant_type', 'participant', 'distribute_type',)
+    list_editable = ('is_hidden', 'order_id', 'state_type', 'participant_type', 'participant_data', 'distribute_type',)
 
     class Meta:
         model = models.State

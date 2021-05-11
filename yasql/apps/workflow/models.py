@@ -62,7 +62,7 @@ class WorkflowTpl(BaseModel):
             data.append({
                 "id": state.id,
                 "name": state.name,
-                "participant": state.participant,
+                "participant": state.participant_data,
             })
         return data
 
@@ -139,7 +139,7 @@ class State(BaseModel):
     is_hidden = models.BooleanField(default=False, verbose_name='是否隐藏',
                                     help_text='设置为True时,获取工单步骤api中不显示此状态(当前处于此状态时除外)')
     participant_type = models.IntegerField(choices=PARTICIPANT_TYPE, null=True, blank=True, verbose_name='操作人类型')
-    participant = models.CharField(max_length=1024, null=True, blank=True, verbose_name='操作人',
+    participant_data = models.CharField(max_length=1024, null=True, blank=True, verbose_name='操作人参数',
                                    help_text='可以为空、多用户/部门/角色/变量等，包含子工作流的需要设置处理人为bot')
     distribute_type = models.CharField(choices=DISTRIBUTE_TYPE, max_length=32, null=True, blank=True,
                                        verbose_name='流转方式', help_text='any其中一人处理即可，all所有人都要处理')
@@ -214,36 +214,52 @@ class TicketFlow(models.Model):
             states = self.workflow.wf_state.filter(is_hidden=False)
 
         for state in states:
-            if state.participant_type == constant.PARTICIPANT_TYPE_FIELD:
-                field_list = self.tf_field.filter(field_key__in=json.loads(state.participant))
+            if state.participant_type == constant.PARTICIPANT_TYPE_FIELD and state.participant_data:
+                field_list = self.tf_field.filter(field_key__in=json.loads(state.participant_data))
                 participant = [x["field_value"] for x in field_list.values("field_value")]
             else:
-                participant = json.loads(state.participant) if state.participant else []
+                participant = json.loads(state.participant_data) if state.participant_data else []
             data.append({
                 "id": state.id,
                 "name": state.name,
                 "participant": participant,
             })
         # 增加结束状态
-        data.append({
-            "id": -1,
-            "name": '结束' if self.act_status != constant.TICKET_ACT_STATE_CLOSE else '关闭',
-            "participant": []
-        })
+        if self.act_status == constant.TICKET_ACT_STATE_CLOSE:
+            data.append({
+                "id": -1,
+                "name": '关闭',
+                "participant": []
+            })
         return data
 
     @property
-    def relation_user(self):
+    def cur_state_relation_user(self):
+        cur_state = State.objects.get(id=self.state)
+        if cur_state.participant_type == constant.PARTICIPANT_TYPE_PERSONAL and cur_state.participant_data:
+            user_list = json.loads(cur_state.participant_data)
+        elif cur_state.participant_type == constant.PARTICIPANT_TYPE_ROLE and cur_state.participant_data:
+            users = UserAccounts.objects.filter(userroles__role_name__in=json.loads(cur_state.participant_data))
+            user_list = [x["username"] for x in users.values("username")]
+        elif cur_state.participant_type == constant.PARTICIPANT_TYPE_FIELD and cur_state.participant_data:
+            field_list = self.tf_field.filter(field_key__in=json.loads(cur_state.participant_data))
+            user_list = [x["field_value"] for x in field_list.values("field_value")]
+        else:
+            user_list = []
+        return user_list
+
+    @property
+    def all_relation_user(self):
         user_list = []
         state_list = self.workflow.wf_state.all()
         for state in state_list:
-            if state.participant_type == constant.PARTICIPANT_TYPE_PERSONAL and state.participant:
-                user_list.extend(json.loads(state.participant))
-            elif state.participant_type == constant.PARTICIPANT_TYPE_ROLE and state.participant:
-                users = UserAccounts.objects.filter(userroles__role_name__in=json.loads(state.participant))
+            if state.participant_type == constant.PARTICIPANT_TYPE_PERSONAL and state.participant_data:
+                user_list.extend(json.loads(state.participant_data))
+            elif state.participant_type == constant.PARTICIPANT_TYPE_ROLE and state.participant_data:
+                users = UserAccounts.objects.filter(userroles__role_name__in=json.loads(state.participant_data))
                 user_list.extend([x["username"] for x in users.values("username")])
-            elif state.participant_type == constant.PARTICIPANT_TYPE_FIELD and state.participant:
-                field_list = self.tf_field.filter(field_key__in=json.loads(state.participant))
+            elif state.participant_type == constant.PARTICIPANT_TYPE_FIELD and state.participant_data:
+                field_list = self.tf_field.filter(field_key__in=json.loads(state.participant_data))
                 user_list.extend([x["field_value"] for x in field_list.values("field_value")])
         return user_list
 
@@ -255,7 +271,8 @@ class TicketFlow(models.Model):
 
     @property
     def all_ticket_field(self):
-        return [{"name": x.field_name, "type": x.field_type, "key": x.field_key, "value": x.field_value} for x in self.tf_field.all()]
+        custom_field = [{"name": x.field_name, "type": x.field_type, "key": x.field_key, "value": x.field_value} for x in self.tf_field.all()]
+        return custom_field
 
     @property
     def state_display(self):

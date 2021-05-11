@@ -111,7 +111,7 @@ export default {
           this.$message.error("上传附件错误")
         }
       }).catch(error => {
-        this.$message.error("上传附件")
+        this.$message.error("上传附件失败")
       })
     },
     handleRemove(file) {
@@ -149,8 +149,6 @@ export default {
           } else {
             this.$message.error(resp.message)
           }
-        }).catch(error => {
-          this.$message.error(error)
         }).finally(() => {
           this.pushing = false
         })

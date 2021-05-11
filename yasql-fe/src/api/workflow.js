@@ -122,7 +122,7 @@ export default {
   createTicket(data) {
     return axios.request({
       method: 'post',
-      url: '/v1/workflow/ticket',
+      url: '/v1/workflow/ticket/new',
       data: data,
     })
   },
@@ -136,7 +136,7 @@ export default {
   getTicketDetail(pk) {
     return axios.request({
       method: 'get',
-      url: `/v1/workflow/ticket/${pk}`,
+      url: `/v1/workflow/ticket/${pk}/detail`,
     })
   },
   getTicketLog(pk){

@@ -38,7 +38,7 @@
       </a-row>
     </a-card>
     <a-card :bordered="false" title="工单进度" style="margin-left: 5px; margin-right: 5px">
-      <a-steps :current="currentState+1" progressDot>
+      <a-steps :current="currentState" progressDot>
         <a-step v-for="state in allState" :key="state.id">
           <template v-slot:title>
             <span>{{ state.name }}</span>
@@ -86,7 +86,7 @@
         <a-icon type="frown-o"/>暂无数据
       </div>
     </a-card>
-    <a-modal v-model="visible" :title="allState[currentState+1].name" v-if="currentState<(allState.length-1)">
+    <a-modal v-model="visible" :title="allState[currentState].name" v-if="currentState<(allState.length-1)">
       <template slot="footer">
         <a-button :disabled="pushing" @click="handleTicketFlow('deny')">驳回</a-button>
         <a-button type="primary" :disabled="pushing" @click="handleTicketFlow('allow')">通过</a-button>
@@ -230,8 +230,6 @@ export default {
             description: resp.message,
           })
         }
-      }).catch(error => {
-        console.log(error)
       }).finally(() => {
         this.visible = false
         this.pushing = false
@@ -256,8 +254,6 @@ export default {
             description: resp.message,
           })
         }
-      }).catch(error => {
-        console.log(error)
       }).finally(() => {
         this.visible = false
         this.pushing = false

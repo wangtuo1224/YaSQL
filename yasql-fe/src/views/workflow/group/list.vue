@@ -173,8 +173,6 @@ export default {
             description: resp.message,
           })
         }
-      }).catch(error => {
-        console.log(error)
       }).finally(() => {
         this.fetchWorkflowGroupData()
         this.visible = false

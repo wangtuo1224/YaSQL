@@ -29,8 +29,8 @@
       <template slot="participant_type" slot-scope="text">
         {{ text|displayParticipantType }}
       </template>
-      <template slot="participant" slot-scope="text">
-        {{ text.join(', ') }}
+      <template slot="participant_data" slot-scope="text">
+        {{ text }}
       </template>
       <template slot="is_hidden" slot-scope="text">
         {{ text|formatBool }}
@@ -70,28 +70,29 @@
             </a-select-option>
           </a-select>
         </a-form-model-item>
-        <a-form-model-item label="操作人">
+        <a-form-model-item label="操作人参数" prop="participant_data">
           <div v-if="curRecord.participant_type===1">
-            <a-select v-model="curRecord.participant" mode="tags" placeholder="请输入相关操作人">
+            <a-select v-model="curRecord.participant_data" mode="tags" placeholder="请输入相关操作人">
             </a-select>
           </div>
           <div v-else-if="curRecord.participant_type===2">
-            <a-select v-model="curRecord.participant" mode="tags" placeholder="请输入相关角色">
+            <a-select v-model="curRecord.participant_data" mode="tags" placeholder="请输入相关角色">
               <a-select-option v-for="item in RoleList" :key="item.rid" :value="item.role_name">
                 {{ item.role_name }}
               </a-select-option>
             </a-select>
           </div>
           <div v-else-if="curRecord.participant_type===4">
-            <a-select v-model="curRecord.participant" mode="tags" placeholder="请输入工单字段">
+            <a-select v-model="curRecord.participant_data" mode="tags" placeholder="请输入工单字段">
               <a-select-option v-for="item in tplKwarg" :key="item.field_key" :value="item.field_key">
                 {{ item.field_name }}
               </a-select-option>
             </a-select>
           </div>
           <div v-else>
-            <a-select v-model="curRecord.participant" disabled mode="tags" placeholder="请输入相关操作人">
-            </a-select>
+            <a-textarea v-model="curRecord.participant_data" 
+              :disabled="curRecord.state_type===1" mode="tags" placeholder="请输入相关参数">
+            </a-textarea>
           </div>
         </a-form-model-item>
         <a-form-model-item label="流转方式">
@@ -127,6 +128,25 @@ export default {
     currentTplState: Array,
   },
   data () {
+    const checkParticipantData = (rule, value, callback) => {
+      if([3, 5].indexOf(this.curRecord.participant_type) >= 0) {
+        if(!value) {
+          callback(new Error("字段必填"))
+        } 
+        try {
+          const f = JSON.parse(value)
+          if((typeof(f) === "object") && f.constructor === Object){
+            callback()
+          } else {
+            callback(new Error('参数格式错误，请配置成对象格式'))
+          }
+        } catch (error) {
+          callback(new Error('参数格式错误，请配置成JSON格式'))
+        }
+      } else {
+        callback()
+      } 
+    }
     return {
       isNewState: true,
       visible: false,
@@ -157,9 +177,9 @@ export default {
           scopedSlots: { customRender: 'participant_type' }
         },
         {
-          title: '操作人',
-          dataIndex: 'participant',
-          scopedSlots: { customRender: 'participant' }
+          title: '操作人参数',
+          dataIndex: 'participant_data',
+          scopedSlots: { customRender: 'participant_data' }
         },
         {
           title: '是否隐藏',
@@ -178,6 +198,7 @@ export default {
         ],
         order_id: [{ required: true, message: '必须填写', trigger: 'blur' }],
         state_type: [{ required: true, message: '必须选择', trigger: 'change' }],
+        participant_data: [{ required: false, validator: checkParticipantData, trigger: 'change' }],
       },
     }
   },
@@ -232,12 +253,12 @@ export default {
     handleChangeStateType(value) {
       if(value === 1){
         delete this.curRecord.participant_type
-        delete this.curRecord.participant
+        delete this.curRecord.participant_data
         delete this.curRecord.distribute_type
       }
     },
     handleChangeParticipantType(value) {
-      delete this.curRecord.participant
+      delete this.curRecord.participant_data
       if([2, 3, 5].indexOf(value) >= 0){
         delete this.curRecord.distribute_type
       }
@@ -273,8 +294,11 @@ export default {
         if (!valid) {
           return false
         }
+        let data = { ...this.curRecord }
+        if (data.participant_data && typeof(data.participant_data) === "object"){
+          data["participant_data"] = JSON.stringify(data.participant_data)
+        }
         if(this.isNewState) {
-          let data = { ...this.curRecord }
           data["workflow"] = this.currentTplData.id
           ticketFlowApi.createWorkflowState(data).then(resp => {
             if (resp.code === "0000") {
@@ -292,7 +316,7 @@ export default {
             }
           })       
         } else {
-          ticketFlowApi.updateWorkflowState(this.curRecord.id, this.curRecord).then(resp => {
+          ticketFlowApi.updateWorkflowState(this.curRecord.id, data).then(resp => {
             if (resp.code === "0000") {
               notification.info({
                 message: '更新状态',

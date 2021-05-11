@@ -63,8 +63,6 @@ export default {
         this.tplSummary = resp.results
         this.pagination.total = resp.count
         this.loading = false
-      }).catch(error => {
-        console.log(error)
       }).finally(() => {
         this.loading = false
       })

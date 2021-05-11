@@ -100,3 +100,25 @@ class CanExecRedisPermission(permissions.BasePermission):
 
     def has_permission(self, request, view):
         return check_permission(request, 'can_exec_redis')
+
+
+class CanUpdateWorkFlowPermission(permissions.BasePermission):
+    message = "您没有更新流程权限"
+
+    def has_permission(self, request, view):
+        return check_permission(request, 'can_update_workflow')
+
+
+class CanViewTicketPermission(permissions.BasePermission):
+    message = "您没有查看工单权限"
+
+    def has_permission(self, request, view):
+        return check_permission(request, 'can_view_ticket')
+
+
+class CanUpdateTicketPermission(permissions.BasePermission):
+    message = "您没有操作工单权限"
+
+    def has_permission(self, request, view):
+        return check_permission(request, 'can_update_ticket')
+

@@ -116,7 +116,6 @@ class WorkflowTplSerializer(serializers.ModelSerializer):
 
 
 class WorkflowStateSerializer(serializers.ModelSerializer):
-    participant = serializers.ListField(write_only=True, required=False)
 
     class Meta:
         model = models.State
@@ -124,14 +123,18 @@ class WorkflowStateSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         ret = super(WorkflowStateSerializer, self).to_representation(instance)
-        ret["participant"] = json.loads(instance.participant) if instance.participant else []
+        if ret["participant_type"] in [constant.PARTICIPANT_TYPE_ROBOT, constant.PARTICIPANT_TYPE_HOOK]:
+            ret["participant_data"] = instance.participant_data
+        else:
+            ret["participant_data"] = json.loads(instance.participant_data) if instance.participant_data else []
         return ret
 
-    def validate_participant(self, data):
-        set_data = set(data)
-        if len(set_data) != len(data):
-            raise serializers.ValidationError('操作人不能重复')
-        return json.dumps(data, ensure_ascii=False)
+    def validate_participant_data(self, data):
+        try:
+            participant_data = json.loads(data)
+            return json.dumps(participant_data, ensure_ascii=False)
+        except:
+            raise serializers.ValidationError('操作人参数错误')
 
     def validate(self, data):
         participant_type = data.get("participant_type")
@@ -140,7 +143,7 @@ class WorkflowStateSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('流转方式必须为空')
         # 操作人类型为：个人, 工单字段时，需要填操作人和流转方式
         if participant_type in [constant.PARTICIPANT_TYPE_PERSONAL, constant.PARTICIPANT_TYPE_FIELD]:
-            if data.get("participant") is None:
+            if data.get("participant_data") is None:
                 raise serializers.ValidationError('操作人必填')
             if data.get("distribute_type") is None:
                 raise serializers.ValidationError('流转方式必填')
@@ -158,7 +161,6 @@ class WorkflowStateSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError('初始状态已存在')
             if data["state_type"] == 2 and (2 in state_type_list):
                 raise serializers.ValidationError('结束状态已存在')
-
             if data["order_id"] in order_id_list:
                 raise serializers.ValidationError('状态顺序重复')
 
@@ -172,16 +174,14 @@ class WorkflowStateSerializer(serializers.ModelSerializer):
         return data
 
     def create(self, validated_data):
-        if validated_data.get("participant"):
-            validated_data["participant"] = "[]"
         instance = models.State.objects.create(**validated_data)
         return instance
 
     def update(self, instance, validated_data):
         if validated_data.get("participant_type") is None:
             instance.participant_type = None
-        if validated_data.get("participant") is None:
-            instance.participant = "[]"
+        if validated_data.get("participant_data") is None:
+            instance.participant_data = None
         if validated_data.get("distribute_type") is None:
             instance.distribute_type = None
 
@@ -237,53 +237,55 @@ class TicketFlowSerializer(serializers.ModelSerializer):
         return ret
 
     def _get_workflow_start_state(self, workflow):    # 获取流程的初始状态
-        state_obj = models.State.objects.filter.filter(workflow=workflow, state_type=constant.STATE_TYPE_START).first()
+        state_obj = models.State.objects.filter(workflow=workflow, state_type=constant.STATE_TYPE_START).first()
         return state_obj
 
-    def _get_ticket_relation_user(self, ticket_obj):   # 获取工单关联人
-        data = []
-        state_list = models.State.objects.filter.filter(workflow=ticket_obj.workflow)
-        for state in state_list:
-            if state.participant_type == constant.PARTICIPANT_TYPE_PERSONAL and state.participant:
-                data.extend({"state": state.id, "user": json.loads(state.participant)})
-            elif state.participant_type == constant.PARTICIPANT_TYPE_ROLE and state.participant:
-                users = UserAccounts.objects.filter(userroles__role_name__in=json.loads(state.participant))
-                data.extend({"state": state.id, "user": [x["username"] for x in users.values("username")]})
-            elif state.participant_type == constant.PARTICIPANT_TYPE_FIELD and state.participant:
-                field_list = ticket_obj.tf_field.filter(field_key__in=json.loads(state.participant))
-                data.extend({"state": state.id, "user": [x["field_value"] for x in field_list.values("field_value")]})
-        return data
+    def _get_ticket_init_relation_user(self, ticket_obj, next_state):   # 获取工单的关联人
+        if next_state.participant_type == constant.PARTICIPANT_TYPE_PERSONAL and next_state.participant_data:
+            user_list = json.loads(next_state.participant_data)
+        elif next_state.participant_type == constant.PARTICIPANT_TYPE_ROLE and next_state.participant_data:
+            users = UserAccounts.objects.filter(userroles__role_name__in=json.loads(next_state.participant_data))
+            user_list = [x["username"] for x in users.values("username")]
+        elif next_state.participant_type == constant.PARTICIPANT_TYPE_FIELD and next_state.participant_data:
+            field_list = ticket_obj.tf_field.filter(field_key__in=json.loads(next_state.participant_data))
+            user_list = [x["field_value"] for x in field_list.values("field_value")]
+        else:
+            user_list = []
+        return user_list
 
     def validate(self, data):
         start_state = self._get_workflow_start_state(data["workflow"])
-        if not start_state:
+        if start_state is None:
             raise serializers.ValidationError("%s no start state" % data["workflow"].name)
         else:
             data["state"] = start_state.id
             return data
 
-    def create_ticket(self, user):
+    def create_ticket(self, username):
         data = self.validated_data
         # data["token"] = get_random_code(16)
 
-        data['creator'] = user.username
+        data['creator'] = username
         field_kwargs = data.pop("field_kwargs")
         self.save()
 
         # 更新工单字段值
-        for k,v in field_kwargs.items():
+        for k, v in field_kwargs.items():
             name, field_type = self.instance.workflow.get_field_attr(k)
             models.TicketFlowField.objects.create(ticket=self.instance, field_name=name,
                                                   field_type=field_type, field_key=k, field_value=v)
 
-        # 更新工单处理人
-        relation_user = self._get_ticket_relation_user(self.instance)
-        for item in relation_user:
-            for user in item.get("user"):
-                models.TicketFlowUser.objects.create(ticket=self.instance, state=item["state"], username=user)
+        models.TicketFlowLog.objects.create(ticket=self.instance, participant=username, state=self.instance.state_display,
+                                            act_status=constant.TICKET_ACT_STATE_FINISH)
 
-        models.TicketFlowLog.objects.create(ticket=self.instance, participant=user.username,
-                                            state=self.instance.state_display, act_status=constant.TICKET_ACT_STATE_FINISH)
+        # 更新工单处理人
+        transition = models.Transition.objects.filter(workflow=self.instance.workflow, source_state=self.instance.state).first()
+        if transition:
+            self.instance.state = transition.destination_state.id
+            self.instance.save()
+            relation_user = self._get_ticket_init_relation_user(self.instance, transition.destination_state)
+            for user in relation_user:
+                models.TicketFlowUser.objects.create(ticket=self.instance, state=self.instance.state, username=user)
 
 
 class TicketFlowDetailSerializer(serializers.ModelSerializer):
@@ -294,6 +296,7 @@ class TicketFlowDetailSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         ret = super(TicketFlowDetailSerializer, self).to_representation(instance)
         ret["workflow"] = instance.workflow.name
+        ret["state"] = instance.state if instance.act_status != constant.TICKET_ACT_STATE_CLOSE else -1
         ret["status"] = instance.get_act_status_display()
         ret["all_state"] = instance.all_state
         ret["field_kwargs"] = instance.all_ticket_field
