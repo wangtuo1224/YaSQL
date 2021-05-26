@@ -100,8 +100,8 @@ export default {
       })
     },
     handleUpload(data) {
-      const formData = new FormData()
       this.uploading = true
+      const formData = new FormData()
       formData.append('file', data.file)
       ticketFlowApi.uploadFile(formData).then(resp => {
         if (resp.code === "0000") {

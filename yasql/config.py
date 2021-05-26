@@ -121,7 +121,7 @@ NOTICE = {
         'email_use_ssl': True,
     },
     'WEIXIN': {
-        'enabled': True,  # 是否启用消息通知
+        'enabled': False,  # 是否启用消息通知
         'webhook': 'https://qyapi.weixin.qq.com/cgi-bin/webhook/xxx'  # 更换为自己的webhook地址
     }
 }

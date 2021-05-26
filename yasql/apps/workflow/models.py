@@ -84,6 +84,23 @@ class WorkflowTpl(BaseModel):
             })
         return data
 
+    @property
+    def all_form_field(self):
+        data = []
+        custom_field_filter = self.wf_field.all()
+        for item in custom_field_filter:
+            data.append({
+                "order_id": item.order_id,
+                "field_name": item.field_name,
+                "field_key": item.field_key,
+                "field_type": item.field_type,
+                "required": item.required,
+                "default_value": item.default_value,
+                "placeholder": item.placeholder,
+                "field_value": item.field_value
+            })
+        return data
+
 
 class WorkflowCustomField(BaseModel):
     """流程自定义字段"""

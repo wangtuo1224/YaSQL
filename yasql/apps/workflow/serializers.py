@@ -2,7 +2,7 @@
 # by pandonglin
 import json
 from rest_framework import serializers
-from workflow import models, constant
+from workflow import models, constant, tasks
 from users.models import UserAccounts
 
 
@@ -36,6 +36,7 @@ class WorkflowTplSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         ret = super(WorkflowTplSerializer, self).to_representation(instance)
         ret["display_form_field"] = instance.display_form_field
+        ret["all_form_field"] = instance.all_form_field
         ret["group"] = {"id": instance.group.id, "name": instance.group.name}
         return ret
 
@@ -286,6 +287,14 @@ class TicketFlowSerializer(serializers.ModelSerializer):
             relation_user = self._get_ticket_init_relation_user(self.instance, transition.destination_state)
             for user in relation_user:
                 models.TicketFlowUser.objects.create(ticket=self.instance, state=self.instance.state, username=user)
+
+        # 推送消息
+        tasks.msg_notice.delay(
+            pk=self.instance.pk,
+            op="_commit",
+            title="新建流程工单",
+            username=username
+        )
 
 
 class TicketFlowDetailSerializer(serializers.ModelSerializer):

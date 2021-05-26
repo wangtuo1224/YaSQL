@@ -6,7 +6,7 @@
           <a-form :form="form" v-if="currentTplData.group">
             <WorkflowTpl :currentTplData="currentTplData" @handlePushTpl="handlePushTpl" />
             <!-- 动态参数部分  -->
-            <CustomField :tplKwarg.sync="tplKwarg" />
+            <CustomField :tplKwarg.sync="tplKwarg" @updateTplKwarg="updateTplKwarg" />
           </a-form>
         </a-spin>
       </a-tab-pane>
@@ -66,7 +66,7 @@ export default {
     fetchWorkflowTplData() {
       ticketFlowApi.getTicketTemplate(this.pk).then(resp => {
         this.currentTplData = resp.data
-        this.tplKwarg = this.currentTplData.display_form_field
+        this.tplKwarg = this.currentTplData.all_form_field
         this.$nextTick(() => {
           this.form.setFieldsValue({
             name: this.currentTplData.name,
@@ -78,6 +78,9 @@ export default {
     },
     callback (key){
       this.activeKey = key
+    }, 
+    updateTplKwarg (data){
+      this.tplKwarg = data
     }, 
     handlePushTpl (e) {
       e.preventDefault()

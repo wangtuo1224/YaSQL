@@ -17,7 +17,9 @@
             label="字段key"
             :labelCol="{lg: {span: 6}, sm: {span: 24}}"
             :wrapperCol="{lg: {span: 18}, sm: {span: 24}}" >
-            <a-input
+            <a-input v-if="filedFlag[index]==='file'" disabled 
+              v-decorator="[`${index}__field_key`, {rules: [{ required: true }], initialValue: 'file'}]" />
+            <a-input v-else
               placeholder="字段唯一标识"
               v-decorator="[`${index}__field_key`, {rules: [{ required: true }], initialValue: v[`${index}__field_key`]}]" />
           </a-form-item>
@@ -114,6 +116,7 @@
 export default {
   props: {
     tplKwarg: Array,
+    updateTplKwarg: Function,
   },
   data () {
     return {
@@ -164,7 +167,7 @@ export default {
     },
     filedChangeCategory(e, index) {
       this.filedFlag[index] = e
-      const data = {
+      var data = {
         "field_name": null,
         "field_key": null,
         "field_type": e,
@@ -174,8 +177,12 @@ export default {
         "placeholder": null,
         "field_value": null,    
       }
-      this.$set(this.tplKwarg, index, data)
-      this.$emit('update:tplKwarg', this.tplKwarg)
+      if (e === "file") {
+        data["field_key"] = "file"
+      }
+      var kw = this.tplKwarg
+      kw[index] = data
+      this.$emit('updateTplKwarg', kw)
     },
     addField() {
       const item = {

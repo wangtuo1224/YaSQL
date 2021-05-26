@@ -18,20 +18,20 @@ logger = logging.getLogger("main")
 
 class UploadFileView(APIView):
     def post(self, request):
-        file_name = request.FILES.get('file')
-        if file_name is None:
+        file_obj = request.FILES.get("file")
+        if file_obj is None:
             return JsonResponseV1(code="0002", message="未发现可上传文件")
 
         try:
             if not os.path.exists("media/workflow"):
                 os.makedirs("media/workflow")
 
-            os_file_path = os.path.join('media/workflow', file_name.name)
+            os_file_path = os.path.join('media/workflow', file_obj.name)
             if os.path.exists(os_file_path):
                 os.remove(os_file_path)
 
             f = open(os_file_path, 'wb')
-            for chunk in file_name.chunks():  # 循环读取文件的内容
+            for chunk in file_obj.chunks():  # 循环读取文件的内容
                 f.write(chunk)
             f.close()
 

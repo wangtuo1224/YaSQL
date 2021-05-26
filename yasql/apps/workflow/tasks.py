@@ -4,6 +4,7 @@ import requests, json
 from celery import shared_task
 from celery.utils.log import get_task_logger
 from workflow import models, utils, constant
+from workflow.notice import MsgNotice
 
 logger = get_task_logger(__name__)
 
@@ -55,3 +56,8 @@ def hook_task(ticket):
         ticket_obj.act_status = constant.TICKET_ACT_STATE_FAIL
         ticket_obj.save()
         return False, '执行失败'
+
+
+@shared_task()
+def msg_notice(**kwargs):
+    MsgNotice(**kwargs).run()

@@ -32,6 +32,13 @@ class TicketFlow:
         self.ticket_obj.save()
         self.add_ticket_log("关闭工单", constant.TICKET_ACT_STATE_CLOSE)
         models.TicketFlowUser.objects.filter(ticket=self.ticket_obj, process=False).delete()
+        # 推送消息
+        tasks.msg_notice.delay(
+            pk=self.ticket_obj.pk,
+            op="_close",
+            title="关闭流程工单",
+            username=self.username
+        )
         return True, '关闭成功'
 
     def transition_state(self):
@@ -131,6 +138,13 @@ class TicketFlow:
                 self.exec_auto_process()
         else:
             pass
+        # 推送消息
+        tasks.msg_notice.delay(
+            pk=self.ticket_obj.pk,
+            op="_next_flow",
+            title="流程工单已更新",
+            username=self.username
+        )
         return True, ''
 
     def transition_state_for_deny(self):
@@ -156,4 +170,12 @@ class TicketFlow:
         else:       # 没有拒绝流程关闭工单
             self.ticket_obj.act_status = constant.TICKET_ACT_STATE_REFUSE  # 不通过进入 "未通过" 状态
             self.ticket_obj.save()
+
+        # 推送消息
+        tasks.msg_notice.delay(
+            pk=self.ticket_obj.pk,
+            op="_next_flow",
+            title="流程工单已更新",
+            username=self.username
+        )
         return True, ''
